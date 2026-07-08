@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Skill(run)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(npx --yes playwright install chromium)",
+      "Bash(npx --yes playwright --help)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1440,1000 http://localhost:3000 desktop.png)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1440,4200 --full-page http://localhost:3001 desktop-full.png)",
+      "Bash(npx --yes playwright screenshot --viewport-size=390,900 http://localhost:3001 mobile.png)",
+      "Bash(node -e ' *)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1440,900 --full-page http://localhost:3001 full-check.png)"
+    ]
+  }
+}
