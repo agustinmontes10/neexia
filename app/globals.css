@@ -11,6 +11,84 @@
   --color-brand: #FF8336;
   --color-brand-dark: #e14a28;
   --font-sans: var(--font-inter);
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-flow-dot-x: flow-dot-x 1.8s ease-in-out infinite;
+  --animate-flow-dot-y: flow-dot-y 1.8s ease-in-out infinite;
+  --animate-ring-pulse: ring-pulse 2.4s ease-out infinite;
+  --animate-marquee: marquee 26s linear infinite;
+  --animate-tab-drain: tab-drain 6s linear forwards;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flow-dot-x {
+  0% {
+    left: -2px;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes flow-dot-y {
+  0% {
+    top: -2px;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes ring-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 131, 54, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 131, 54, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 131, 54, 0);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes tab-drain {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
 }
 
 body {
