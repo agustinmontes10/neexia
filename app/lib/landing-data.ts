@@ -31,7 +31,9 @@ export type CaseStudy = {
   metric: string;
   metricLabel: string;
   quote: string;
+  /** Business type shown under the quote, e.g. "Agencia de viajes" — no client names/photos used. */
   name: string;
+  /** Service category shown as the badge, e.g. "Desarrollo web". */
   role: string;
   /** Detail page content below — placeholder copy, needs a real writing pass. */
   longDescription: string;
@@ -176,8 +178,8 @@ export const cases: CaseStudy[] = [
     metric: "-5h",
     metricLabel: "por semana en creación de contenido",
     quote: "Ahora el contenido se genera y publica solo; nosotros solo aprobamos desde el mail.",
-    name: "Cliente",
-    role: "Marca de indumentaria",
+    name: "Marca de indumentaria",
+    role: "Automatización",
     longDescription:
       "Una marca de indumentaria necesitaba publicar contenido en Instagram todas las semanas, pero el proceso manual de crear piezas, escribir copy y programar publicaciones les consumía horas que no tenían. Diseñamos un flujo que genera el contenido automáticamente a partir de su catálogo y calendario, y lo deja listo para aprobar por mail antes de publicarse.",
     highlights: [
@@ -194,8 +196,8 @@ export const cases: CaseStudy[] = [
     metric: "3x",
     metricLabel: "más leads contactados a tiempo",
     quote: "El agente prioriza los leads calientes y avisa al vendedor en el momento justo.",
-    name: "Cliente",
-    role: "Inmobiliaria",
+    name: "Inmobiliaria",
+    role: "Agentes de IA",
     longDescription:
       "Una inmobiliaria recibía leads desde varios canales, pero muchos se enfriaban antes de que un vendedor llegara a contactarlos. Implementamos un agente de IA que califica cada lead automáticamente, prioriza los más calientes y avisa al vendedor correcto en el momento justo para no perder la oportunidad.",
     highlights: [
@@ -213,8 +215,8 @@ export const cases: CaseStudy[] = [
     metric: "+45%",
     metricLabel: "reservas generadas desde la web",
     quote: "El sitio nuevo carga rápido y convierte visitas en reservas reales.",
-    name: "Cliente",
-    role: "Agencia de viajes",
+    name: "Agencia de viajes",
+    role: "Desarrollo web",
     longDescription:
       "Una agencia de viajes tenía un sitio lento y desactualizado que perdía visitas antes de que llegaran a reservar. Rediseñamos y desarrollamos una web nueva, rápida y pensada para convertir, con un proceso de consulta y reserva simplificado de principio a fin.",
     highlights: [

@@ -151,10 +151,7 @@ export default async function CaseStudyPage({
               <p className="text-[14px] text-[#444444] leading-relaxed">
                 &ldquo;{caseStudy.quote}&rdquo;
               </p>
-              <div className="flex items-center gap-2.5 pt-4 border-t border-[#ECECEC]">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white text-xs font-bold shrink-0">
-                  {caseStudy.name.charAt(0)}
-                </div>
+              <div className="pt-4 border-t border-[#ECECEC]">
                 <div className="text-sm font-semibold text-[#111111] truncate">
                   {caseStudy.name}
                 </div>
