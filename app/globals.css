@@ -27,6 +27,7 @@
   --animate-proceso-step-1: proceso-step-1 8s ease-in-out infinite;
   --animate-proceso-step-2: proceso-step-2 8s ease-in-out infinite;
   --animate-proceso-step-3: proceso-step-3 8s ease-in-out infinite;
+  --animate-tool-node-in: tool-node-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 @keyframes fade-up {
@@ -305,6 +306,53 @@
   96%,
   100% {
     color: #ededed;
+  }
+}
+
+@keyframes tool-node-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Hero background: a grid, only ever visible through a soft circular mask
+   that follows the cursor (CursorGrid.tsx) — nothing shows once the mask
+   is far away, so the grid never lingers in a corner the cursor isn't near. */
+.hero-grid {
+  --grid-line-color: rgba(255, 131, 54, 0.4);
+  background-image: linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0;
+  mask-image: radial-gradient(
+    circle 425px at center,
+    black 0%,
+    rgba(0, 0, 0, 0.6) 40%,
+    transparent 78%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 425px at center,
+    black 0%,
+    rgba(0, 0, 0, 0.6) 40%,
+    transparent 78%
+  );
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: 850px 850px;
+  -webkit-mask-size: 850px 850px;
+  mask-position: var(--grid-x, 50%) var(--grid-y, 50%);
+  -webkit-mask-position: var(--grid-x, 50%) var(--grid-y, 50%);
+  transition: opacity 0.4s ease, mask-position 90ms linear, -webkit-mask-position 90ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid {
+    transition: opacity 0.4s ease;
   }
 }
 

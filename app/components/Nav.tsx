@@ -1,10 +1,16 @@
 import Image from "next/image";
+import Link from "next/link";
+import { whatsappLink } from "@/app/lib/site";
 
 const links = [
-  { href: "#servicios", label: "Servicios" },
-  { href: "#proceso", label: "Cómo trabajamos" },
-  { href: "#casos", label: "Casos de éxito" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#proceso", label: "Cómo trabajamos" },
+  { href: "/#casos", label: "Casos de éxito" },
 ];
+
+const WHATSAPP_HREF = whatsappLink(
+  "Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio."
+);
 
 export default function Nav() {
   return (
@@ -12,24 +18,28 @@ export default function Nav() {
       <Image src="/logoNeexia.svg" alt="Neexia" width={923} height={237} className="h-7 w-auto" priority />
       <div className="hidden md:flex items-center gap-9">
         {links.map((link) => (
-          <a
+          <Link
             key={link.href}
             href={link.href}
-            className="text-[15px] font-medium text-[#111111] hover:text-brand transition-colors"
+            className="text-[15px] font-medium text-[#111111] hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
           >
             {link.label}
-          </a>
+          </Link>
         ))}
         <a
-          href="#contacto"
-          className="bg-black text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-brand transition-colors"
+          href={WHATSAPP_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-black text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
         >
           Hablemos
         </a>
       </div>
       <a
-        href="#contacto"
-        className="md:hidden bg-black text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand transition-colors"
+        href={WHATSAPP_HREF}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="md:hidden bg-black text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
       >
         Hablemos
       </a>

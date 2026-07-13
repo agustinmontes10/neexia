@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { whatsappLink } from "@/app/lib/site";
 
 export default function Footer() {
   return (
@@ -26,15 +27,28 @@ export default function Footer() {
           </div>
           <div className="flex flex-col gap-2.5 text-[15px] text-[#333333]">
             <a
-              href="mailto:hola@neexia.com"
-              className="hover:text-brand transition-colors"
+              href={whatsappLink(
+                "Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
-              hola@neexia.com
+              WhatsApp
             </a>
-            <a href="#" className="hover:text-brand transition-colors">
-              +54 9 11 0000-0000
+            <a
+              href="mailto:contact.neexia@gmail.com"
+              className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+            >
+              contact.neexia@gmail.com
             </a>
-            <span>Buenos Aires, Argentina</span>
+            <a
+              href="tel:+5492983697357"
+              className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+            >
+              +54 9 2983 697357
+            </a>
+            <span>Adolfo Gonzales Chaves, Buenos Aires, Argentina</span>
           </div>
         </div>
         <div>
@@ -43,14 +57,18 @@ export default function Footer() {
           </div>
           <div className="flex flex-col gap-2.5 text-[15px]">
             <a
-              href="#"
-              className="text-[#333333] hover:text-brand transition-colors"
+              href="https://www.linkedin.com/company/neexia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#333333] hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
               LinkedIn
             </a>
             <a
-              href="#"
-              className="text-[#333333] hover:text-brand transition-colors"
+              href="https://www.instagram.com/neexia.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#333333] hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
               Instagram
             </a>

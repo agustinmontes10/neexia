@@ -1,6 +1,6 @@
 import Nav from "@/app/components/Nav";
 import Hero from "@/app/components/Hero";
-import Logos from "@/app/components/Logos";
+// import Logos from "@/app/components/Logos";
 import Servicios from "@/app/components/Servicios";
 import Proceso from "@/app/components/Proceso";
 import Casos from "@/app/components/Casos";
@@ -12,7 +12,7 @@ export default function Home() {
     <div className="w-full min-h-screen bg-white text-[#111111]">
       <Nav />
       <Hero />
-      <Logos />
+      {/* <Logos /> */}
       <Servicios />
       <Proceso />
       <Casos />

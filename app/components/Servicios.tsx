@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { services } from "@/app/lib/landing-data";
 import ServiceIcon from "./ServiceIcon";
 import ServiceVisual from "./ServiceVisual";
@@ -25,6 +26,8 @@ const INTERVAL_MS = 6000;
 export default function Servicios() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tabsScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (paused) return;
@@ -33,6 +36,19 @@ export default function Servicios() {
     }, INTERVAL_MS);
     return () => clearInterval(timer);
   }, [active, paused]);
+
+  useEffect(() => {
+    // Scroll only the tab strip itself, not scrollIntoView — that walks up
+    // to the document and yanks the whole page back to this section if it's
+    // off-screen when the auto-advance timer fires.
+    const container = tabsScrollRef.current;
+    const tab = tabRefs.current[active];
+    if (!container || !tab) return;
+    container.scrollTo({
+      left: tab.offsetLeft - container.clientWidth / 2 + tab.clientWidth / 2,
+      behavior: "smooth",
+    });
+  }, [active]);
 
   const service = services[active];
 
@@ -55,27 +71,35 @@ export default function Servicios() {
       </div>
 
       <div
-        className="rounded-[32px] border border-[#ECECEC] bg-white p-6 sm:p-10 lg:p-12"
+        className="rounded-[32px] bg-white p-6 sm:p-10 lg:p-12"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
         <div className="flex justify-center mb-10">
-          <div className="inline-flex flex-wrap justify-center gap-1 rounded-full border border-[#ECECEC] bg-[#F7F7F7] p-1.5">
-            {services.map((s, i) => (
-              <button
-                key={s.num}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-current={i === active}
-                className={`px-4 py-2 rounded-full text-[13px] sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
-                  i === active
-                    ? "bg-white text-[#111111] shadow-[0_4px_12px_rgba(17,17,17,0.08)]"
-                    : "text-[#999999] hover:text-[#555555]"
-                }`}
-              >
-                {s.tabLabel}
-              </button>
-            ))}
+          <div
+            ref={tabsScrollRef}
+            className="w-full overflow-x-auto sm:w-auto sm:overflow-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
+            <div className="inline-flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-1 rounded-full border border-[#ECECEC] bg-[#F7F7F7] p-1.5 mx-auto w-max">
+              {services.map((s, i) => (
+                <button
+                  key={s.num}
+                  ref={(el) => {
+                    tabRefs.current[i] = el;
+                  }}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  aria-current={i === active}
+                  className={`shrink-0 px-4 py-2 rounded-full text-[13px] sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
+                    i === active
+                      ? "bg-white text-[#111111] shadow-[0_4px_12px_rgba(17,17,17,0.08)]"
+                      : "text-[#999999] hover:text-[#555555]"
+                  }`}
+                >
+                  {s.tabLabel}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -106,6 +130,21 @@ export default function Servicios() {
                 </div>
               ))}
             </div>
+            <Link
+              href={`/servicios/${service.slug}`}
+              className="inline-flex items-center gap-1.5 text-[15px] font-semibold text-brand hover:text-brand-dark transition-colors w-fit pt-1"
+            >
+              Ver más
+              <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4">
+                <path
+                  d="M6.5 4l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
           </div>
 
           <ServiceVisual icon={service.icon} />

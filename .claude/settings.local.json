@@ -43,7 +43,28 @@
       "Bash(node check-fulltest.js)",
       "Bash(pkill -f \"next dev\")",
       "Bash(pkill -f \"npm run dev\")",
-      "Bash(rm -rf .next)"
+      "Bash(rm -rf .next)",
+      "Bash(tee __TRACKED_VAR__/dev.log)",
+      "Bash(NODE_PATH=\"C:\\\\Users\\\\USER\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\361ceb562f3b3235\\\\node_modules\" node *)",
+      "Bash(export NODE_PATH=\"C:\\\\Users\\\\USER\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\361ceb562f3b3235\\\\node_modules\")",
+      "Bash(node 'C:\\\\Users\\\\USER\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--workspacePersonal-neexia\\\\5551b50b-3229-463b-8b83-f6b272a01670\\\\scratchpad/inspect.js')",
+      "Bash(node -e \"console.log\\(require\\('./package.json'\\).dependencies.next\\)\")",
+      "Bash(node \"C:\\\\Users\\\\USER\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--workspacePersonal-neexia\\\\5551b50b-3229-463b-8b83-f6b272a01670\\\\scratchpad\\\\extract-icons.js\")",
+      "Bash(cp \"C:\\\\Users\\\\USER\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--workspacePersonal-neexia\\\\5551b50b-3229-463b-8b83-f6b272a01670\\\\scratchpad\\\\extract-icons.js\" \"C:\\\\workspacePersonal\\\\neexia\\\\extract-icons.tmp.js\")",
+      "Bash(node extract-icons.tmp.js)",
+      "Bash(rm \"C:\\\\workspacePersonal\\\\neexia\\\\extract-icons.tmp.js\")",
+      "Bash(npm uninstall *)",
+      "Bash(python3 -c ' *)",
+      "Read(//tmp/**)",
+      "Bash(nohup npm run dev)",
+      "Bash(disown)",
+      "Bash(taskkill //PID 21880 //F)",
+      "Bash(node debug_hero.js)",
+      "Bash(node verify_hero.js)",
+      "Bash(curl -sf http://localhost:3000)",
+      "Bash(break)",
+      "Bash(taskkill //PID 26120 //F)",
+      "Bash(rm -rf \"C:\\\\workspacePersonal\\\\neexia\\\\.next\")"
     ]
   }
 }

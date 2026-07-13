@@ -4,7 +4,7 @@ export default function ServiceIcon({ shape }: { shape: ServiceIconShape }) {
   switch (shape) {
     case "diagnostic":
       return (
-        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
           <path
             d="M3.5 20V14.5M8.5 20V10.5M13.5 20V13"
             stroke="currentColor"
@@ -22,7 +22,7 @@ export default function ServiceIcon({ shape }: { shape: ServiceIconShape }) {
       );
     case "automation":
       return (
-        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
           <circle cx="5" cy="6" r="2.3" stroke="currentColor" strokeWidth="1.6" />
           <circle cx="5" cy="18" r="2.3" stroke="currentColor" strokeWidth="1.6" />
           <circle cx="19" cy="12" r="2.6" fill="currentColor" />
@@ -36,7 +36,7 @@ export default function ServiceIcon({ shape }: { shape: ServiceIconShape }) {
       );
     case "agents":
       return (
-        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
           <rect x="5" y="8" width="14" height="11" rx="3.5" stroke="currentColor" strokeWidth="1.6" />
           <path d="M12 8V4.6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
           <circle cx="12" cy="3" r="1.3" fill="currentColor" />
@@ -47,7 +47,7 @@ export default function ServiceIcon({ shape }: { shape: ServiceIconShape }) {
       );
     case "chat":
       return (
-        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
           <path
             d="M4 6.8C4 5.25 5.25 4 6.8 4H17.2C18.75 4 20 5.25 20 6.8V13.2C20 14.75 18.75 16 17.2 16H10.2L5.6 19.4V16H6.8C5.25 16 4 14.75 4 13.2V6.8Z"
             stroke="currentColor"
@@ -61,7 +61,7 @@ export default function ServiceIcon({ shape }: { shape: ServiceIconShape }) {
       );
     case "web":
       return (
-        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
           <rect x="3.5" y="4.5" width="17" height="15" rx="2.5" stroke="currentColor" strokeWidth="1.6" />
           <path d="M3.5 8.7H20.5" stroke="currentColor" strokeWidth="1.6" />
           <circle cx="6.1" cy="6.6" r="0.6" fill="currentColor" />

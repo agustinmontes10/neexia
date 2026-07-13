@@ -1,3 +1,5 @@
+import { whatsappLink } from "@/app/lib/site";
+
 export default function CtaFinal() {
   return (
     <section className="max-w-[1280px] mx-auto mb-16 sm:mb-24 px-6 sm:px-12">
@@ -6,14 +8,18 @@ export default function CtaFinal() {
           ¿Charlamos sobre cómo la IA puede ayudar a tu negocio?
         </h2>
         <p className="text-[#BBBBBB] text-[17px] max-w-[520px] leading-relaxed">
-          Una llamada de 30 minutos, sin compromiso, para entender tu
-          operación y ver dónde la IA suma valor real.
+          Escribinos por WhatsApp, sin compromiso, y en minutos vemos dónde
+          la IA suma valor real a tu operación.
         </p>
         <a
-          href="#contacto"
-          className="bg-brand text-white px-8 py-4 rounded-[10px] text-base font-semibold hover:bg-brand-dark transition-colors mt-2"
+          href={whatsappLink(
+            "Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio."
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-brand text-white px-8 py-4 rounded-[10px] text-base font-semibold hover:bg-brand-dark transition-colors mt-2 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
         >
-          Agendá tu llamada
+          Escribinos por WhatsApp
         </a>
       </div>
     </section>

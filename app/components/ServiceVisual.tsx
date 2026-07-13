@@ -1,9 +1,18 @@
 import type { ServiceIconShape } from "@/app/lib/landing-data";
 import ServiceIcon from "./ServiceIcon";
 
+type Canvas = { w: number; h: number };
+
+// AutomationVisual/AgentsVisual are authored against a fixed-size canvas
+// (see CANVAS below) but the container itself is responsive (w-full,
+// capped by max-w). Positions/lengths are expressed as percentages of the
+// canvas so the diagram scales and stays centered instead of overflowing
+// its box on narrow mobile widths, where the container renders well under
+// the canvas's design width.
 function Node({
   x,
   y,
+  canvas,
   size,
   filled,
   pulse,
@@ -12,6 +21,7 @@ function Node({
 }: {
   x: number;
   y: number;
+  canvas: Canvas;
   size: number;
   filled?: boolean;
   pulse?: boolean;
@@ -23,7 +33,12 @@ function Node({
       className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center text-brand ${
         filled ? "bg-brand" : "bg-[#FFF1EC]"
       }`}
-      style={{ left: x, top: y, width: size, height: size }}
+      style={{
+        left: `${(x / canvas.w) * 100}%`,
+        top: `${(y / canvas.h) * 100}%`,
+        width: size,
+        height: size,
+      }}
     >
       {pulse && (
         <span
@@ -39,12 +54,14 @@ function Node({
 function Link({
   x,
   y,
+  canvas,
   length,
   angle,
   delay = "0s",
 }: {
   x: number;
   y: number;
+  canvas: Canvas;
   length: number;
   angle: number;
   delay?: string;
@@ -52,7 +69,12 @@ function Link({
   return (
     <div
       className="absolute h-[2px] bg-[#ECECEC] origin-left"
-      style={{ left: x, top: y, width: length, transform: `rotate(${angle}deg)` }}
+      style={{
+        left: `${(x / canvas.w) * 100}%`,
+        top: `${(y / canvas.h) * 100}%`,
+        width: `${(length / canvas.w) * 100}%`,
+        transform: `rotate(${angle}deg)`,
+      }}
     >
       <span
         className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand animate-flow-dot-x"
@@ -90,29 +112,32 @@ function DiagnosticoVisual() {
 }
 
 function AutomationVisual() {
+  const canvas = { w: 300, h: 170 };
   return (
-    <div className="relative w-full max-w-[300px] h-[170px] mx-auto">
-      <Link x={30} y={130} length={113} angle={-45} delay="0s" />
-      <Link x={110} y={50} length={106} angle={41} delay="0.4s" />
-      <Link x={190} y={120} length={100} angle={-37} delay="0.8s" />
-      <Node x={30} y={130} size={20} pulse delay="0s" />
-      <Node x={110} y={50} size={16} />
-      <Node x={190} y={120} size={22} pulse delay="0.6s" />
-      <Node x={270} y={60} size={16} filled />
+    <div className="relative w-full max-w-[300px] mx-auto aspect-[300/170]">
+      <Link canvas={canvas} x={30} y={130} length={113} angle={-45} delay="0s" />
+      <Link canvas={canvas} x={110} y={50} length={106} angle={41} delay="0.4s" />
+      <Link canvas={canvas} x={190} y={120} length={100} angle={-37} delay="0.8s" />
+      <Node canvas={canvas} x={30} y={130} size={20} pulse delay="0s" />
+      <Node canvas={canvas} x={110} y={50} size={16} />
+      <Node canvas={canvas} x={190} y={120} size={22} pulse delay="0.6s" />
+      <Node canvas={canvas} x={270} y={60} size={16} filled />
     </div>
   );
 }
 
 function AgentsVisual() {
+  const canvas = { w: 300, h: 180 };
   return (
-    <div className="relative w-full max-w-[300px] h-[180px] mx-auto">
-      <Link x={40} y={40} length={121} angle={24} delay="0s" />
-      <Link x={260} y={40} length={121} angle={156} delay="0.5s" />
-      <Link x={150} y={160} length={70} angle={-90} delay="1s" />
-      <Node x={40} y={40} size={16} filled />
-      <Node x={260} y={40} size={16} filled />
-      <Node x={150} y={160} size={16} filled />
+    <div className="relative w-full max-w-[300px] mx-auto aspect-[300/180]">
+      <Link canvas={canvas} x={40} y={40} length={121} angle={24} delay="0s" />
+      <Link canvas={canvas} x={260} y={40} length={121} angle={156} delay="0.5s" />
+      <Link canvas={canvas} x={150} y={160} length={70} angle={-90} delay="1s" />
+      <Node canvas={canvas} x={40} y={40} size={16} filled />
+      <Node canvas={canvas} x={260} y={40} size={16} filled />
+      <Node canvas={canvas} x={150} y={160} size={16} filled />
       <Node
+        canvas={canvas}
         x={150}
         y={90}
         size={56}
@@ -156,9 +181,9 @@ function SkeletonBubble({
 function ChatVisual() {
   return (
     <div className="w-full max-w-[260px] mx-auto rounded-2xl border border-[#ECECEC] bg-white p-6 flex flex-col gap-3">
-      <SkeletonBubble align="left" widths={["140px", "90px"]} delay="0s" />
+      <SkeletonBubble align="left" widths={["100px", "90px"]} delay="0s" />
       <SkeletonBubble align="right" widths={["100px"]} dark delay="0.2s" />
-      <SkeletonBubble align="left" widths={["160px", "110px"]} delay="0.4s" />
+      <SkeletonBubble align="left" widths={["100px", "110px"]} delay="0.4s" />
       <div className="flex items-center gap-1.5 pl-1 pt-1">
         {[0, 1, 2].map((i) => (
           <span

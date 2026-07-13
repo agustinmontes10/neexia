@@ -1,15 +1,14 @@
+import CursorGrid from "./CursorGrid";
 import ToolsBanner from "./ToolsBanner";
-import WorkflowDemo from "./WorkflowDemo";
+import { whatsappLink } from "@/app/lib/site";
+// import WorkflowDemo from "./WorkflowDemo";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden max-w-[1280px] mx-auto px-6 sm:px-12 pt-16 sm:pt-24 pb-20 sm:pb-[120px] flex flex-col items-center text-center">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-[radial-gradient(circle,_rgba(255,131,54,0.14)_0%,_rgba(255,131,54,0)_70%)]"
-      />
+    <section className="relative overflow-hidden pt-16 sm:pt-24 pb-16 sm:pb-20">
+      <CursorGrid />
 
-      <div className="relative z-10 w-full flex flex-col items-center">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-12 flex flex-col items-center text-center">
         <div className="animate-fade-up inline-flex items-center gap-2 px-3.5 py-1.5 border border-[#ECECEC] rounded-full text-[13px] font-medium text-[#555555] mb-8 bg-white">
           <span className="w-1.5 h-1.5 rounded-full bg-brand inline-block" />
           IA aplicada a tu negocio, sin vueltas
@@ -27,10 +26,14 @@ export default function Hero() {
 
         <div className="animate-fade-up [animation-delay:240ms] flex gap-4 flex-wrap justify-center mb-16">
           <a
-            href="#contacto"
+            href={whatsappLink(
+              "Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-brand text-white px-8 py-4 rounded-[10px] text-base font-semibold hover:bg-brand-dark transition-colors"
           >
-            Agendá una llamada
+            Hablar por WhatsApp
           </a>
           <a
             href="#servicios"
@@ -40,13 +43,13 @@ export default function Hero() {
           </a>
         </div>
 
-        <div className="animate-fade-up [animation-delay:300ms] w-full flex justify-center mb-12">
+        <div className="animate-fade-up [animation-delay:300ms] w-full flex justify-center mt-8 sm:mt-16">
           <ToolsBanner />
         </div>
 
-        <div className="animate-fade-up [animation-delay:380ms] w-full flex justify-center">
+        {/* <div className="animate-fade-up [animation-delay:380ms] w-full flex justify-center">
           <WorkflowDemo />
-        </div>
+        </div> */}
       </div>
     </section>
   );
