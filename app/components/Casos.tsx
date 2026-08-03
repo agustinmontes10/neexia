@@ -3,45 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { cases } from "@/app/lib/landing-data";
+import AnimatedMetric from "./AnimatedMetric";
 import CaseVisual from "./CaseVisual";
-
-function parseMetric(raw: string) {
-  const match = raw.match(/^([+-]?)(\d+(?:\.\d+)?)(.*)$/);
-  if (!match) return { prefix: "", target: 0, decimals: 0, suffix: raw };
-  const [, prefix, num, suffix] = match;
-  const decimals = num.includes(".") ? num.split(".")[1].length : 0;
-  return { prefix, target: parseFloat(num), decimals, suffix };
-}
-
-function AnimatedMetric({ value, active }: { value: string; active: boolean }) {
-  const { prefix, target, decimals, suffix } = parseMetric(value);
-  const [display, setDisplay] = useState(0);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (!active || started.current) return;
-    started.current = true;
-    const duration = 1100;
-    const start = performance.now();
-    let raf: number;
-    const tick = (now: number) => {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setDisplay(target * eased);
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [active, target]);
-
-  return (
-    <>
-      {prefix}
-      {display.toFixed(decimals)}
-      {suffix}
-    </>
-  );
-}
+import Reveal from "./Reveal";
 
 export default function Casos() {
   const [visible, setVisible] = useState(false);
@@ -68,7 +32,7 @@ export default function Casos() {
       id="casos"
       className="max-w-[1280px] mx-auto px-6 sm:px-12 py-16 sm:py-24"
     >
-      <div className="max-w-[640px] mx-auto mb-16 text-center">
+      <Reveal className="max-w-[640px] mx-auto mb-16 text-center">
         <p className="text-[13px] font-bold uppercase tracking-[0.08em] text-brand mb-4">
           Casos de éxito
         </p>
@@ -78,7 +42,7 @@ export default function Casos() {
         <p className="text-lg text-[#555555] leading-relaxed">
           Algunos de los negocios que ya transformamos con IA.
         </p>
-      </div>
+      </Reveal>
 
       <div
         ref={gridRef}

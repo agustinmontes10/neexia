@@ -10,6 +10,9 @@
   --color-foreground: var(--foreground);
   --color-brand: #FF8336;
   --color-brand-dark: #e14a28;
+  --color-brand-light: #ffbd59;
+  --color-gray: #b1b1b1;
+  --color-gray-light: #f1f1f1;
   --font-sans: var(--font-inter);
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-flow-dot-x: flow-dot-x 1.8s ease-in-out infinite;
@@ -353,6 +356,40 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-grid {
     transition: opacity 0.4s ease;
+  }
+}
+
+/* Reveal-on-scroll (Reveal.tsx toggles .reveal-visible via IntersectionObserver).
+   Transition-based rather than animation-based so the reduced-motion override
+   below can simply zero it out and leave content visible. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Collapse every animation/transition to its end state. All keyframes in this
+   file are authored so their final frame is a sensible static state (fade-up
+   ends visible, flow dots end hidden, proceso line ends idle). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }
 

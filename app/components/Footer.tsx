@@ -12,8 +12,8 @@ export default function Footer() {
           <Image
             src="/logoNeexia.svg"
             alt="Neexia"
-            width={923}
-            height={237}
+            width={2048}
+            height={535}
             className="h-7 w-auto mb-4"
           />
           <p className="text-[15px] text-[#666666] leading-relaxed max-w-[320px]">

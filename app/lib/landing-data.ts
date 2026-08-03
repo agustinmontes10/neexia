@@ -42,12 +42,18 @@ export type CaseStudy = {
   relatedServices: string[];
 };
 
-export const logos: { name: string }[] = [
-  { name: "cliente 1" },
-  { name: "cliente 2" },
-  { name: "cliente 3" },
-  { name: "cliente 4" },
-  { name: "cliente 5" },
+export type Stat = {
+  /** Parsed by AnimatedMetric — keep the shape `[+-]?number + suffix` (e.g. "-5h", "3x", "24/7"). */
+  value: string;
+  label: string;
+};
+
+/** Results strip under the hero — sourced from real `cases` metrics, shown early for credibility. */
+export const stats: Stat[] = [
+  { value: "-5h", label: "de trabajo manual por semana" },
+  { value: "3x", label: "más leads contactados a tiempo" },
+  { value: "+45%", label: "reservas generadas desde la web" },
+  { value: "24/7", label: "atención automática, sin esperas" },
 ];
 
 export const services: Service[] = [

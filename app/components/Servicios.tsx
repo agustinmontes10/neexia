@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { services } from "@/app/lib/landing-data";
+import Reveal from "./Reveal";
 import ServiceIcon from "./ServiceIcon";
 import ServiceVisual from "./ServiceVisual";
 
@@ -26,8 +27,6 @@ const INTERVAL_MS = 6000;
 export default function Servicios() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const tabsScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (paused) return;
@@ -37,19 +36,6 @@ export default function Servicios() {
     return () => clearInterval(timer);
   }, [active, paused]);
 
-  useEffect(() => {
-    // Scroll only the tab strip itself, not scrollIntoView — that walks up
-    // to the document and yanks the whole page back to this section if it's
-    // off-screen when the auto-advance timer fires.
-    const container = tabsScrollRef.current;
-    const tab = tabRefs.current[active];
-    if (!container || !tab) return;
-    container.scrollTo({
-      left: tab.offsetLeft - container.clientWidth / 2 + tab.clientWidth / 2,
-      behavior: "smooth",
-    });
-  }, [active]);
-
   const service = services[active];
 
   return (
@@ -57,7 +43,7 @@ export default function Servicios() {
       id="servicios"
       className="max-w-[1280px] mx-auto px-6 sm:px-12 py-16 sm:py-24"
     >
-      <div className="max-w-[640px] mx-auto mb-14 text-center">
+      <Reveal className="max-w-[640px] mx-auto mb-14 text-center">
         <p className="text-[13px] font-bold uppercase tracking-[0.08em] text-brand mb-4">
           Servicios
         </p>
@@ -68,29 +54,47 @@ export default function Servicios() {
           Soluciones concretas, pensadas para negocios reales — no ciencia
           ficción.
         </p>
-      </div>
+      </Reveal>
 
       <div
-        className="rounded-[32px] bg-white p-6 sm:p-10 lg:p-12"
+        className="rounded-[32px] p-6 sm:p-10 lg:p-12"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div className="flex justify-center mb-10">
-          <div
-            ref={tabsScrollRef}
-            className="w-full overflow-x-auto sm:w-auto sm:overflow-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-          >
-            <div className="inline-flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-1 rounded-full border border-[#ECECEC] bg-[#F7F7F7] p-1.5 mx-auto w-max">
+        <div className="mb-10">
+          {/* Mobile: individual boxed filters in a grid, no horizontal scroll */}
+          <div className="grid grid-cols-2 gap-2 sm:hidden">
+            {services.map((s, i) => (
+              <button
+                key={s.num}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-current={i === active}
+                className={`px-4 py-3 rounded-xl border text-[13px] font-semibold text-left transition-all duration-300 ${
+                  i === services.length - 1 && services.length % 2 === 1
+                    ? "col-span-2"
+                    : ""
+                } ${
+                  i === active
+                    ? "bg-brand border-brand text-white shadow-[0_4px_12px_rgba(255,107,53,0.25)]"
+                    : "border-[#ECECEC] bg-white text-[#666666] hover:border-brand/40"
+                }`}
+              >
+                {s.tabLabel}
+              </button>
+            ))}
+          </div>
+
+          {/* Tablet/desktop: single pill row */}
+          <div className="hidden sm:flex justify-center">
+            <div className="flex flex-wrap justify-center gap-1.5 rounded-full border border-[#ECECEC] bg-gray-light p-1.5 mx-auto max-w-full">
               {services.map((s, i) => (
                 <button
                   key={s.num}
-                  ref={(el) => {
-                    tabRefs.current[i] = el;
-                  }}
                   type="button"
                   onClick={() => setActive(i)}
                   aria-current={i === active}
-                  className={`shrink-0 px-4 py-2 rounded-full text-[13px] sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
+                  className={`px-4 py-2 cursor-pointer rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
                     i === active
                       ? "bg-white text-[#111111] shadow-[0_4px_12px_rgba(17,17,17,0.08)]"
                       : "text-[#999999] hover:text-[#555555]"
