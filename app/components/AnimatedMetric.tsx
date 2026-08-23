@@ -34,7 +34,13 @@ export default function AnimatedMetric({
       if (t < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      // Sin este reset, el doble efecto de Strict Mode (dev) deja
+      // started.current = true tras el mount fantasma y el conteo real
+      // nunca arranca (se queda en 0). Ver bug del "0.0h" en el diagnostico.
+      started.current = false;
+    };
   }, [active, target]);
 
   return (

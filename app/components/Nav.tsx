@@ -9,6 +9,7 @@ const links = [
   { href: "/#servicios", label: "Servicios" },
   { href: "/#proceso", label: "Cómo trabajamos" },
   { href: "/#casos", label: "Casos de éxito" },
+  { href: "/diagnostico", label: "Diagnóstico gratis" },
 ];
 
 const WHATSAPP_HREF = whatsappLink(
