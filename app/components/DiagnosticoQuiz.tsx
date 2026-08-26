@@ -113,10 +113,6 @@ export default function DiagnosticoQuiz() {
     <div className="max-w-[640px] mx-auto">
       {phase === "select" && (
         <div className="flex flex-col gap-6">
-          <p className="text-[15px] text-[#555555] leading-relaxed">
-            Elegí el rubro que mejor describe tu negocio. Vamos sumando rubros de a poco — si el tuyo
-            todavía no está, escribinos y te lo armamos.
-          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {RUBROS.map((r) => (
               <button
