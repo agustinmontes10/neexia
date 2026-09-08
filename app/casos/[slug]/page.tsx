@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 import Nav from "@/app/components/Nav";
 import CtaFinal from "@/app/components/CtaFinal";
 import Footer from "@/app/components/Footer";
+import JsonLd from "@/app/components/JsonLd";
 import CaseVisual from "@/app/components/CaseVisual";
 import { cases, services } from "@/app/lib/landing-data";
+import { breadcrumbSchema, caseStudySchema } from "@/app/lib/structured-data";
 import { whatsappLink } from "@/app/lib/site";
 
 type Params = { slug: string };
@@ -51,13 +53,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const caseStudy = cases.find((c) => c.slug === slug);
   if (!caseStudy) return {};
+  const description =
+    caseStudy.seo?.description ?? caseStudy.longDescription.slice(0, 155);
   return {
-    title: caseStudy.title,
-    description: caseStudy.quote,
+    title: caseStudy.seo?.title ?? caseStudy.title,
+    description,
+    keywords: caseStudy.seo?.keywords,
     alternates: { canonical: `/casos/${slug}` },
     openGraph: {
-      title: caseStudy.title,
-      description: caseStudy.quote,
+      type: "article",
+      title: caseStudy.seo?.title ?? caseStudy.title,
+      description,
       url: `/casos/${slug}`,
     },
   };
@@ -78,6 +84,16 @@ export default async function CaseStudyPage({
 
   return (
     <div className="w-full min-h-screen bg-white text-[#111111]">
+      <JsonLd
+        data={[
+          caseStudySchema(caseStudy),
+          breadcrumbSchema([
+            { name: "Inicio", path: "/" },
+            { name: "Casos de éxito", path: "/#casos" },
+            { name: caseStudy.title, path: `/casos/${caseStudy.slug}` },
+          ]),
+        ]}
+      />
       <Nav />
 
       <section className="max-w-[1280px] mx-auto px-6 sm:px-12 pt-6 sm:pt-10 pb-16 sm:pb-24">

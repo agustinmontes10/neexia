@@ -4,9 +4,11 @@ import { notFound } from "next/navigation";
 import Nav from "@/app/components/Nav";
 import CtaFinal from "@/app/components/CtaFinal";
 import Footer from "@/app/components/Footer";
+import JsonLd from "@/app/components/JsonLd";
 import ServiceIcon from "@/app/components/ServiceIcon";
 import ServiceVisual from "@/app/components/ServiceVisual";
 import { services } from "@/app/lib/landing-data";
+import { breadcrumbSchema, serviceSchema } from "@/app/lib/structured-data";
 import { whatsappLink } from "@/app/lib/site";
 
 type Params = { slug: string };
@@ -52,13 +54,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
+  const description = service.seo?.description ?? service.desc;
   return {
-    title: service.title,
-    description: service.desc,
+    title: service.seo?.title ?? service.title,
+    description,
+    keywords: service.seo?.keywords,
     alternates: { canonical: `/servicios/${slug}` },
     openGraph: {
-      title: service.title,
-      description: service.desc,
+      type: "article",
+      title: service.seo?.title ?? service.title,
+      description,
       url: `/servicios/${slug}`,
     },
   };
@@ -75,6 +80,16 @@ export default async function ServicePage({
 
   return (
     <div className="w-full min-h-screen bg-white text-[#111111]">
+      <JsonLd
+        data={[
+          serviceSchema(service),
+          breadcrumbSchema([
+            { name: "Inicio", path: "/" },
+            { name: "Servicios", path: "/#servicios" },
+            { name: service.title, path: `/servicios/${service.slug}` },
+          ]),
+        ]}
+      />
       <Nav />
 
       <section className="max-w-[1280px] mx-auto px-6 sm:px-12 pt-6 sm:pt-10 pb-16 sm:pb-24">

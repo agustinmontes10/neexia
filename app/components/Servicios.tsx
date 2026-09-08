@@ -154,6 +154,29 @@ export default function Servicios() {
           <ServiceVisual icon={service.icon} />
         </div>
       </div>
+
+      {/*
+        The tab UI only mounts the active service. This hidden block keeps every
+        service's copy in the homepage DOM so crawlers and generative engines see
+        the full offering, not just whichever tab rendered first.
+      */}
+      <div hidden>
+        {services.map((s) => (
+          <article key={s.slug}>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+            <p>{s.longDescription}</p>
+            <ul>
+              {s.features.map((f) => (
+                <li key={f}>{f}</li>
+              ))}
+            </ul>
+            <Link href={`/servicios/${s.slug}`}>
+              Ver más sobre {s.title}
+            </Link>
+          </article>
+        ))}
+      </div>
     </section>
   );
 }

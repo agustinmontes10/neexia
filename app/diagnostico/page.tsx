@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
 import Nav from "@/app/components/Nav";
 import Footer from "@/app/components/Footer";
+import JsonLd from "@/app/components/JsonLd";
 import DiagnosticoQuiz from "@/app/components/DiagnosticoQuiz";
+import { breadcrumbSchema } from "@/app/lib/structured-data";
 
-const title = "Diagnóstico gratuito";
+const title = "Diagnóstico gratuito de automatización con IA";
 const description =
-  "Contanos cómo trabaja tu negocio hoy y te decimos, gratis y sin compromiso, qué procesos podés automatizar y cuántas horas por semana podés ahorrar.";
+  "Contanos cómo trabaja tu negocio hoy y te decimos, gratis y sin compromiso, qué procesos podés automatizar con IA y cuántas horas por semana podés ahorrar.";
 
 export const metadata: Metadata = {
   title,
   description,
+  keywords: [
+    "diagnóstico de automatización",
+    "diagnóstico de IA gratis",
+    "cuánto puedo automatizar",
+    "automatización para pymes",
+  ],
   alternates: { canonical: "/diagnostico" },
   openGraph: { title, description, url: "/diagnostico" },
 };
@@ -17,6 +25,12 @@ export const metadata: Metadata = {
 export default function DiagnosticoPage() {
   return (
     <div className="w-full min-h-screen bg-white text-[#111111]">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Diagnóstico gratuito", path: "/diagnostico" },
+        ])}
+      />
       <Nav />
 
       <section className="max-w-[1280px] mx-auto px-6 sm:px-12 pt-6 sm:pt-10 pb-16 sm:pb-24">

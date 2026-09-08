@@ -12,6 +12,12 @@ export type Service = {
   longDescription: string;
   benefits: string[];
   idealFor: string[];
+  /** SEO overrides for `/servicios/[slug]` — fall back to title/desc/longDescription when absent. */
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
 };
 
 export type Step = {
@@ -40,6 +46,12 @@ export type CaseStudy = {
   highlights: string[];
   /** Slugs into `services`, rendered as links on the detail page. */
   relatedServices: string[];
+  /** SEO overrides for `/casos/[slug]` — fall back to title/longDescription when absent. */
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
 };
 
 export type Stat = {
@@ -78,6 +90,18 @@ export const services: Service[] = [
       "Equipos con procesos manuales que nadie terminó de mapear",
       "Negocios que ya automatizaron algo y buscan el próximo paso",
     ],
+    seo: {
+      title: "Diagnóstico de IA y automatización de procesos",
+      description:
+        "Relevamos tus procesos y detectamos dónde la IA genera más impacto y ahorro, con un plan de acción priorizado por impacto y esfuerzo. Para pymes en Argentina y Latinoamérica.",
+      keywords: [
+        "diagnóstico de automatización",
+        "consultoría de IA",
+        "relevamiento de procesos",
+        "IA para pymes",
+        "oportunidades de automatización",
+      ],
+    },
   },
   {
     icon: "automation",
@@ -100,6 +124,18 @@ export const services: Service[] = [
       "Negocios con procesos que dependen de una sola persona",
       "Empresas que ya tienen las herramientas pero no están conectadas",
     ],
+    seo: {
+      title: "Automatización de procesos con IA",
+      description:
+        "Automatizamos tareas repetitivas conectando tu CRM, planillas, mail y WhatsApp en flujos que corren solos, diseñados a medida de tu proceso real, no de una plantilla.",
+      keywords: [
+        "automatización de procesos",
+        "integración de sistemas",
+        "flujos de trabajo automáticos",
+        "automatizar WhatsApp",
+        "n8n",
+      ],
+    },
   },
   {
     icon: "agents",
@@ -122,6 +158,18 @@ export const services: Service[] = [
       "Negocios con procesos de decisión repetibles y bien definidos",
       "Empresas que buscan escalar operación sin sumar headcount",
     ],
+    seo: {
+      title: "Agentes de IA a medida para tu operación",
+      description:
+        "Diseñamos e implementamos agentes de IA que ejecutan tareas complejas: califican leads, arman propuestas y actualizan tu CRM según las reglas de tu negocio, disponibles 24/7.",
+      keywords: [
+        "agentes de IA",
+        "agentes autónomos",
+        "IA para ventas",
+        "calificación de leads con IA",
+        "automatización con agentes",
+      ],
+    },
   },
   {
     icon: "chat",
@@ -144,6 +192,18 @@ export const services: Service[] = [
       "Empresas que atienden por WhatsApp o redes fuera de horario",
       "Equipos de soporte que quieren enfocarse en casos complejos",
     ],
+    seo: {
+      title: "Chatbots con IA para atención al cliente 24/7",
+      description:
+        "Chatbots conversacionales entrenados con la información real de tu negocio para atender por WhatsApp, web e Instagram sin sonar a script y derivar a una persona solo si hace falta.",
+      keywords: [
+        "chatbot con IA",
+        "chatbot para WhatsApp",
+        "atención al cliente automática",
+        "asistente virtual",
+        "chatbot conversacional",
+      ],
+    },
   },
   {
     icon: "web",
@@ -166,6 +226,18 @@ export const services: Service[] = [
       "Empresas que planean sumar IA a su sitio a futuro",
       "Marcas que buscan una web a medida, no una plantilla",
     ],
+    seo: {
+      title: "Desarrollo web a medida, listo para integrar IA",
+      description:
+        "Desarrollamos sitios y plataformas a medida, rápidos y pensados desde el inicio para integrar IA: formularios inteligentes, chat, automatizaciones y paneles en tiempo real.",
+      keywords: [
+        "desarrollo web a medida",
+        "sitios web rápidos",
+        "desarrollo web Next.js",
+        "web con IA integrada",
+        "diseño web para pymes",
+      ],
+    },
   },
 ];
 
@@ -194,6 +266,16 @@ export const cases: CaseStudy[] = [
       "Conectamos la publicación directa a Instagram una vez aprobado el contenido",
     ],
     relatedServices: ["automatizacion"],
+    seo: {
+      title: "Caso: automatización de contenido para Instagram",
+      description:
+        "Cómo una marca de indumentaria dejó de perder 5 horas por semana automatizando la generación y publicación de su contenido de Instagram, con aprobación por mail.",
+      keywords: [
+        "automatización de contenido",
+        "automatizar Instagram",
+        "caso de éxito de automatización",
+      ],
+    },
   },
   {
     slug: "agente-ia-leads",
@@ -212,6 +294,16 @@ export const cases: CaseStudy[] = [
       "Notificaciones automáticas al vendedor indicado en tiempo real",
     ],
     relatedServices: ["agentes-ia"],
+    seo: {
+      title: "Caso: agente de IA para seguimiento de leads",
+      description:
+        "Cómo una inmobiliaria triplicó los leads contactados a tiempo con un agente de IA que califica cada lead, prioriza los más calientes y avisa al vendedor en el momento justo.",
+      keywords: [
+        "agente de IA para leads",
+        "seguimiento de leads inmobiliaria",
+        "IA para ventas",
+      ],
+    },
   },
   {
     slug: "web-agencia-viajes",
@@ -231,5 +323,15 @@ export const cases: CaseStudy[] = [
       "Simplificamos el formulario de consulta para reducir abandonos",
     ],
     relatedServices: ["desarrollo-web"],
+    seo: {
+      title: "Caso: sitio web para agencia de viajes",
+      description:
+        "Cómo una agencia de viajes aumentó un 45% las reservas desde la web con un sitio nuevo, rápido y con el proceso de consulta y reserva simplificado de punta a punta.",
+      keywords: [
+        "desarrollo web agencia de viajes",
+        "web que convierte",
+        "caso de éxito de desarrollo web",
+      ],
+    },
   },
 ];
