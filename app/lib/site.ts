@@ -5,12 +5,13 @@ export const SITE_NAME = "Neexia";
 export const SITE_TAGLINE = "Agencia de IA para pymes y startups";
 
 /**
- * Canonical one-paragraph description of the company. Reused verbatim in the
- * root metadata, the Organization JSON-LD and llms.txt so every surface tells
- * generative engines the same story.
+ * Canonical company description. Reused in the root `<meta description>`, the
+ * OpenGraph/Twitter description, the Organization JSON-LD, the manifest and
+ * llms.txt so every surface tells the same story. Kept at ~150 chars so it
+ * doesn't get truncated as a meta description (Bing/Google flag >160).
  */
 export const SITE_DESCRIPTION =
-  "Neexia es una agencia de IA que ayuda a pymes, startups y negocios a automatizar procesos, atender mejor a sus clientes y tomar decisiones más inteligentes con soluciones a medida. Con base en Argentina y trabajo en toda Latinoamérica.";
+  "Agencia de IA que ayuda a pymes y startups a automatizar procesos, atender mejor a sus clientes y decidir con mejores datos. Argentina y Latinoamérica.";
 
 export const CONTACT_EMAIL = "contact.neexia@gmail.com";
 
