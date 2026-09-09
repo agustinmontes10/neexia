@@ -5,7 +5,6 @@ import {
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_URL,
-  SITE_TAGLINE,
 } from "@/app/lib/site";
 
 // Served at /llms.txt — a plain-text map of the site for LLMs / generative
@@ -30,7 +29,7 @@ export function GET() {
 
   const body = `# ${SITE_NAME}
 
-> ${SITE_TAGLINE}. ${SITE_DESCRIPTION}
+> ${SITE_DESCRIPTION}
 
 Neexia diseña e implementa soluciones de inteligencia artificial a medida para
 pymes, startups y negocios locales: relevamiento y diagnóstico de procesos,

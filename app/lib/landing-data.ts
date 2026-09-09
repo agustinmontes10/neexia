@@ -93,7 +93,7 @@ export const services: Service[] = [
     seo: {
       title: "Diagnóstico de IA y automatización de procesos",
       description:
-        "Relevamos tus procesos y detectamos dónde la IA genera más impacto y ahorro, con un plan de acción priorizado por impacto y esfuerzo. Para pymes en Argentina y Latinoamérica.",
+        "Relevamos tus procesos y detectamos dónde la IA puede generar más ahorro e impacto, y armamos un plan de acción priorizado por dónde empezar.",
       keywords: [
         "diagnóstico de automatización",
         "consultoría de IA",
@@ -127,7 +127,7 @@ export const services: Service[] = [
     seo: {
       title: "Automatización de procesos con IA",
       description:
-        "Automatizamos tareas repetitivas conectando tu CRM, planillas, mail y WhatsApp en flujos que corren solos, diseñados a medida de tu proceso real, no de una plantilla.",
+        "Automatizamos tareas repetitivas conectando tu CRM, planillas, mail y WhatsApp en flujos que corren solos, a medida de tu proceso real.",
       keywords: [
         "automatización de procesos",
         "integración de sistemas",
@@ -161,7 +161,7 @@ export const services: Service[] = [
     seo: {
       title: "Agentes de IA a medida para tu operación",
       description:
-        "Diseñamos e implementamos agentes de IA que ejecutan tareas complejas: califican leads, arman propuestas y actualizan tu CRM según las reglas de tu negocio, disponibles 24/7.",
+        "Agentes de IA que ejecutan tareas complejas —califican leads, arman propuestas, actualizan tu CRM— según las reglas de tu negocio y 24/7.",
       keywords: [
         "agentes de IA",
         "agentes autónomos",
@@ -195,7 +195,7 @@ export const services: Service[] = [
     seo: {
       title: "Chatbots con IA para atención al cliente 24/7",
       description:
-        "Chatbots conversacionales entrenados con la información real de tu negocio para atender por WhatsApp, web e Instagram sin sonar a script y derivar a una persona solo si hace falta.",
+        "Chatbots entrenados con la información de tu negocio para atender por WhatsApp, web e Instagram 24/7 y derivar a una persona solo si hace falta.",
       keywords: [
         "chatbot con IA",
         "chatbot para WhatsApp",
@@ -229,7 +229,7 @@ export const services: Service[] = [
     seo: {
       title: "Desarrollo web a medida, listo para integrar IA",
       description:
-        "Desarrollamos sitios y plataformas a medida, rápidos y pensados desde el inicio para integrar IA: formularios inteligentes, chat, automatizaciones y paneles en tiempo real.",
+        "Sitios y plataformas a medida, rápidos y pensados desde el inicio para integrar IA: formularios inteligentes, chat, automatizaciones y paneles.",
       keywords: [
         "desarrollo web a medida",
         "sitios web rápidos",
@@ -269,7 +269,7 @@ export const cases: CaseStudy[] = [
     seo: {
       title: "Caso: automatización de contenido para Instagram",
       description:
-        "Cómo una marca de indumentaria dejó de perder 5 horas por semana automatizando la generación y publicación de su contenido de Instagram, con aprobación por mail.",
+        "Cómo una marca de indumentaria dejó de perder 5 horas por semana automatizando la generación y publicación de su contenido de Instagram.",
       keywords: [
         "automatización de contenido",
         "automatizar Instagram",
@@ -297,7 +297,7 @@ export const cases: CaseStudy[] = [
     seo: {
       title: "Caso: agente de IA para seguimiento de leads",
       description:
-        "Cómo una inmobiliaria triplicó los leads contactados a tiempo con un agente de IA que califica cada lead, prioriza los más calientes y avisa al vendedor en el momento justo.",
+        "Cómo una inmobiliaria triplicó los leads contactados a tiempo con un agente de IA que califica, prioriza y avisa al vendedor en el momento justo.",
       keywords: [
         "agente de IA para leads",
         "seguimiento de leads inmobiliaria",
@@ -326,7 +326,7 @@ export const cases: CaseStudy[] = [
     seo: {
       title: "Caso: sitio web para agencia de viajes",
       description:
-        "Cómo una agencia de viajes aumentó un 45% las reservas desde la web con un sitio nuevo, rápido y con el proceso de consulta y reserva simplificado de punta a punta.",
+        "Cómo una agencia de viajes aumentó un 45% las reservas online con un sitio nuevo, rápido y con el proceso de consulta y reserva simplificado.",
       keywords: [
         "desarrollo web agencia de viajes",
         "web que convierte",
