@@ -55,6 +55,10 @@ ${industryLines}
 ## Casos de éxito
 ${caseLines}
 
+## Recursos
+- [Glosario de IA y automatización](${SITE_URL}/glosario): términos como agente de IA, RAG, LLM, workflow o n8n explicados para negocios.
+- [Preguntas frecuentes](${SITE_URL}/#preguntas): precio, tiempos, diferencia entre chatbot y agente, integración con herramientas existentes y tratamiento de datos.
+
 ## Contacto
 - Sitio: ${SITE_URL}
 - Email: ${CONTACT_EMAIL}

@@ -4,6 +4,7 @@ import Hero from "@/app/components/Hero";
 import Servicios from "@/app/components/Servicios";
 import Proceso from "@/app/components/Proceso";
 import Casos from "@/app/components/Casos";
+import Faq from "@/app/components/Faq";
 import CtaFinal from "@/app/components/CtaFinal";
 import Footer from "@/app/components/Footer";
 
@@ -16,6 +17,7 @@ export default function Home() {
       <Servicios />
       <Proceso />
       <Casos />
+      <Faq />
       <CtaFinal />
       <Footer />
     </div>

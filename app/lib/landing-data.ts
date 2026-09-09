@@ -335,3 +335,37 @@ export const cases: CaseStudy[] = [
     },
   },
 ];
+
+export type Faq = { q: string; a: string };
+
+/** FAQ general del home — también se emite como FAQPage JSON-LD. */
+export const faqs: Faq[] = [
+  {
+    q: "¿Cuánto cuesta un proyecto de IA con Neexia?",
+    a: "Depende del alcance. Empezamos con un diagnóstico para dimensionar el proyecto y te pasamos una propuesta con precio cerrado antes de arrancar, sin sorpresas después.",
+  },
+  {
+    q: "¿En cuánto tiempo se ven resultados?",
+    a: "La primera automatización suele quedar funcionando en pocas semanas, no meses. A partir de ahí medimos y ajustamos de forma continua.",
+  },
+  {
+    q: "¿Qué es un agente de IA y en qué se diferencia de un chatbot?",
+    a: "Un chatbot responde. Un agente además ejecuta: califica un lead, arma una propuesta, actualiza tu CRM o dispara una acción según reglas que definimos juntos.",
+  },
+  {
+    q: "¿Tengo que cambiar las herramientas que ya uso?",
+    a: "No. Nos integramos con tu CRM, tus planillas, tu mail y WhatsApp. La idea es conectar lo que ya tenés, no migrar todo a un sistema nuevo.",
+  },
+  {
+    q: "¿Necesito tener conocimientos técnicos?",
+    a: "No. Nos encargamos del desarrollo y la integración de punta a punta, y te dejamos algo simple de operar para tu equipo.",
+  },
+  {
+    q: "¿Qué pasa con los datos de mi negocio y de mis clientes?",
+    a: "Quedan en tus sistemas. No compartimos información con terceros y las automatizaciones corren sobre tus propias herramientas.",
+  },
+  {
+    q: "¿Trabajan con negocios fuera de Argentina?",
+    a: "Sí. Estamos en Argentina y trabajamos de forma remota con pymes y startups de toda Latinoamérica.",
+  },
+];

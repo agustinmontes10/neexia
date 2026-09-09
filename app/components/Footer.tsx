@@ -44,6 +44,12 @@ export default function Footer() {
             >
               IA por industria
             </Link>
+            <Link
+              href="/glosario"
+              className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+            >
+              Glosario
+            </Link>
           </div>
         </div>
 
