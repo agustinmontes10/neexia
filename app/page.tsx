@@ -1,6 +1,6 @@
 import Nav from "@/app/components/Nav";
 import Hero from "@/app/components/Hero";
-import Resultados from "@/app/components/Resultados";
+// import Resultados from "@/app/components/Resultados";
 import Servicios from "@/app/components/Servicios";
 import Proceso from "@/app/components/Proceso";
 import Casos from "@/app/components/Casos";

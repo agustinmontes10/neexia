@@ -20,7 +20,7 @@ export default function Hero() {
         </div>
 
         <h1 className="animate-fade-up [animation-delay:80ms] text-[40px] sm:text-[56px] lg:text-[72px] leading-[1.05] font-extrabold tracking-[-0.03em] mb-6 max-w-[900px]">
-          Hacemos que{" "}
+          La agencia de IA que hace que{" "}
           <span className="bg-brand-light px-2.5 rounded-[4px] italic">
             la IA trabaje
           </span>{" "}

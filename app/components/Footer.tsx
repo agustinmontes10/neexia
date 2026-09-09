@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { whatsappLink } from "@/app/lib/site";
+import Link from "next/link";
+import { services } from "@/app/lib/landing-data";
+import { CONTACT_EMAIL, PHONE_DISPLAY, PHONE_E164, whatsappLink } from "@/app/lib/site";
 
 export default function Footer() {
   return (
@@ -7,8 +9,8 @@ export default function Footer() {
       id="contacto"
       className="border-t border-[#ECECEC] pt-16 px-6 sm:px-12 pb-10"
     >
-      <div className="max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12">
-        <div className="sm:col-span-1">
+      <div className="max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="sm:col-span-2 lg:col-span-1">
           <Image
             src="/logoNeexia.svg"
             alt="Neexia"
@@ -21,6 +23,30 @@ export default function Footer() {
             Automatizamos lo repetitivo para que te enfoques en crecer.
           </p>
         </div>
+
+        <div>
+          <div className="text-[13px] font-bold uppercase tracking-[0.06em] text-[#999999] mb-4">
+            Servicios
+          </div>
+          <div className="flex flex-col gap-2.5 text-[15px] text-[#333333]">
+            {services.map((s) => (
+              <Link
+                key={s.slug}
+                href={`/servicios/${s.slug}`}
+                className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+              >
+                {s.title}
+              </Link>
+            ))}
+            <Link
+              href="/diagnostico"
+              className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+            >
+              Diagnóstico gratuito
+            </Link>
+          </div>
+        </div>
+
         <div>
           <div className="text-[13px] font-bold uppercase tracking-[0.06em] text-[#999999] mb-4">
             Contacto
@@ -37,20 +63,21 @@ export default function Footer() {
               WhatsApp
             </a>
             <a
-              href="mailto:contact.neexia@gmail.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
-              contact.neexia@gmail.com
+              {CONTACT_EMAIL}
             </a>
             <a
-              href="tel:+5492983697357"
+              href={`tel:${PHONE_E164}`}
               className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
-              +54 9 2983 697357
+              {PHONE_DISPLAY}
             </a>
             <span>Adolfo Gonzales Chaves, Buenos Aires, Argentina</span>
           </div>
         </div>
+
         <div>
           <div className="text-[13px] font-bold uppercase tracking-[0.06em] text-[#999999] mb-4">
             Redes
