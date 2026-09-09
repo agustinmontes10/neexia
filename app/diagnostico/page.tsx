@@ -9,16 +9,14 @@ const title = "Diagnóstico gratuito de automatización con IA";
 const description =
   "Contanos cómo trabaja tu negocio hoy y te decimos, gratis y sin compromiso, qué procesos podés automatizar con IA y cuántas horas por semana podés ahorrar.";
 
+// Oculto por ahora: sin links entrantes, fuera del sitemap y del llms.txt, y
+// noindex para que salga de los buscadores. La ruta y el quiz quedan intactos
+// para reactivarlo cuando se decida.
 export const metadata: Metadata = {
   title,
   description,
-  keywords: [
-    "diagnóstico de automatización",
-    "diagnóstico de IA gratis",
-    "cuánto puedo automatizar",
-    "automatización para pymes",
-  ],
   alternates: { canonical: "/diagnostico" },
+  robots: { index: false, follow: false },
   openGraph: { title, description, url: "/diagnostico" },
 };
 

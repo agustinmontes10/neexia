@@ -116,3 +116,15 @@ export function caseStudySchema(caseStudy: CaseStudy) {
     ...(caseStudy.image ? { image: `${SITE_URL}${caseStudy.image}` } : {}),
   };
 }
+
+export function faqPageSchema(faq: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}

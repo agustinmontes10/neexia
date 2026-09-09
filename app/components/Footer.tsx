@@ -39,10 +39,10 @@ export default function Footer() {
               </Link>
             ))}
             <Link
-              href="/diagnostico"
+              href="/industrias"
               className="hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
-              Diagnóstico gratuito
+              IA por industria
             </Link>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { cases, services } from "@/app/lib/landing-data";
+import { industries } from "@/app/lib/industries-data";
 import {
   CONTACT_EMAIL,
   PHONE_DISPLAY,
@@ -27,6 +28,13 @@ export function GET() {
     )
     .join("\n");
 
+  const industryLines = industries
+    .map(
+      (i) =>
+        `- [${i.label}](${SITE_URL}/industrias/${i.slug}): ${i.seo.description}`
+    )
+    .join("\n");
+
   const body = `# ${SITE_NAME}
 
 > ${SITE_DESCRIPTION}
@@ -41,11 +49,11 @@ tiempo, más ventas desde la web— y no en la tecnología por sí misma.
 ## Servicios
 ${serviceLines}
 
+## IA por industria
+${industryLines}
+
 ## Casos de éxito
 ${caseLines}
-
-## Diagnóstico gratuito
-- [Diagnóstico gratuito de automatización](${SITE_URL}/diagnostico): cuestionario por industria (inmobiliaria, estudio contable/jurídico, broker de seguros, gastronomía, salud/estética, servicios profesionales, concesionaria, administración de consorcios y otros) que devuelve un informe con procesos automatizables y horas por semana estimadas.
 
 ## Contacto
 - Sitio: ${SITE_URL}
