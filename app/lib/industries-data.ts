@@ -88,7 +88,7 @@ export const industries: Industry[] = [
       },
     ],
     outcome:
-      "En un caso real, una inmobiliaria triplicó los leads contactados a tiempo con un agente de IA que califica cada consulta y avisa al asesor en el momento justo.",
+      "En un caso real, un agente de IA responde consultas de una inmobiliaria con información real de cada propiedad y actualiza el CRM en cada conversación, sin que nadie tenga que cargarlo a mano.",
     faq: [
       {
         q: "¿Tengo que cambiar mi CRM (Tokko u otro)?",
@@ -112,7 +112,7 @@ export const industries: Industry[] = [
       },
     ],
     relatedServices: ["chatbots", "agentes-ia", "automatizacion"],
-    relatedCase: "agente-ia-leads",
+    relatedCase: "agente-ia-inmobiliaria",
   },
   {
     slug: "estudios-contables",

@@ -31,6 +31,7 @@
   --animate-proceso-step-2: proceso-step-2 8s ease-in-out infinite;
   --animate-proceso-step-3: proceso-step-3 8s ease-in-out infinite;
   --animate-tool-node-in: tool-node-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-case-scroll: case-scroll 18s ease-in-out infinite;
 }
 
 @keyframes fade-up {
@@ -159,6 +160,27 @@
   88%,
   100% {
     opacity: 0;
+  }
+}
+
+/* Pans a tall full-page screenshot inside a fixed-height frame (CaseVisual's
+   WebPreviewVisual) so it reads as scrolling through the real site: pause at
+   the top, ease down to the bottom, pause, ease back up. -85.6% is tuned to
+   the current screenshot's aspect ratio against the 16/10 frame — see the
+   comment on WebPreviewVisual. Ends back at the top (0%), a sensible static
+   frame for prefers-reduced-motion. */
+@keyframes case-scroll {
+  0%,
+  10% {
+    transform: translateY(0%);
+  }
+  45%,
+  55% {
+    transform: translateY(-85.6%);
+  }
+  90%,
+  100% {
+    transform: translateY(0%);
   }
 }
 
