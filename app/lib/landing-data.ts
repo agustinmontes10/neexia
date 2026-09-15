@@ -263,18 +263,20 @@ export const cases: CaseStudy[] = [
     slug: "web-agencia-viajes",
     title: "Sitio web para agencia de viajes",
     visual: "webPreview",
-    image: "/casos/travelAgency-web.png",
+    image: "/casos/mtturismoweb-preview.png",
     metric: "+45%",
     metricLabel: "reservas generadas desde la web",
     quote: "El sitio nuevo carga rápido y convierte visitas en reservas reales.",
     name: "Agencia de viajes",
     role: "Desarrollo web",
     longDescription:
-      "Una agencia de viajes tenía un sitio lento y desactualizado que perdía visitas antes de que llegaran a reservar. Rediseñamos y desarrollamos una web nueva, rápida y pensada para convertir, con un proceso de consulta y reserva simplificado de principio a fin.",
+      "Una agencia de viajes tenía un sitio lento y desactualizado que perdía visitas antes de que llegaran a reservar. Rediseñamos y desarrollamos una web nueva, rápida y pensada para convertir, con un proceso de consulta y reserva simplificado de principio a fin, un panel de administrador para manejar los paquetes sin depender de nosotros, y una base de SEO y GEO para aparecer tanto en Google como en las respuestas de IAs como ChatGPT o Claude.",
     highlights: [
       "Rediseñamos la experiencia de búsqueda y reserva de punta a punta",
       "Optimizamos la velocidad de carga en todas las páginas",
       "Simplificamos el formulario de consulta para reducir abandonos",
+      "Sumamos un panel de administrador para gestionar los paquetes sin depender de nosotros",
+      "Trabajamos SEO y GEO para aparecer en Google y en respuestas de IAs como ChatGPT o Claude",
     ],
     relatedServices: ["desarrollo-web"],
     seo: {

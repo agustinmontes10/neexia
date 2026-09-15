@@ -129,7 +129,7 @@ export default async function CaseStudyPage({
           </div>
 
           <div className="w-full min-h-[280px] sm:min-h-[320px] rounded-[24px] border border-[#ECECEC] bg-[#FAFAFA] flex items-center justify-center p-6 sm:p-10">
-            <CaseVisual type={caseStudy.visual} image={caseStudy.image} active />
+            <CaseVisual type={caseStudy.visual} image={caseStudy.image} active size="lg" />
           </div>
         </div>
 
