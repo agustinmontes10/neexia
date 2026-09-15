@@ -34,8 +34,16 @@ export type CaseStudy = {
   visual: CaseVisualShape;
   /** Only used by the "webPreview" visual — real screenshot of the project. */
   image?: string;
-  metric: string;
-  metricLabel: string;
+  /**
+   * Big animated result number (e.g. "-5h", "3x", "+45%"). Omit when there's
+   * no verified figure yet — pair `resultHeadline`/`resultCaption` instead.
+   * Never invent a number here; only real, confirmed results.
+   */
+  metric?: string;
+  metricLabel?: string;
+  /** Shown in place of metric/metricLabel when there's no hard number yet — a short qualitative result, not an animated count. */
+  resultHeadline?: string;
+  resultCaption?: string;
   quote: string;
   /** Business type shown under the quote, e.g. "Agencia de viajes" — no client names/photos used. */
   name: string;
@@ -61,9 +69,11 @@ export type Stat = {
 };
 
 /** Results strip under the hero — sourced from real `cases` metrics, shown early for credibility. */
+// Nota: -5h y 3x salían de automatizacion-instagram y agente-ia-leads, dos
+// casos que ya no existen con esas cifras (ver `cases` más abajo) — se
+// sacaron de acá para no mostrar un número sin caso real que lo respalde.
+// Si se reactiva Resultados.tsx, sumar stats nuevas solo con datos reales.
 export const stats: Stat[] = [
-  { value: "-5h", label: "de trabajo manual por semana" },
-  { value: "3x", label: "más leads contactados a tiempo" },
   { value: "+45%", label: "reservas generadas desde la web" },
   { value: "24/7", label: "atención automática, sin esperas" },
 ];
@@ -250,62 +260,6 @@ export const steps: Step[] = [
 
 export const cases: CaseStudy[] = [
   {
-    slug: "automatizacion-instagram",
-    title: "Automatización de contenido para Instagram",
-    visual: "workflow",
-    metric: "-5h",
-    metricLabel: "por semana en creación de contenido",
-    quote: "Ahora el contenido se genera y publica solo; nosotros solo aprobamos desde el mail.",
-    name: "Marca de indumentaria",
-    role: "Automatización",
-    longDescription:
-      "Una marca de indumentaria necesitaba publicar contenido en Instagram todas las semanas, pero el proceso manual de crear piezas, escribir copy y programar publicaciones les consumía horas que no tenían. Diseñamos un flujo que genera el contenido automáticamente a partir de su catálogo y calendario, y lo deja listo para aprobar por mail antes de publicarse.",
-    highlights: [
-      "Automatizamos la generación de piezas de contenido a partir del catálogo",
-      "Armamos un flujo de aprobación simple por mail, sin herramientas nuevas que aprender",
-      "Conectamos la publicación directa a Instagram una vez aprobado el contenido",
-    ],
-    relatedServices: ["automatizacion"],
-    seo: {
-      title: "Caso: automatización de contenido para Instagram",
-      description:
-        "Cómo una marca de indumentaria dejó de perder 5 horas por semana automatizando la generación y publicación de su contenido de Instagram.",
-      keywords: [
-        "automatización de contenido",
-        "automatizar Instagram",
-        "caso de éxito de automatización",
-      ],
-    },
-  },
-  {
-    slug: "agente-ia-leads",
-    title: "Agente de IA para seguimiento de leads",
-    visual: "agentHub",
-    metric: "3x",
-    metricLabel: "más leads contactados a tiempo",
-    quote: "El agente prioriza los leads calientes y avisa al vendedor en el momento justo.",
-    name: "Inmobiliaria",
-    role: "Agentes de IA",
-    longDescription:
-      "Una inmobiliaria recibía leads desde varios canales, pero muchos se enfriaban antes de que un vendedor llegara a contactarlos. Implementamos un agente de IA que califica cada lead automáticamente, prioriza los más calientes y avisa al vendedor correcto en el momento justo para no perder la oportunidad.",
-    highlights: [
-      "Centralizamos los leads de todos los canales en un solo flujo",
-      "El agente califica y prioriza cada lead según su probabilidad de cierre",
-      "Notificaciones automáticas al vendedor indicado en tiempo real",
-    ],
-    relatedServices: ["agentes-ia"],
-    seo: {
-      title: "Caso: agente de IA para seguimiento de leads",
-      description:
-        "Cómo una inmobiliaria triplicó los leads contactados a tiempo con un agente de IA que califica, prioriza y avisa al vendedor en el momento justo.",
-      keywords: [
-        "agente de IA para leads",
-        "seguimiento de leads inmobiliaria",
-        "IA para ventas",
-      ],
-    },
-  },
-  {
     slug: "web-agencia-viajes",
     title: "Sitio web para agencia de viajes",
     visual: "webPreview",
@@ -331,6 +285,68 @@ export const cases: CaseStudy[] = [
         "desarrollo web agencia de viajes",
         "web que convierte",
         "caso de éxito de desarrollo web",
+      ],
+    },
+  },
+  {
+    slug: "agente-ia-agencia-viajes",
+    title: "Agente de IA para agencia de viajes",
+    visual: "agentHub",
+    resultHeadline: "Responde con el tono del equipo, todo el día",
+    resultCaption: "consultas atendidas con la info real de los paquetes",
+    quote:
+      "El agente responde con nuestro tono de siempre y solo nos avisa cuando hace falta que entremos nosotros.",
+    name: "Agencia de viajes",
+    role: "Agentes de IA",
+    longDescription:
+      "Una agencia de viajes recibía consultas todo el día por distintos canales y quería que la primera respuesta fuera inmediata sin perder su forma de atender. Construimos un agente de IA que responde con un tono personalizado, igual al del equipo humano, y accede a los paquetes publicados en el sitio para contestar con información real y actualizada. Cuando la consulta lo requiere, deriva a una persona. Todo queda centralizado en un inbox propio, donde el equipo puede ver los mensajes, asignarlos entre sí y tomar la conversación directamente desde WhatsApp Business.",
+    highlights: [
+      "Agente de IA que responde con el tono y el estilo del equipo humano",
+      "Acceso a los paquetes publicados en el sitio para responder con información real",
+      "Deriva a una persona del equipo cuando la consulta lo requiere",
+      "Inbox propio con asignación de conversaciones y toma directa desde WhatsApp Business",
+    ],
+    relatedServices: ["agentes-ia", "chatbots"],
+    seo: {
+      title: "Caso: agente de IA para agencia de viajes",
+      description:
+        "Cómo una agencia de viajes atiende consultas todo el día con un agente de IA que usa su tono, responde con los paquetes reales del sitio y deriva a una persona si hace falta.",
+      keywords: [
+        "agente de IA para turismo",
+        "chatbot para agencia de viajes",
+        "atención al cliente con IA",
+        "IA para WhatsApp Business",
+      ],
+    },
+  },
+  {
+    slug: "agente-ia-inmobiliaria",
+    title: "Agente de IA para inmobiliaria",
+    visual: "agentHub",
+    resultHeadline: "Responde con datos reales de cada propiedad",
+    resultCaption: "y actualiza el CRM en cada conversación",
+    quote:
+      "El agente responde con la información real de cada propiedad y nosotros solo entramos cuando hace falta cerrar.",
+    name: "Inmobiliaria",
+    role: "Agentes de IA",
+    longDescription:
+      "Una inmobiliaria necesitaba responder consultas con información precisa de cada propiedad, no respuestas genéricas armadas al toque. Construimos un agente de IA que consulta una base de datos con la documentación real de cada inmueble para responder con datos concretos, y deriva a una persona cuando la consulta lo requiere. El agente además se conecta con el CRM de la inmobiliaria, así cada conversación queda registrada y el seguimiento de leads no depende de que alguien lo cargue a mano.",
+    highlights: [
+      "Agente de IA que responde consultas con información real de cada propiedad",
+      "Respuestas basadas en documentación real del inmueble, no genéricas",
+      "Deriva a una persona del equipo cuando la consulta lo requiere",
+      "Integración con el CRM para el seguimiento de leads sin carga manual",
+    ],
+    relatedServices: ["agentes-ia", "automatizacion"],
+    seo: {
+      title: "Caso: agente de IA para inmobiliaria",
+      description:
+        "Cómo un agente de IA responde consultas de una inmobiliaria con datos reales de cada propiedad, deriva a una persona si hace falta y actualiza el CRM solo.",
+      keywords: [
+        "agente de IA para inmobiliaria",
+        "chatbot inmobiliario",
+        "IA con base de datos de propiedades",
+        "CRM inmobiliario automatizado",
       ],
     },
   },

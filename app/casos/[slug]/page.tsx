@@ -157,11 +157,17 @@ export default async function CaseStudyPage({
             </h2>
             <div className="rounded-2xl border border-[#ECECEC] bg-[#FAFAFA] p-6 flex flex-col gap-4">
               <div>
-                <div className="text-[40px] font-extrabold tracking-[-0.02em] text-[#111111] leading-none tabular-nums">
-                  {caseStudy.metric}
-                </div>
+                {caseStudy.metric ? (
+                  <div className="text-[40px] font-extrabold tracking-[-0.02em] text-[#111111] leading-none tabular-nums">
+                    {caseStudy.metric}
+                  </div>
+                ) : (
+                  <div className="text-[22px] sm:text-[24px] font-extrabold tracking-[-0.02em] text-[#111111] leading-snug">
+                    {caseStudy.resultHeadline}
+                  </div>
+                )}
                 <div className="text-[13px] text-[#777777] mt-2">
-                  {caseStudy.metricLabel}
+                  {caseStudy.metric ? caseStudy.metricLabel : caseStudy.resultCaption}
                 </div>
               </div>
               <p className="text-[14px] text-[#444444] leading-relaxed">
