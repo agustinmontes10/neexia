@@ -116,3 +116,37 @@ export function caseStudySchema(caseStudy: CaseStudy) {
     ...(caseStudy.image ? { image: `${SITE_URL}${caseStudy.image}` } : {}),
   };
 }
+
+export function faqPageSchema(faq: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}
+
+export function glossarySchema(
+  terms: { term: string; slug: string; definition: string }[]
+) {
+  const setUrl = `${SITE_URL}/glosario`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "@id": setUrl,
+    name: "Glosario de IA y automatización",
+    url: setUrl,
+    inLanguage: "es",
+    publisher: { "@id": ORG_ID },
+    hasDefinedTerm: terms.map((t) => ({
+      "@type": "DefinedTerm",
+      "@id": `${setUrl}#${t.slug}`,
+      name: t.term,
+      description: t.definition,
+      inDefinedTermSet: setUrl,
+    })),
+  };
+}
