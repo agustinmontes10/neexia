@@ -160,9 +160,30 @@ function AgentHubVisual({ active }: { active: boolean }) {
   );
 }
 
-function WebPreviewVisual({ image }: { image?: string }) {
+/**
+ * `image`, when set, is a full-page screenshot (tall — the real one is
+ * 1173x5092) rendered at its natural height inside a fixed 16/10 "peephole"
+ * and panned with `animate-case-scroll`, to read as scrolling through the
+ * real site instead of a single cropped frame. The -85.6% translateY in that
+ * keyframe is tuned to this image's aspect ratio against the 16/10 frame —
+ * revisit the math (see git history) if a differently-shaped screenshot ever
+ * replaces it.
+ */
+function WebPreviewVisual({
+  image,
+  active,
+  size = "sm",
+}: {
+  image?: string;
+  active: boolean;
+  size?: "sm" | "lg";
+}) {
   return (
-    <div className="w-full max-w-[280px] rounded-xl border border-[#ECECEC] bg-white shadow-[0_12px_32px_-14px_rgba(17,17,17,0.15)] overflow-hidden">
+    <div
+      className={`w-full ${
+        size === "lg" ? "max-w-[480px]" : "max-w-[280px]"
+      } rounded-xl border border-[#ECECEC] bg-white shadow-[0_12px_32px_-14px_rgba(17,17,17,0.15)] overflow-hidden`}
+    >
       <div className="flex items-center gap-1.5 px-3 py-2 border-b border-[#F0F0F0] bg-[#FAFAFA]">
         <span className="w-1.5 h-1.5 rounded-full bg-[#FFD7C2] shrink-0" />
         <span className="w-1.5 h-1.5 rounded-full bg-[#FFE7DA] shrink-0" />
@@ -173,9 +194,12 @@ function WebPreviewVisual({ image }: { image?: string }) {
         {image ? (
           <Image
             src={image}
-            alt="Vista previa del sitio de la agencia de viajes"
-            fill
-            className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+            alt="Recorrido por el sitio web de la agencia de viajes, de punta a punta"
+            width={1173}
+            height={5092}
+            className={`absolute inset-x-0 top-0 w-full h-auto ${
+              active ? "animate-case-scroll" : ""
+            }`}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#FFF1EC] to-[#FAFAFA] text-[#C9A38F]">
@@ -203,10 +227,13 @@ export default function CaseVisual({
   type,
   image,
   active,
+  size,
 }: {
   type: CaseVisualShape;
   image?: string;
   active: boolean;
+  /** Only consumed by the "webPreview" visual — bigger on the case detail page than on the home grid card. */
+  size?: "sm" | "lg";
 }) {
   switch (type) {
     case "workflow":
@@ -214,6 +241,6 @@ export default function CaseVisual({
     case "agentHub":
       return <AgentHubVisual active={active} />;
     case "webPreview":
-      return <WebPreviewVisual image={image} />;
+      return <WebPreviewVisual image={image} active={active} size={size} />;
   }
 }

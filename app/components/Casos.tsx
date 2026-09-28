@@ -52,7 +52,7 @@ export default function Casos() {
           const hero = i === 0;
           return (
             <div
-              key={c.name + c.metric}
+              key={c.slug}
               style={visible ? { animationDelay: `${i * 120}ms` } : undefined}
               className={`group relative flex flex-col justify-between min-h-[320px] rounded-[28px] border border-[#ECECEC] bg-[#FAFAFA] p-7 sm:p-8 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-brand/30 hover:shadow-[0_28px_64px_-24px_rgba(255,131,54,0.28)] ${
                 hero ? "sm:col-span-2 lg:col-span-1" : ""
@@ -62,15 +62,25 @@ export default function Casos() {
 
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div
-                    className={`font-extrabold tracking-[-0.02em] text-[#111111] leading-none tabular-nums ${
-                      hero ? "text-[56px] sm:text-[64px]" : "text-[42px]"
-                    }`}
-                  >
-                    <AnimatedMetric value={c.metric} active={visible} />
-                  </div>
+                  {c.metric ? (
+                    <div
+                      className={`font-extrabold tracking-[-0.02em] text-[#111111] leading-none tabular-nums ${
+                        hero ? "text-[56px] sm:text-[64px]" : "text-[42px]"
+                      }`}
+                    >
+                      <AnimatedMetric value={c.metric} active={visible} />
+                    </div>
+                  ) : (
+                    <div
+                      className={`font-extrabold tracking-[-0.02em] text-[#111111] leading-snug ${
+                        hero ? "text-[22px] sm:text-[26px]" : "text-[18px]"
+                      }`}
+                    >
+                      {c.resultHeadline}
+                    </div>
+                  )}
                   <div className="text-[13px] text-[#777777] mt-2">
-                    {c.metricLabel}
+                    {c.metric ? c.metricLabel : c.resultCaption}
                   </div>
                 </div>
                 <span className="text-[11px] font-semibold uppercase tracking-wide text-brand bg-brand/10 px-2.5 py-1 rounded-full shrink-0">
