@@ -1,4 +1,5 @@
 import type { ServiceIconShape } from "@/app/lib/landing-data";
+import Atmosphere from "./Atmosphere";
 import ServiceIcon from "./ServiceIcon";
 
 type Canvas = { w: number; h: number };
@@ -229,14 +230,28 @@ function WebVisual() {
   );
 }
 
-export default function ServiceVisual({ icon }: { icon: ServiceIconShape }) {
-  return (
-    <div className="w-full min-h-[280px] sm:min-h-[320px] rounded-[24px] border border-[#ECECEC] bg-[#FAFAFA] flex items-center justify-center p-6 sm:p-10">
+export default function ServiceVisual({
+  icon,
+  bare = false,
+}: {
+  icon: ServiceIconShape;
+  /** Skip the default framed box (e.g. when the visual sits on an <Atmosphere />). */
+  bare?: boolean;
+}) {
+  const visual = (
+    <>
       {icon === "diagnostic" && <DiagnosticoVisual />}
       {icon === "automation" && <AutomationVisual />}
       {icon === "agents" && <AgentsVisual />}
       {icon === "chat" && <ChatVisual />}
       {icon === "web" && <WebVisual />}
+    </>
+  );
+  if (bare) return <div className="w-full flex items-center justify-center">{visual}</div>;
+  return (
+    <div className="relative w-full min-h-[280px] sm:min-h-[320px] rounded-[24px] overflow-hidden flex items-center justify-center p-6 sm:p-10">
+      <Atmosphere variant="soft" mark={false} />
+      <div className="relative w-full">{visual}</div>
     </div>
   );
 }

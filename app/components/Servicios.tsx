@@ -1,180 +1,52 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { services } from "@/app/lib/landing-data";
+import Atmosphere from "./Atmosphere";
 import Reveal from "./Reveal";
-import ServiceIcon from "./ServiceIcon";
+import SectionHeading from "./SectionHeading";
 import ServiceVisual from "./ServiceVisual";
 
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 shrink-0 text-brand">
-      <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.2" opacity="0.3" />
-      <path
-        d="M5 8.3L7.1 10.3L11.2 6"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+// Bento spans for 5 cards: 3 across the first row, 2 wider ones below.
+function spanFor(i: number, total: number) {
+  const lg = i < 3 ? "lg:col-span-2" : "lg:col-span-3";
+  const sm = i === total - 1 && total % 2 === 1 ? "sm:col-span-2" : "";
+  return `${sm} ${lg}`;
 }
 
-const INTERVAL_MS = 6000;
-
 export default function Servicios() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(() => {
-      setActive((a) => (a + 1) % services.length);
-    }, INTERVAL_MS);
-    return () => clearInterval(timer);
-  }, [active, paused]);
-
-  const service = services[active];
-
   return (
-    <section
-      id="servicios"
-      className="max-w-[1280px] mx-auto px-6 sm:px-12 py-16 sm:py-24"
-    >
-      <Reveal className="max-w-[640px] mx-auto mb-14 text-center">
-        <p className="text-[13px] font-bold uppercase tracking-[0.08em] text-brand mb-4">
-          Servicios
-        </p>
-        <h2 className="text-[32px] sm:text-[44px] font-extrabold tracking-[-0.02em] mb-4 leading-[1.1]">
-          Todo lo que necesitás para escalar con IA
-        </h2>
-        <p className="text-lg text-[#555555] leading-relaxed">
-          Soluciones concretas, pensadas para negocios reales — no ciencia
-          ficción.
+    <section id="servicios" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28 scroll-mt-8">
+      <Reveal className="mb-12 sm:mb-14 max-w-[760px]">
+        <SectionHeading inline muted="Cinco servicios." strong="Un mismo objetivo." />
+        <p className="mt-5 text-[16px] text-body leading-relaxed max-w-[520px]">
+          Soluciones concretas para negocios reales: del primer diagnóstico a
+          la IA funcionando en tu operación.
         </p>
       </Reveal>
 
-      <div
-        className="rounded-[32px] p-6 sm:p-10 lg:p-12"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
-        <div className="mb-10">
-          {/* Mobile: individual boxed filters in a grid, no horizontal scroll */}
-          <div className="grid grid-cols-2 gap-2 sm:hidden">
-            {services.map((s, i) => (
-              <button
-                key={s.num}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-current={i === active}
-                className={`px-4 py-3 rounded-xl border text-[13px] font-semibold text-left transition-all duration-300 ${
-                  i === services.length - 1 && services.length % 2 === 1
-                    ? "col-span-2"
-                    : ""
-                } ${
-                  i === active
-                    ? "bg-brand border-brand text-white shadow-[0_4px_12px_rgba(255,107,53,0.25)]"
-                    : "border-[#ECECEC] bg-white text-[#666666] hover:border-brand/40"
-                }`}
-              >
-                {s.tabLabel}
-              </button>
-            ))}
-          </div>
-
-          {/* Tablet/desktop: single pill row */}
-          <div className="hidden sm:flex justify-center">
-            <div className="flex flex-wrap justify-center gap-1.5 rounded-full border border-[#ECECEC] bg-gray-light p-1.5 mx-auto max-w-full">
-              {services.map((s, i) => (
-                <button
-                  key={s.num}
-                  type="button"
-                  onClick={() => setActive(i)}
-                  aria-current={i === active}
-                  className={`px-4 py-2 cursor-pointer rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
-                    i === active
-                      ? "bg-white text-[#111111] shadow-[0_4px_12px_rgba(17,17,17,0.08)]"
-                      : "text-[#999999] hover:text-[#555555]"
-                  }`}
-                >
-                  {s.tabLabel}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div
-          key={service.num}
-          className="animate-fade-up grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center"
-        >
-          <div className="flex flex-col gap-5">
-            <div className="w-14 h-14 rounded-2xl bg-[#FFF1EC] flex items-center justify-center text-brand">
-              <ServiceIcon shape={service.icon} />
-            </div>
-            <div className="flex flex-col gap-3">
-              <h3 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.01em]">
-                {service.title}
-              </h3>
-              <p className="text-[16px] text-[#666666] leading-relaxed max-w-[440px]">
-                {service.desc}
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 pt-2">
-              {service.features.map((f) => (
-                <div
-                  key={f}
-                  className="flex items-center gap-2.5 text-[15px] text-[#444444]"
-                >
-                  <CheckIcon />
-                  {f}
-                </div>
-              ))}
-            </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-x-4 gap-y-10">
+        {services.map((s, i) => (
+          <Reveal key={s.slug} delay={(i % 3) * 90} className={spanFor(i, services.length)}>
             <Link
-              href={`/servicios/${service.slug}`}
-              className="inline-flex items-center gap-1.5 text-[15px] font-semibold text-brand hover:text-brand-dark transition-colors w-fit pt-1"
+              href={`/servicios/${s.slug}`}
+              className="group block focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-4 rounded-[22px]"
             >
-              Ver más
-              <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4">
-                <path
-                  d="M6.5 4l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <div className="relative h-[260px] sm:h-[300px] rounded-[22px] overflow-hidden flex items-center justify-center px-6">
+                <Atmosphere variant="soft" mark={false} />
+                <div className="relative w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]">
+                  <ServiceVisual icon={s.icon} bare />
+                </div>
+                <span className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 border border-white/70 backdrop-blur flex items-center justify-center text-ink/70 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                  <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
+                    <path d="M5 11l6-6M11 5H6M11 5v5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </div>
+              <div className="pt-4 px-1">
+                <h3 className="text-[17px] font-medium text-ink tracking-[-0.01em]">{s.title}</h3>
+                <p className="mt-1.5 text-[14px] text-body leading-relaxed max-w-[420px]">{s.desc}</p>
+              </div>
             </Link>
-          </div>
-
-          <ServiceVisual icon={service.icon} />
-        </div>
-      </div>
-
-      {/*
-        The tab UI only mounts the active service. This hidden block keeps every
-        service's copy in the homepage DOM so crawlers and generative engines see
-        the full offering, not just whichever tab rendered first.
-      */}
-      <div hidden>
-        {services.map((s) => (
-          <article key={s.slug}>
-            <h3>{s.title}</h3>
-            <p>{s.desc}</p>
-            <p>{s.longDescription}</p>
-            <ul>
-              {s.features.map((f) => (
-                <li key={f}>{f}</li>
-              ))}
-            </ul>
-            <Link href={`/servicios/${s.slug}`}>
-              Ver más sobre {s.title}
-            </Link>
-          </article>
+          </Reveal>
         ))}
       </div>
     </section>

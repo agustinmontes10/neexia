@@ -1,51 +1,39 @@
-import Image from "next/image";
+import Link from "next/link";
 import { whatsappLink } from "@/app/lib/site";
+import Atmosphere from "./Atmosphere";
 import Reveal from "./Reveal";
 
 export default function CtaFinal() {
   return (
-    <section className="max-w-[1280px] mx-auto mb-16 sm:mb-24 px-6 sm:px-12">
+    <section className="max-w-[1200px] mx-auto px-5 sm:px-10 pb-20 sm:pb-28">
       <Reveal>
-        <div className="relative overflow-hidden bg-black rounded-[24px] py-16 sm:py-20 px-6 sm:px-12 flex flex-col items-center text-center gap-6">
-          {/* Warm brand glow + oversized brand-X artwork, clipped by the card. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-32 right-[-10%] w-[560px] h-[420px] bg-[radial-gradient(ellipse_at_center,rgba(255,131,54,0.28),rgba(255,189,89,0.10)_50%,transparent_72%)] blur-2xl"
-          />
-          <Image
-            src="/X.svg"
-            alt=""
-            aria-hidden
-            width={425}
-            height={452}
-            className="pointer-events-none absolute -right-14 -bottom-20 w-[240px] sm:w-[300px] rotate-12 opacity-[0.16] select-none"
-          />
-
-          <div className="relative flex flex-col items-center gap-6">
-            <Image
-              src="/LogoNeexiaBlanco.svg"
-              alt="Neexia"
-              width={2048}
-              height={535}
-              className="h-6 w-auto opacity-90"
-            />
-            <h2 className="text-white text-[28px] sm:text-[40px] font-extrabold tracking-[-0.02em] max-w-[600px] leading-[1.15]">
-              ¿Charlamos sobre cómo la IA puede ayudar a tu negocio?
+        <div className="relative rounded-[28px] overflow-hidden px-4 py-20 sm:px-10 sm:py-28 flex justify-center">
+          <Atmosphere variant="dusk" />
+          <div className="relative w-full max-w-[680px] rounded-[24px] bg-[rgba(48,24,10,0.26)] border border-white/25 backdrop-blur-xl px-6 py-12 sm:px-12 sm:py-14 text-center shadow-[0_30px_80px_-40px_rgba(60,20,0,0.6)]">
+            <h2 className="text-[30px] sm:text-[44px] font-normal leading-[1.08] tracking-[-0.035em] text-balance">
+              <span className="block text-white/65">El mejor momento</span>
+              <span className="block text-white">para que la IA trabaje por vos.</span>
             </h2>
-            <p className="text-[#BBBBBB] text-[17px] max-w-[520px] leading-relaxed">
-              Escribinos por WhatsApp, sin compromiso, y en minutos vemos dónde
-              la IA suma valor real a tu operación.
+            <p className="mt-5 text-[15px] sm:text-[16px] text-white/80 leading-relaxed max-w-[460px] mx-auto">
+              Escribinos sin compromiso y en una charla vemos dónde la IA suma
+              valor real a tu operación.
             </p>
-            <a
-              href={whatsappLink(
-                "Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-brand text-white px-8 py-4 rounded-[10px] text-base font-semibold hover:bg-brand-dark transition-colors mt-2 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
-            >
-              Escribinos por WhatsApp
-            </a>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <a
+                href={whatsappLink("Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-brand text-ink px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-brand-light transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+              >
+                Hablar por WhatsApp
+              </a>
+              <Link
+                href="/diagnostico"
+                className="bg-white/15 border border-white/30 text-white px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-white/25 transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+              >
+                Hacer el diagnóstico
+              </Link>
+            </div>
           </div>
         </div>
       </Reveal>
