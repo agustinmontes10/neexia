@@ -79,7 +79,7 @@ export default async function ServicePage({
   if (!service) notFound();
 
   return (
-    <div className="w-full min-h-screen bg-white text-[#111111]">
+    <div className="w-full min-h-screen bg-bone text-ink">
       <JsonLd
         data={[
           serviceSchema(service),
@@ -92,10 +92,10 @@ export default async function ServicePage({
       />
       <Nav />
 
-      <section className="max-w-[1280px] mx-auto px-6 sm:px-12 pt-6 sm:pt-10 pb-16 sm:pb-24">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-10 pt-6 sm:pt-10 pb-16 sm:pb-24">
         <Link
           href="/#servicios"
-          className="inline-flex items-center gap-2 text-[14px] font-medium text-[#777777] hover:text-brand transition-colors mb-10 sm:mb-14 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+          className="inline-flex items-center gap-2 text-[14px] text-body hover:text-ink transition-colors mb-10 sm:mb-14 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
         >
           <ArrowLeftIcon />
           Volver a servicios
@@ -103,16 +103,16 @@ export default async function ServicePage({
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 sm:mb-24">
           <div className="flex flex-col gap-5">
-            <div className="w-14 h-14 rounded-2xl bg-[#FFF1EC] flex items-center justify-center text-brand">
+            <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-brand">
               <ServiceIcon shape={service.icon} />
             </div>
-            <p className="text-[13px] font-bold uppercase tracking-[0.08em] text-brand">
+            <p className="text-[13px] text-brand-dark">
               Servicio {service.num}
             </p>
-            <h1 className="text-[34px] sm:text-[48px] font-extrabold tracking-[-0.02em] leading-[1.05]">
+            <h1 className="text-[34px] sm:text-[48px] font-normal tracking-[-0.04em] leading-[1.04]">
               {service.title}
             </h1>
-            <p className="text-[17px] text-[#555555] leading-relaxed max-w-[480px]">
+            <p className="text-[17px] text-body leading-relaxed max-w-[480px]">
               {service.longDescription}
             </p>
             <a
@@ -121,7 +121,7 @@ export default async function ServicePage({
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center bg-black text-white px-6 py-3.5 rounded-[10px] text-[15px] font-semibold hover:bg-brand transition-colors mt-2 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+              className="inline-flex w-fit items-center bg-ink text-white px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-black transition-colors mt-2 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
               Hablar por WhatsApp
             </a>
@@ -130,16 +130,16 @@ export default async function ServicePage({
           <ServiceVisual icon={service.icon} />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 pt-14 sm:pt-16 border-t border-[#ECECEC]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 pt-14 sm:pt-16 border-t border-line">
           <div>
-            <h2 className="text-[22px] font-bold tracking-[-0.01em] mb-6">
+            <h2 className="text-[24px] font-normal tracking-[-0.02em] mb-6">
               Qué incluye
             </h2>
             <div className="flex flex-col gap-4">
               {service.benefits.map((b) => (
                 <div
                   key={b}
-                  className="flex items-center gap-3 text-[15px] text-[#444444]"
+                  className="flex items-center gap-3 text-[15px] text-ink/80"
                 >
                   <CheckIcon />
                   {b}
@@ -149,14 +149,14 @@ export default async function ServicePage({
           </div>
 
           <div>
-            <h2 className="text-[22px] font-bold tracking-[-0.01em] mb-6">
+            <h2 className="text-[24px] font-normal tracking-[-0.02em] mb-6">
               Para quién es
             </h2>
             <div className="flex flex-col gap-3">
               {service.idealFor.map((it) => (
                 <div
                   key={it}
-                  className="rounded-2xl border border-[#ECECEC] bg-[#FAFAFA] px-5 py-4 text-[15px] text-[#444444]"
+                  className="rounded-2xl border border-line bg-white px-5 py-4 text-[15px] text-ink/80"
                 >
                   {it}
                 </div>

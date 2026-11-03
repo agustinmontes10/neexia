@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function DiagnosticoPage() {
   return (
-    <div className="w-full min-h-screen bg-white text-[#111111]">
+    <div className="w-full min-h-screen bg-bone text-ink">
       <JsonLd
         data={breadcrumbSchema([
           { name: "Inicio", path: "/" },
@@ -33,15 +33,15 @@ export default function DiagnosticoPage() {
       />
       <Nav />
 
-      <section className="max-w-[1280px] mx-auto px-6 sm:px-12 pt-6 sm:pt-10 pb-16 sm:pb-24">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-10 pt-6 sm:pt-10 pb-16 sm:pb-24">
         <div className="max-w-[640px] mx-auto text-center flex flex-col items-center gap-4 mb-12 sm:mb-16">
-          <p className="text-[13px] font-bold uppercase tracking-[0.08em] text-brand">
+          <p className="text-[13px] text-brand-dark">
             Diagnóstico gratuito
           </p>
-          <h1 className="text-[32px] sm:text-[44px] font-extrabold tracking-[-0.02em] leading-[1.08]">
+          <h1 className="text-[32px] sm:text-[44px] font-normal tracking-[-0.04em] leading-[1.06]">
             ¿Cuánto tiempo podés recuperar automatizando tu negocio?
           </h1>
-          <p className="text-[16px] sm:text-[17px] text-[#555555] leading-relaxed">
+          <p className="text-[16px] sm:text-[17px] text-body leading-relaxed">
             Respondé algunas preguntas sobre cómo trabajás hoy y te armamos, gratis y sin
             compromiso, un informe con los procesos que podés automatizar y las horas por semana
             que podés ahorrar.

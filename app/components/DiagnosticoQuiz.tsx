@@ -122,7 +122,7 @@ export default function DiagnosticoQuiz() {
                 disabled={!r.available}
                 className={`flex items-center justify-between gap-3 rounded-2xl border px-5 py-4 text-left text-[15px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2 ${
                   r.available
-                    ? "border-[#ECECEC] hover:border-brand cursor-pointer text-[#111111]"
+                    ? "border-line hover:border-brand cursor-pointer text-ink"
                     : "border-[#F2F2F2] text-[#B1B1B1] cursor-not-allowed"
                 }`}
               >
@@ -148,14 +148,14 @@ export default function DiagnosticoQuiz() {
           </div>
 
           <div key={stepIndex} className="flex flex-col gap-5 animate-fade-up">
-            <p className="text-[12px] font-bold uppercase tracking-[0.08em] text-brand">
+            <p className="text-[13px] text-brand-dark">
               {current.eyebrow}
             </p>
-            <h2 className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.01em] leading-[1.2]">
+            <h2 className="text-[24px] sm:text-[28px] font-normal tracking-[-0.03em] leading-[1.15]">
               {current.question}
             </h2>
             {current.hint && (
-              <p className="text-[14px] text-[#777777] -mt-2 leading-relaxed">{current.hint}</p>
+              <p className="text-[14px] text-body -mt-2 leading-relaxed">{current.hint}</p>
             )}
 
             {current.type === "options" && (
@@ -168,7 +168,7 @@ export default function DiagnosticoQuiz() {
                       type="button"
                       onClick={() => selectOption(current.key, o.value)}
                       className={`flex items-center justify-between gap-3 w-full text-left px-5 py-4 rounded-2xl border text-[15.5px] transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2 ${
-                        selected ? "border-brand bg-[#FFF1EC]" : "border-[#ECECEC] hover:border-brand"
+                        selected ? "border-brand bg-[#FFF1EC]" : "border-line hover:border-brand"
                       }`}
                     >
                       {o.label}
@@ -187,7 +187,7 @@ export default function DiagnosticoQuiz() {
                   maxLength={400}
                   placeholder={current.placeholder}
                   rows={5}
-                  className="w-full rounded-2xl border border-[#ECECEC] px-5 py-4 text-[15.5px] leading-relaxed resize-y outline-none focus:border-brand"
+                  className="w-full rounded-2xl border border-line px-5 py-4 text-[15.5px] leading-relaxed resize-y outline-none focus:border-brand"
                 />
                 <span className="text-[12px] text-[#B1B1B1] text-right">{openText.length} / 400</span>
               </div>
@@ -210,11 +210,11 @@ export default function DiagnosticoQuiz() {
             <div className="h-full bg-brand rounded-full" style={{ width: "100%" }} />
           </div>
           <div className="flex flex-col gap-5 animate-fade-up">
-            <p className="text-[12px] font-bold uppercase tracking-[0.08em] text-brand">Último paso</p>
-            <h2 className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.01em] leading-[1.2]">
+            <p className="text-[13px] text-brand-dark">Último paso</p>
+            <h2 className="text-[24px] sm:text-[28px] font-normal tracking-[-0.03em] leading-[1.15]">
               Dejanos tus datos para ver tu diagnóstico
             </h2>
-            <p className="text-[14px] text-[#777777] -mt-2 leading-relaxed">
+            <p className="text-[14px] text-body -mt-2 leading-relaxed">
               Es gratis y sin compromiso. Te llega también una copia por email.
             </p>
             <div className="flex flex-col gap-3">
@@ -223,21 +223,21 @@ export default function DiagnosticoQuiz() {
                 placeholder="Tu nombre"
                 value={contacto.nombre}
                 onChange={(e) => setContacto((c) => ({ ...c, nombre: e.target.value }))}
-                className="w-full rounded-2xl border border-[#ECECEC] px-5 py-4 text-[15.5px] outline-none focus:border-brand"
+                className="w-full rounded-2xl border border-line px-5 py-4 text-[15.5px] outline-none focus:border-brand"
               />
               <input
                 type="email"
                 placeholder="vos@ejemplo.com"
                 value={contacto.email}
                 onChange={(e) => setContacto((c) => ({ ...c, email: e.target.value }))}
-                className="w-full rounded-2xl border border-[#ECECEC] px-5 py-4 text-[15.5px] outline-none focus:border-brand"
+                className="w-full rounded-2xl border border-line px-5 py-4 text-[15.5px] outline-none focus:border-brand"
               />
               <input
                 type="tel"
                 placeholder="Teléfono (opcional)"
                 value={contacto.telefono}
                 onChange={(e) => setContacto((c) => ({ ...c, telefono: e.target.value }))}
-                className="w-full rounded-2xl border border-[#ECECEC] px-5 py-4 text-[15.5px] outline-none focus:border-brand"
+                className="w-full rounded-2xl border border-line px-5 py-4 text-[15.5px] outline-none focus:border-brand"
               />
             </div>
           </div>
@@ -254,45 +254,45 @@ export default function DiagnosticoQuiz() {
       {phase === "loading" && (
         <div className="flex flex-col items-center justify-center gap-4 py-24 text-center">
           <div className="w-9 h-9 rounded-full border-[3px] border-[#F1F1F1] border-t-brand animate-spin" />
-          <p className="text-[14.5px] text-[#777777]">Analizando tus respuestas…</p>
+          <p className="text-[14.5px] text-body">Analizando tus respuestas…</p>
         </div>
       )}
 
       {phase === "result" && informe && calculo && (
         <div className="flex flex-col gap-6 animate-fade-up">
-          <div className="rounded-[24px] bg-black px-8 py-9 text-center flex flex-col items-center gap-2">
-            <div className="text-brand text-[48px] sm:text-[56px] font-extrabold leading-none tabular-nums">
+          <div className="rounded-[24px] bg-ink px-8 py-9 text-center flex flex-col items-center gap-2">
+            <div className="text-brand text-[48px] sm:text-[56px] font-normal tracking-[-0.04em] leading-none tabular-nums">
               <AnimatedMetric value={`${calculo.horas_totales_ahorradas}h`} active={true} />
               <span className="text-[18px] text-white/70 font-semibold ml-2">/ semana</span>
             </div>
             <p className="text-white/80 text-[14px]">podrían recuperar automatizando lo de abajo</p>
           </div>
 
-          <p className="text-[15px] text-[#444444] leading-relaxed">{informe.resumen_horas}</p>
+          <p className="text-[15px] text-ink/80 leading-relaxed">{informe.resumen_horas}</p>
 
           {answers.pregunta_abierta && (
-            <blockquote className="border-l-[3px] border-brand pl-4 text-[15px] italic text-[#555555]">
+            <blockquote className="border-l-[3px] border-brand pl-4 text-[15px] italic text-body">
               “{answers.pregunta_abierta}”
             </blockquote>
           )}
 
           <div className="flex flex-col gap-4">
             {informe.recomendaciones.map((r, i) => (
-              <div key={i} className="rounded-2xl border border-[#ECECEC] px-6 py-5 flex flex-col gap-2">
+              <div key={i} className="rounded-2xl border border-line px-6 py-5 flex flex-col gap-2">
                 <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-[16.5px] font-bold tracking-[-0.01em]">{r.area}</h3>
+                  <h3 className="text-[16.5px] font-medium tracking-[-0.01em]">{r.area}</h3>
                   {r.horas_estimadas && (
                     <span className="text-[12px] font-semibold text-brand bg-[#FFF1EC] px-3 py-1 rounded-full whitespace-nowrap">
                       ~{r.horas_estimadas}
                     </span>
                   )}
                 </div>
-                <p className="text-[14.5px] text-[#555555] leading-relaxed">
-                  <span className="font-semibold text-[#111111]">Hoy: </span>
+                <p className="text-[14.5px] text-body leading-relaxed">
+                  <span className="font-semibold text-ink">Hoy: </span>
                   {r.diagnostico}
                 </p>
-                <p className="text-[14.5px] text-[#555555] leading-relaxed">
-                  <span className="font-semibold text-[#111111]">Con Neexia: </span>
+                <p className="text-[14.5px] text-body leading-relaxed">
+                  <span className="font-semibold text-ink">Con Neexia: </span>
                   {r.solucion}
                 </p>
               </div>
@@ -300,7 +300,7 @@ export default function DiagnosticoQuiz() {
           </div>
 
           <div className="flex flex-col items-center gap-3 pt-2 text-center">
-            <p className="text-[15px] text-[#555555] max-w-[440px] leading-relaxed">
+            <p className="text-[15px] text-body max-w-[440px] leading-relaxed">
               {informe.cierre}
             </p>
             <a
@@ -309,7 +309,7 @@ export default function DiagnosticoQuiz() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center bg-brand text-white px-7 py-3.5 rounded-[10px] text-[15px] font-semibold hover:bg-brand-dark transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+              className="inline-flex items-center bg-brand text-ink px-7 py-3.5 rounded-full text-[15px] font-medium hover:bg-brand-dark transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
               Quiero mi llamada gratuita
             </a>
@@ -325,7 +325,7 @@ export default function DiagnosticoQuiz() {
           <p className="text-[16px] font-semibold">
             Uy, tuvimos un problema generando tu informe.
           </p>
-          <p className="text-[14.5px] text-[#777777] max-w-[420px] leading-relaxed">
+          <p className="text-[14.5px] text-body max-w-[420px] leading-relaxed">
             Tus respuestas no se perdieron, pero preferimos que hables directo con nosotros para no
             hacerte esperar.
           </p>
@@ -333,7 +333,7 @@ export default function DiagnosticoQuiz() {
             href={whatsappLink("Hola! Intenté hacer el diagnóstico gratuito en la web y tuve un error.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center bg-black text-white px-6 py-3.5 rounded-[10px] text-[15px] font-semibold hover:bg-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+            className="inline-flex items-center bg-ink text-white px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-black transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
           >
             Escribinos por WhatsApp
           </a>
@@ -362,7 +362,7 @@ function NavButtons({
         type="button"
         onClick={onBack}
         disabled={backDisabled}
-        className="px-4 py-3 text-[14.5px] font-medium text-[#777777] hover:text-brand transition-colors disabled:invisible focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+        className="px-4 py-3 text-[14.5px] font-medium text-body hover:text-brand transition-colors disabled:invisible focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
       >
         Atrás
       </button>
@@ -370,7 +370,7 @@ function NavButtons({
         type="button"
         onClick={onNext}
         disabled={nextDisabled}
-        className="px-7 py-3.5 rounded-[10px] text-[15px] font-semibold bg-black text-white hover:bg-brand transition-colors disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+        className="px-7 py-3.5 rounded-full text-[15px] font-medium bg-ink text-white hover:bg-black transition-colors disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
       >
         {nextLabel}
       </button>

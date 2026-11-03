@@ -6,6 +6,7 @@ import CtaFinal from "@/app/components/CtaFinal";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
 import CaseVisual from "@/app/components/CaseVisual";
+import Atmosphere from "@/app/components/Atmosphere";
 import { cases, services } from "@/app/lib/landing-data";
 import { breadcrumbSchema, caseStudySchema } from "@/app/lib/structured-data";
 import { whatsappLink } from "@/app/lib/site";
@@ -83,7 +84,7 @@ export default async function CaseStudyPage({
     .filter((s): s is (typeof services)[number] => Boolean(s));
 
   return (
-    <div className="w-full min-h-screen bg-white text-[#111111]">
+    <div className="w-full min-h-screen bg-bone text-ink">
       <JsonLd
         data={[
           caseStudySchema(caseStudy),
@@ -96,10 +97,10 @@ export default async function CaseStudyPage({
       />
       <Nav />
 
-      <section className="max-w-[1280px] mx-auto px-6 sm:px-12 pt-6 sm:pt-10 pb-16 sm:pb-24">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-10 pt-6 sm:pt-10 pb-16 sm:pb-24">
         <Link
           href="/#casos"
-          className="inline-flex items-center gap-2 text-[14px] font-medium text-[#777777] hover:text-brand transition-colors mb-10 sm:mb-14 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+          className="inline-flex items-center gap-2 text-[14px] text-body hover:text-ink transition-colors mb-10 sm:mb-14 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
         >
           <ArrowLeftIcon />
           Volver a casos
@@ -107,13 +108,13 @@ export default async function CaseStudyPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 sm:mb-24">
           <div className="flex flex-col gap-5">
-            <span className="text-[11px] font-semibold uppercase tracking-wide text-brand bg-brand/10 px-2.5 py-1 rounded-full w-fit">
+            <span className="text-[12px] text-brand-dark bg-brand/10 px-3 py-1 rounded-full w-fit">
               {caseStudy.role}
             </span>
-            <h1 className="text-[34px] sm:text-[48px] font-extrabold tracking-[-0.02em] leading-[1.05]">
+            <h1 className="text-[34px] sm:text-[48px] font-normal tracking-[-0.04em] leading-[1.04]">
               {caseStudy.title}
             </h1>
-            <p className="text-[17px] text-[#555555] leading-relaxed max-w-[480px]">
+            <p className="text-[17px] text-body leading-relaxed max-w-[480px]">
               {caseStudy.longDescription}
             </p>
             <a
@@ -122,27 +123,30 @@ export default async function CaseStudyPage({
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center bg-black text-white px-6 py-3.5 rounded-[10px] text-[15px] font-semibold hover:bg-brand transition-colors mt-2 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+              className="inline-flex w-fit items-center bg-ink text-white px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-black transition-colors mt-2 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
             >
               Hablar por WhatsApp
             </a>
           </div>
 
-          <div className="w-full min-h-[280px] sm:min-h-[320px] rounded-[24px] border border-[#ECECEC] bg-[#FAFAFA] flex items-center justify-center p-6 sm:p-10">
-            <CaseVisual type={caseStudy.visual} image={caseStudy.image} active />
+          <div className="relative w-full min-h-[280px] sm:min-h-[320px] rounded-[24px] overflow-hidden flex items-center justify-center p-6 sm:p-10">
+            <Atmosphere variant="soft" mark={false} />
+            <div className="relative w-full flex justify-center">
+              <CaseVisual type={caseStudy.visual} image={caseStudy.image} active />
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 pt-14 sm:pt-16 border-t border-[#ECECEC]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 pt-14 sm:pt-16 border-t border-line">
           <div>
-            <h2 className="text-[22px] font-bold tracking-[-0.01em] mb-6">
+            <h2 className="text-[24px] font-normal tracking-[-0.02em] mb-6">
               Qué hicimos
             </h2>
             <div className="flex flex-col gap-4">
               {caseStudy.highlights.map((h) => (
                 <div
                   key={h}
-                  className="flex items-center gap-3 text-[15px] text-[#444444]"
+                  className="flex items-center gap-3 text-[15px] text-ink/80"
                 >
                   <CheckIcon />
                   {h}
@@ -152,23 +156,23 @@ export default async function CaseStudyPage({
           </div>
 
           <div>
-            <h2 className="text-[22px] font-bold tracking-[-0.01em] mb-6">
+            <h2 className="text-[24px] font-normal tracking-[-0.02em] mb-6">
               El resultado
             </h2>
-            <div className="rounded-2xl border border-[#ECECEC] bg-[#FAFAFA] p-6 flex flex-col gap-4">
+            <div className="rounded-2xl border border-line bg-white p-6 flex flex-col gap-4">
               <div>
-                <div className="text-[40px] font-extrabold tracking-[-0.02em] text-[#111111] leading-none tabular-nums">
+                <div className="text-[44px] font-normal tracking-[-0.04em] text-ink leading-none tabular-nums">
                   {caseStudy.metric}
                 </div>
-                <div className="text-[13px] text-[#777777] mt-2">
+                <div className="text-[13px] text-body mt-2">
                   {caseStudy.metricLabel}
                 </div>
               </div>
-              <p className="text-[14px] text-[#444444] leading-relaxed">
+              <p className="text-[14px] text-ink/80 leading-relaxed">
                 &ldquo;{caseStudy.quote}&rdquo;
               </p>
-              <div className="pt-4 border-t border-[#ECECEC]">
-                <div className="text-sm font-semibold text-[#111111] truncate">
+              <div className="pt-4 border-t border-line">
+                <div className="text-sm font-medium text-ink truncate">
                   {caseStudy.name}
                 </div>
               </div>
@@ -178,7 +182,7 @@ export default async function CaseStudyPage({
 
         {relatedServices.length > 0 && (
           <div className="pt-14 sm:pt-16">
-            <h2 className="text-[13px] font-bold uppercase tracking-[0.06em] text-[#999999] mb-4">
+            <h2 className="text-[15px] text-ink mb-4">
               Servicios aplicados
             </h2>
             <div className="flex flex-wrap gap-3">
@@ -186,7 +190,7 @@ export default async function CaseStudyPage({
                 <Link
                   key={s.slug}
                   href={`/servicios/${s.slug}`}
-                  className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#111111] border border-[#ECECEC] rounded-full px-4 py-2 hover:border-brand/30 hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+                  className="inline-flex items-center gap-1.5 text-[14px] font-medium text-ink bg-white border border-line rounded-full px-4 py-2 hover:border-brand/30 hover:text-brand transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
                 >
                   {s.tabLabel}
                 </Link>
