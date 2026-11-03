@@ -9,8 +9,8 @@ import Footer from "@/app/components/Footer";
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen bg-white text-[#111111]">
-      <Nav />
+    <div className="w-full min-h-screen bg-bone text-ink">
+      <Nav overlay />
       <Hero />
       {/* <Resultados /> */}
       <Servicios />

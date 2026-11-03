@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
+  --background: #f4f3ef;
+  --foreground: #161616;
 }
 
 @theme inline {
@@ -13,7 +13,19 @@
   --color-brand-light: #ffbd59;
   --color-gray: #b1b1b1;
   --color-gray-light: #f1f1f1;
+  /* Calm redesign palette: bone background, near-black ink, muted gray for
+     the first (quiet) line of two-tone headings, soft hairline borders. */
+  --color-bone: #f4f3ef;
+  --color-ink: #161616;
+  --color-mute: #a3a3a3;
+  --color-body: #6b6b6b;
+  --color-line: #e7e5df;
   --font-sans: var(--font-inter);
+  --animate-atmo-a: atmo-a 22s ease-in-out infinite;
+  --animate-atmo-b: atmo-b 28s ease-in-out infinite;
+  --animate-atmo-c: atmo-c 34s ease-in-out infinite;
+  --animate-blur-in: blur-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-ring-fill: ring-fill 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-flow-dot-x: flow-dot-x 1.8s ease-in-out infinite;
   --animate-flow-dot-y: flow-dot-y 1.8s ease-in-out infinite;
@@ -41,6 +53,61 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Atmosphere blobs drift slowly and return to their origin, so the last frame
+   equals the first (static under reduced motion). */
+@keyframes atmo-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6%, 4%) scale(1.08);
+  }
+}
+
+@keyframes atmo-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-7%, -3%) scale(1.12);
+  }
+}
+
+@keyframes atmo-c {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(3%, -5%) rotate(6deg);
+  }
+}
+
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+/* Progress ring: driven by --ring-to (the final dashoffset). */
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: var(--ring-from, 100);
+  }
+  to {
+    stroke-dashoffset: var(--ring-to, 0);
   }
 }
 
@@ -364,14 +431,41 @@
    below can simply zero it out and leave content visible. */
 .reveal {
   opacity: 0;
+  filter: blur(10px);
   transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-visible {
   opacity: 1;
+  filter: none;
   transform: none;
+}
+
+/* Frosted glass surface used on top of <Atmosphere />. */
+.glass {
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 24px 60px -30px rgba(120, 60, 20, 0.35);
+}
+
+/* Film grain overlay for <Atmosphere /> — keeps gradients from banding and
+   gives the background a tactile, photographic feel. */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+}
+
+/* The Neexia X mark used as a soft light source (alpha mask of X.svg). */
+.x-mark {
+  -webkit-mask: url("/X.svg") center / contain no-repeat;
+  mask: url("/X.svg") center / contain no-repeat;
 }
 
 /* Collapse every animation/transition to its end state. All keyframes in this
@@ -389,6 +483,7 @@
 
   .reveal {
     opacity: 1;
+    filter: none;
     transform: none;
   }
 }
