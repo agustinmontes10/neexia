@@ -69,7 +69,12 @@ export default function Atmosphere({
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+      // `isolate`: the grain's soft-light blend must only see this layer. Without
+      // it the backdrop it blends against depends on whether the browser has
+      // the card on its own compositing layer (true during the reveal's blur
+      // transition, dropped a few seconds later), so the soft variant's
+      // transparent base flipped from grainy-gray to washed-out white.
+      className={`pointer-events-none absolute inset-0 overflow-hidden isolate ${className}`}
       style={{ background: p.base }}
     >
       {p.blobs.map((b, i) => (
