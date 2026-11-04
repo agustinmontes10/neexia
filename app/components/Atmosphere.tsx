@@ -33,7 +33,9 @@ const PALETTES: Record<Variant, { base: string; blobs: Blob[]; mark: number }> =
     mark: 0.55,
   },
   soft: {
-    base: "linear-gradient(160deg, #f6f0e9 0%, #f6e1cb 55%, #f2c6a0 100%)",
+    // No base fill: just the glows over whatever the page background is —
+    // reads lighter and keeps the content on top legible.
+    base: "transparent",
     blobs: [
       { color: "#fff8ef", x: 30, y: 25, size: 70, opacity: 0.9, anim: "animate-atmo-a" },
       { color: "#f4d2dc", x: 90, y: 20, size: 55, opacity: 0.55, anim: "animate-atmo-c" },

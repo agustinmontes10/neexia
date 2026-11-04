@@ -32,7 +32,7 @@ function Node({
   return (
     <div
       className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center text-brand ${
-        filled ? "bg-brand" : "bg-[#FFF1EC]"
+        filled ? "bg-brand" : "bg-white border border-[#efe4da] shadow-[0_6px_16px_-8px_rgba(120,60,20,0.35)]"
       }`}
       style={{
         left: `${(x / canvas.w) * 100}%`,
@@ -69,7 +69,7 @@ function Link({
 }) {
   return (
     <div
-      className="absolute h-[2px] bg-[#ECECEC] origin-left"
+      className="absolute h-[2px] bg-[#ddd5ca] origin-left"
       style={{
         left: `${(x / canvas.w) * 100}%`,
         top: `${(y / canvas.h) * 100}%`,
@@ -88,7 +88,7 @@ function Link({
 function DiagnosticoVisual() {
   const lines = ["92%", "70%", "84%", "55%"];
   return (
-    <div className="relative w-full max-w-[260px] mx-auto rounded-2xl border border-[#ECECEC] bg-white p-6 overflow-hidden">
+    <div className="relative w-full max-w-[260px] mx-auto rounded-2xl border border-line bg-white p-6 overflow-hidden shadow-[0_18px_40px_-24px_rgba(120,60,20,0.35)]">
       <div className="flex items-center gap-1.5 mb-5">
         <span className="w-2 h-2 rounded-full bg-[#FFD7C2]" />
         <span className="w-2 h-2 rounded-full bg-[#FFE7DA]" />
@@ -181,7 +181,7 @@ function SkeletonBubble({
 
 function ChatVisual() {
   return (
-    <div className="w-full max-w-[260px] mx-auto rounded-2xl border border-[#ECECEC] bg-white p-6 flex flex-col gap-3">
+    <div className="w-full max-w-[260px] mx-auto rounded-2xl border border-line bg-white p-6 flex flex-col gap-3 shadow-[0_18px_40px_-24px_rgba(120,60,20,0.35)]">
       <SkeletonBubble align="left" widths={["100px", "90px"]} delay="0s" />
       <SkeletonBubble align="right" widths={["100px"]} dark delay="0.2s" />
       <SkeletonBubble align="left" widths={["100px", "110px"]} delay="0.4s" />
@@ -201,7 +201,7 @@ function ChatVisual() {
 function WebVisual() {
   return (
     <div className="w-full flex items-center justify-center py-4">
-      <div className="animate-web-resize rounded-xl border border-[#ECECEC] bg-white shadow-[0_12px_32px_-12px_rgba(17,17,17,0.15)] overflow-hidden">
+      <div className="animate-web-resize rounded-xl border border-line bg-white shadow-[0_18px_40px_-20px_rgba(120,60,20,0.35)] overflow-hidden">
         <div className="flex items-center gap-1.5 px-3 py-2 border-b border-[#F0F0F0] bg-[#FAFAFA]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#FFD7C2] shrink-0" />
           <span className="w-1.5 h-1.5 rounded-full bg-[#FFE7DA] shrink-0" />
