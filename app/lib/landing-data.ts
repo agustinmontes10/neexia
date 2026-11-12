@@ -335,3 +335,57 @@ export const cases: CaseStudy[] = [
     },
   },
 ];
+
+/** Visual shown for each scene in the "Lo que hacemos, en tu día a día" section (`SceneVisual.tsx`). */
+export type SceneVisualShape = "messages" | "followUp" | "reminders" | "order";
+
+/**
+ * Everyday pains of a business owner, in their own words, shown in `Intro.tsx`.
+ * Deliberately organised by pain, not by industry: `where` lists example
+ * industries only so nobody reads it as "this isn't for my business".
+ */
+export type Scene = {
+  visual: SceneVisualShape;
+  /** Short tab label. */
+  tab: string;
+  quote: string;
+  withUs: string;
+  where: string[];
+  /** `/servicios/[slug]` that solves it. */
+  service: string;
+};
+
+export const scenes: Scene[] = [
+  {
+    visual: "messages",
+    tab: "Mensajes",
+    quote: "Contesto mensajes todo el día (y a la noche también).",
+    withUs: "Un asistente responde al instante, agenda turnos y te pasa solo lo que necesita una persona.",
+    where: ["consultorios", "inmobiliarias", "concesionarias", "gimnasios"],
+    service: "chatbots",
+  },
+  {
+    visual: "followUp",
+    tab: "Seguimiento",
+    quote: "Mandé el presupuesto y nunca más supe nada.",
+    withUs: "El seguimiento sale solo en los días clave, hasta que te responden que sí o que no.",
+    where: ["inmobiliarias", "talleres", "servicios profesionales", "reformas"],
+    service: "agentes-ia",
+  },
+  {
+    visual: "reminders",
+    tab: "Avisos",
+    quote: "Me la paso recordándole cosas a la gente.",
+    withUs: "Los avisos salen solos, en el momento justo y por el canal que usa cada cliente.",
+    where: ["aseguradoras", "estudios contables", "consorcios", "consultorios"],
+    service: "automatizacion",
+  },
+  {
+    visual: "order",
+    tab: "Orden",
+    quote: "Tengo todo en mil lugares.",
+    withUs: "Todo entra a un solo lugar, cada cosa con su estado, y el resumen te llega solo.",
+    where: ["comercios", "distribuidoras", "consorcios", "posventa"],
+    service: "automatizacion",
+  },
+];

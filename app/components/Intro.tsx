@@ -1,176 +1,165 @@
 "use client";
 
 import Link from "next/link";
-import type { CSSProperties, ReactNode } from "react";
+import { useState, useSyncExternalStore } from "react";
+import { scenes } from "@/app/lib/landing-data";
 import { useInView } from "@/app/lib/useInView";
 import Atmosphere from "./Atmosphere";
+// Previous visual (illustrative dashboard), kept in case we go back to it:
+// render <IntroDashboard show={inView} /> inside an atmosphere frame
+// (`relative rounded-[28px] overflow-hidden px-3 pt-6 sm:px-14 sm:pt-14 lg:px-24 lg:pt-20`
+// + <Atmosphere variant="soft" />) in place of the scenes block below.
+// import IntroDashboard from "./IntroDashboard";
 import Reveal from "./Reveal";
+import SceneVisual from "./SceneVisual";
 import SectionHeading from "./SectionHeading";
 import ToolIcon, { type ToolIconName } from "./ToolIcon";
 
 /**
- * "Tu negocio, funcionando solo." — an illustrative automation dashboard that
- * assembles itself piece by piece inside an atmosphere frame. Numbers here are
- * sample data (labelled as such under the frame), not client results.
+ * "Lo que hacemos, en tu día a día." — what Neexia does, told as everyday pains
+ * in the owner's own words (content in `scenes`, landing-data.ts). Built to fit
+ * in one viewport on desktop: heading + intro on one row, then a browser-like
+ * window (atmosphere frame) with one tab per scene on top — the active tab is
+ * unfilled so it merges with the window, and a soft fill sweeping across it
+ * shows the time left — and below, the active quote and its big, simple
+ * before → after visual (`SceneVisual.tsx`); the one-line answer + service
+ * link sit under the window. Scenes auto-advance every ADVANCE ms (the fill's
+ * `animationend` drives it), paused on hover and until in view, and off under
+ * reduced motion; tabs are also clickable.
  */
 
-function Piece({
-  show,
-  delay,
-  className = "",
-  children,
-}: {
-  show: boolean;
-  delay: number;
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div
-      className={`transition-[opacity,filter,transform] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        show ? "opacity-100 blur-0 translate-y-0" : "opacity-0 blur-sm translate-y-3"
-      } ${className}`}
-      style={{ transitionDelay: `${delay}ms` } as CSSProperties}
-    >
-      {children}
-    </div>
-  );
+const ADVANCE = 8000;
+
+/** "Favicon" of each browser-like tab, by position in `scenes`. */
+const TAB_ICONS: ToolIconName[] = ["whatsapp", "gmail", "calendar", "excel"];
+
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+function subscribeReducedMotion(cb: () => void) {
+  const mq = window.matchMedia(REDUCED_MOTION);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
 }
-
-const KPIS = [
-  { label: "Flujos activos", value: "12", delta: "+2" },
-  { label: "Leads calificados hoy", value: "38", delta: "+9" },
-  { label: "Horas ahorradas", value: "21h", delta: "esta semana" },
-  { label: "Consultas resueltas", value: "94%", delta: "sin intervención" },
-];
-
-const BARS = [38, 52, 46, 64, 88, 40, 30];
-const DAYS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
-
-const ACTIVITY: { tool: ToolIconName; text: string; time: string }[] = [
-  { tool: "whatsapp", text: "El chatbot respondió 14 consultas", time: "hace 3 min" },
-  { tool: "gmail", text: "Se enviaron 6 presupuestos automáticos", time: "hace 12 min" },
-  { tool: "excel", text: "Ventas del día sincronizadas", time: "hace 40 min" },
-];
+const getReducedMotion = () => window.matchMedia(REDUCED_MOTION).matches;
 
 export default function Intro() {
-  const [ref, show] = useInView<HTMLDivElement>(0.2);
+  const [ref, inView] = useInView<HTMLDivElement>(0.3);
+  const [active, setActive] = useState(0);
+  const [hover, setHover] = useState(false);
+  const auto = !useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => true);
+
+  const scene = scenes[active];
 
   return (
     <section className="max-w-[1200px] mx-auto px-5 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
-      <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 sm:mb-12">
-        <SectionHeading muted="Tu negocio," strong="funcionando solo." />
-        <Link
-          href="/diagnostico"
-          className="w-fit shrink-0 bg-brand text-ink px-5 py-2.5 rounded-full text-[14px] font-medium hover:bg-brand-light transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
-        >
-          Diagnóstico gratis
-        </Link>
+      <Reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 lg:gap-10 mb-10 sm:mb-12">
+        <SectionHeading muted="Lo que hacemos," strong="en tu día a día." />
+        <p className="text-[16px] text-body leading-relaxed max-w-[440px] lg:text-right">
+          No importa el rubro: casi todos los negocios pierden tiempo en las mismas cosas. Estas son las que
+          dejamos funcionando solas.
+        </p>
       </Reveal>
 
-      <div ref={ref} className="relative rounded-[28px] overflow-hidden px-3 pt-6 sm:px-14 sm:pt-14 lg:px-24 lg:pt-20">
-        <Atmosphere variant="soft" />
+      <div ref={ref} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        {/* Browser-like window: tabs on top, the active scene below. */}
+        <div className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden flex flex-col lg:h-[clamp(420px,calc(100svh-390px),580px)]">
+          <Atmosphere variant="soft" />
 
-        {/* The panel peeks out of the bottom edge of the frame. */}
-        <div className="relative rounded-t-[20px] bg-white/80 backdrop-blur-xl border border-white/80 border-b-0 shadow-[0_30px_80px_-40px_rgba(120,60,20,0.45)] p-4 sm:p-6">
-          {/* Top bar */}
-          <Piece show={show} delay={0} className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="x-mark w-6 aspect-[425/452] bg-gradient-to-br from-brand-light to-brand-dark" />
-              <div className="hidden sm:flex items-center gap-1 rounded-full bg-[#f3f1ec] p-1 text-[12px]">
-                <span className="px-3 py-1 rounded-full bg-ink text-white">Resumen</span>
-                <span className="px-3 py-1 text-ink/60">Flujos</span>
-                <span className="px-3 py-1 text-ink/60">Leads</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="hidden sm:inline-flex text-[12px] text-ink/70 bg-white border border-line rounded-full px-3 py-1.5">
-                Ver reporte
-              </span>
-              <span className="text-[12px] text-ink bg-brand rounded-full px-3 py-1.5">+ Nuevo flujo</span>
-            </div>
-          </Piece>
-
-          <Piece show={show} delay={120} className="mt-5 sm:mt-6">
-            <p className="text-[20px] sm:text-[26px] tracking-[-0.02em] text-ink">Buen día, equipo</p>
-          </Piece>
-
-          {/* KPIs */}
-          <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-            {KPIS.map((k, i) => (
-              <Piece key={k.label} show={show} delay={240 + i * 90}>
-                <div className="rounded-[14px] bg-[#faf9f6] border border-line p-3 sm:p-4 h-full">
-                  <p className="text-[11px] sm:text-[12px] text-ink/55">{k.label}</p>
-                  <div className="mt-3 sm:mt-5 flex items-end justify-between gap-2">
-                    <span className="text-[22px] sm:text-[28px] leading-none tracking-[-0.03em] text-ink tabular-nums">
-                      {k.value}
-                    </span>
-                    <span className="text-[10px] sm:text-[11px] text-brand-dark bg-brand/10 rounded-full px-2 py-0.5 whitespace-nowrap">
-                      {k.delta}
-                    </span>
-                  </div>
-                </div>
-              </Piece>
-            ))}
+          {/* Tab strip. The active tab has no fill so the window's own background
+              shows through it; a huge box-shadow in the strip colour paints the
+              rest of the strip around its rounded top (clipped by overflow). */}
+          <div
+            role="tablist"
+            aria-label="Situaciones que resolvemos"
+            className="relative flex items-end h-[46px] sm:h-[52px] px-1.5 sm:px-3 pt-1.5 sm:pt-2 overflow-hidden"
+          >
+            <span aria-hidden className="hidden sm:flex items-center gap-1.5 self-center pl-2 pr-4 relative z-10">
+              <span className="w-2.5 h-2.5 rounded-full bg-ink/15" />
+              <span className="w-2.5 h-2.5 rounded-full bg-ink/15" />
+              <span className="w-2.5 h-2.5 rounded-full bg-ink/15" />
+            </span>
+            {scenes.map((s, i) => {
+              const on = i === active;
+              return (
+                <button
+                  key={s.tab}
+                  type="button"
+                  role="tab"
+                  id={`scene-tab-${i}`}
+                  aria-selected={on}
+                  aria-controls="scene-panel"
+                  onClick={() => setActive(i)}
+                  className={`group relative cursor-pointer flex-none sm:flex-1 min-w-0 sm:max-w-[220px] h-full flex items-center gap-2 px-2.5 sm:px-4 rounded-t-[12px] text-[12px] sm:text-[13.5px] focus-visible:outline-2 focus-visible:outline-brand focus-visible:-outline-offset-2 ${
+                    on ? "z-0 text-ink" : "z-10 text-ink/50 hover:text-ink/80"
+                  }`}
+                  style={on ? { boxShadow: "0 0 0 3000px rgba(222, 215, 203, 0.95)" } : undefined}
+                >
+                  {/* Time running out: a soft fill sweeping across the active tab. */}
+                  {on && (
+                    <span
+                      key={active}
+                      aria-hidden
+                      className="absolute inset-0 rounded-t-[12px] bg-white/45"
+                      style={
+                        auto
+                          ? {
+                              animation: `tab-progress ${ADVANCE}ms linear forwards`,
+                              animationPlayState: inView && !hover ? "running" : "paused",
+                            }
+                          : { opacity: 0 }
+                      }
+                      onAnimationEnd={() => setActive((active + 1) % scenes.length)}
+                    />
+                  )}
+                  {/* Hover pill + separator for the inactive ones. */}
+                  {!on && (
+                    <>
+                      <span aria-hidden className="absolute inset-0 rounded-t-[12px] bg-white/0 group-hover:bg-white/30 transition-colors" />
+                      {i > 0 && i - 1 !== active && (
+                        <span aria-hidden className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-px bg-ink/15 transition-opacity group-hover:opacity-0 [[role=tab]:hover+[role=tab]_&]:opacity-0" />
+                      )}
+                    </>
+                  )}
+                  <span className="relative hidden sm:inline-flex w-3.5 h-3.5 shrink-0">
+                    <ToolIcon name={TAB_ICONS[i]} />
+                  </span>
+                  <span className="relative truncate">{s.tab}</span>
+                </button>
+              );
+            })}
+            {/* Fill the rest of the strip when the last tab is active. */}
+            <span aria-hidden className="flex-1" />
           </div>
 
-          <div className="mt-3 grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-3">
-            {/* Hours saved chart */}
-            <Piece show={show} delay={620}>
-              <div className="rounded-[14px] bg-[#faf9f6] border border-line p-4 h-full">
-                <p className="text-[12px] text-ink/55">Horas ahorradas por día</p>
-                <div className="mt-4 flex items-end gap-2 h-[110px]">
-                  {BARS.map((h, i) => {
-                    const peak = h === Math.max(...BARS);
-                    return (
-                      <div key={DAYS[i]} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                        <div
-                          className={`w-full rounded-[6px] origin-bottom transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                            peak ? "bg-gradient-to-t from-brand to-brand-light" : "bg-[#ebe8e1]"
-                          }`}
-                          style={{
-                            height: `${h}%`,
-                            transform: show ? "scaleY(1)" : "scaleY(0)",
-                            transitionDelay: `${760 + i * 70}ms`,
-                          }}
-                        />
-                        <span className="text-[10px] text-ink/45">{DAYS[i]}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </Piece>
-
-            {/* Activity */}
-            <Piece show={show} delay={720}>
-              <div className="rounded-[14px] bg-[#faf9f6] border border-line p-4 h-full">
-                <p className="text-[12px] text-ink/55">Actividad automática</p>
-                <ul className="mt-3 flex flex-col">
-                  {ACTIVITY.map((a, i) => (
-                    <li
-                      key={a.text}
-                      className={`flex items-center gap-3 py-2.5 transition-[opacity,transform] duration-700 ${
-                        i > 0 ? "border-t border-line" : ""
-                      } ${show ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
-                      style={{ transitionDelay: `${1000 + i * 160}ms` }}
-                    >
-                      <span className="w-7 h-7 rounded-full bg-white border border-line flex items-center justify-center shrink-0">
-                        <span className="w-3.5 h-3.5 inline-flex">
-                          <ToolIcon name={a.tool} />
-                        </span>
-                      </span>
-                      <span className="flex-1 text-[13px] text-ink/80 leading-snug">{a.text}</span>
-                      <span className="hidden sm:inline text-[11px] text-ink/40 whitespace-nowrap">{a.time}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Piece>
+          <div
+            id="scene-panel"
+            role="tabpanel"
+            aria-labelledby={`scene-tab-${active}`}
+            className="relative flex-1 flex flex-col px-5 sm:px-10 pt-7 sm:pt-9 pb-10"
+          >
+            <p
+              key={`q${active}`}
+              className="animate-blur-in text-center text-[19px] sm:text-[24px] leading-[1.2] tracking-[-0.025em] text-ink max-w-[640px] mx-auto"
+            >
+              “{scene.quote}”
+            </p>
+            <div className="flex-1 flex items-center mt-8 lg:mt-4">
+              <SceneVisual key={active} shape={scene.visual} play={inView} />
+            </div>
           </div>
         </div>
+
+        <div className="mt-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-x-8 gap-y-2">
+          <p key={`w${active}`} className="animate-blur-in text-[15px] leading-relaxed text-body">
+            {scene.withUs}
+          </p>
+          <Link
+            href={`/servicios/${scene.service}`}
+            className="shrink-0 text-[14px] text-ink underline decoration-line underline-offset-4 hover:decoration-ink transition-colors"
+          >
+            Ver cómo lo hacemos →
+          </Link>
+        </div>
       </div>
-      <p className="mt-3 text-[12px] text-mute text-center">Panel ilustrativo, con datos de ejemplo.</p>
     </section>
   );
 }

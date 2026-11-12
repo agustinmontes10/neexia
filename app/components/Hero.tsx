@@ -60,8 +60,9 @@ export default function Hero() {
         </h1>
 
         <p className="animate-blur-in [animation-delay:150ms] mt-6 text-[16px] sm:text-[18px] leading-relaxed text-ink/70 max-w-[540px]">
-          Automatizamos procesos, sumamos agentes y chatbots, y te dejamos más
-          tiempo para lo que importa. A medida de pymes y startups.
+          Dejamos funcionando solas las tareas que hoy te comen el día: responder
+          consultas, hacer seguimiento, mandar recordatorios y ordenar tus datos.
+          A medida de pymes y startups.
         </p>
 
         <div className="animate-blur-in [animation-delay:250ms] mt-9 flex flex-wrap justify-center gap-3">
