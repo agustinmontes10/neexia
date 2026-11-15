@@ -12,8 +12,10 @@ import SectionHeading from "./SectionHeading";
 /**
  * Success stories, in the same visual language as the Servicios cards: the
  * case's visual over a soft atmosphere (no box), then the counting metric,
- * label and business type below. The quote slides in over the visual on hover
- * (desktop only — the full quote is on the case page).
+ * label and business type below. The visuals are "live": a website scrolled
+ * like a screen recording, or a WhatsApp chat answered by the agent. The quote
+ * slides in over the bottom on hover (desktop only — no blur, so the animation
+ * stays visible; the full quote is on the case page).
  */
 export default function Casos() {
   const [ref, active] = useInView<HTMLDivElement>(0.2);
@@ -38,10 +40,10 @@ export default function Casos() {
               href={`/casos/${c.slug}`}
               className="group block rounded-[22px] focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-4"
             >
-              <div className="relative h-[280px] sm:h-[300px] rounded-[22px] overflow-hidden flex items-center justify-center px-6">
+              <div className="relative h-[360px] sm:h-[400px] rounded-[22px] overflow-hidden flex items-center justify-center px-5 sm:px-6">
                 <Atmosphere variant="soft" mark={false} />
-                <div className="relative w-full flex justify-center transition-[transform,filter,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] lg:group-hover:blur-[2px] lg:group-hover:opacity-60">
-                  <CaseVisual type={c.visual} image={c.image} active={active} />
+                <div className="relative w-full flex justify-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]">
+                  <CaseVisual type={c.visual} image={c.image} url={c.url} chat={c.chat} active={active} />
                 </div>
                 <div className="hidden lg:block absolute inset-x-4 bottom-4 glass rounded-[16px] px-4 py-3 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
                   <p className="text-[14px] leading-snug text-ink">&ldquo;{c.quote}&rdquo;</p>

@@ -129,10 +129,10 @@ export default async function CaseStudyPage({
             </a>
           </div>
 
-          <div className="relative w-full min-h-[280px] sm:min-h-[320px] rounded-[24px] overflow-hidden flex items-center justify-center p-6 sm:p-10">
+          <div className="relative w-full min-h-[380px] sm:min-h-[420px] rounded-[24px] overflow-hidden flex items-center justify-center p-6 sm:p-10">
             <Atmosphere variant="soft" mark={false} />
             <div className="relative w-full flex justify-center">
-              <CaseVisual type={caseStudy.visual} image={caseStudy.image} active />
+              <CaseVisual type={caseStudy.visual} image={caseStudy.image} url={caseStudy.url} chat={caseStudy.chat} active />
             </div>
           </div>
         </div>

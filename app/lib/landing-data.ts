@@ -26,14 +26,25 @@ export type Step = {
   desc: string;
 };
 
-export type CaseVisualShape = "workflow" | "agentHub" | "webPreview";
+export type CaseVisualShape = "webScroll" | "whatsappChat";
+
+/** One bubble of the "whatsappChat" case visual. `audio` renders a voice note (text = its duration). */
+export type CaseChatMessage = {
+  from: "customer" | "agent";
+  text: string;
+  audio?: boolean;
+};
 
 export type CaseStudy = {
   slug: string;
   title: string;
   visual: CaseVisualShape;
-  /** Only used by the "webPreview" visual — real screenshot of the project. */
+  /** "webScroll" visual: full-page screenshot of the site (scrolled like a video). */
   image?: string;
+  /** "webScroll" visual: domain shown in the fake address bar. */
+  url?: string;
+  /** "whatsappChat" visual: the conversation, played message by message. */
+  chat?: CaseChatMessage[];
   metric: string;
   metricLabel: string;
   quote: string;
@@ -250,66 +261,11 @@ export const steps: Step[] = [
 
 export const cases: CaseStudy[] = [
   {
-    slug: "automatizacion-instagram",
-    title: "Automatización de contenido para Instagram",
-    visual: "workflow",
-    metric: "-5h",
-    metricLabel: "por semana en creación de contenido",
-    quote: "Ahora el contenido se genera y publica solo; nosotros solo aprobamos desde el mail.",
-    name: "Marca de indumentaria",
-    role: "Automatización",
-    longDescription:
-      "Una marca de indumentaria necesitaba publicar contenido en Instagram todas las semanas, pero el proceso manual de crear piezas, escribir copy y programar publicaciones les consumía horas que no tenían. Diseñamos un flujo que genera el contenido automáticamente a partir de su catálogo y calendario, y lo deja listo para aprobar por mail antes de publicarse.",
-    highlights: [
-      "Automatizamos la generación de piezas de contenido a partir del catálogo",
-      "Armamos un flujo de aprobación simple por mail, sin herramientas nuevas que aprender",
-      "Conectamos la publicación directa a Instagram una vez aprobado el contenido",
-    ],
-    relatedServices: ["automatizacion"],
-    seo: {
-      title: "Caso: automatización de contenido para Instagram",
-      description:
-        "Cómo una marca de indumentaria dejó de perder 5 horas por semana automatizando la generación y publicación de su contenido de Instagram.",
-      keywords: [
-        "automatización de contenido",
-        "automatizar Instagram",
-        "caso de éxito de automatización",
-      ],
-    },
-  },
-  {
-    slug: "agente-ia-leads",
-    title: "Agente de IA para seguimiento de leads",
-    visual: "agentHub",
-    metric: "3x",
-    metricLabel: "más leads contactados a tiempo",
-    quote: "El agente prioriza los leads calientes y avisa al vendedor en el momento justo.",
-    name: "Inmobiliaria",
-    role: "Agentes de IA",
-    longDescription:
-      "Una inmobiliaria recibía leads desde varios canales, pero muchos se enfriaban antes de que un vendedor llegara a contactarlos. Implementamos un agente de IA que califica cada lead automáticamente, prioriza los más calientes y avisa al vendedor correcto en el momento justo para no perder la oportunidad.",
-    highlights: [
-      "Centralizamos los leads de todos los canales en un solo flujo",
-      "El agente califica y prioriza cada lead según su probabilidad de cierre",
-      "Notificaciones automáticas al vendedor indicado en tiempo real",
-    ],
-    relatedServices: ["agentes-ia"],
-    seo: {
-      title: "Caso: agente de IA para seguimiento de leads",
-      description:
-        "Cómo una inmobiliaria triplicó los leads contactados a tiempo con un agente de IA que califica, prioriza y avisa al vendedor en el momento justo.",
-      keywords: [
-        "agente de IA para leads",
-        "seguimiento de leads inmobiliaria",
-        "IA para ventas",
-      ],
-    },
-  },
-  {
     slug: "web-agencia-viajes",
     title: "Sitio web para agencia de viajes",
-    visual: "webPreview",
-    image: "/casos/travelAgency-web.png",
+    visual: "webScroll",
+    image: "/casos/mtturismo-full.webp",
+    url: "mtturismo.com.ar",
     metric: "+45%",
     metricLabel: "reservas generadas desde la web",
     quote: "El sitio nuevo carga rápido y convierte visitas en reservas reales.",
@@ -333,6 +289,68 @@ export const cases: CaseStudy[] = [
         "caso de éxito de desarrollo web",
       ],
     },
+  },
+  {
+    slug: "agente-ia-whatsapp",
+    title: "Agente de IA que atiende WhatsApp",
+    visual: "whatsappChat",
+    chat: [
+      { from: "customer", text: "0:07", audio: true },
+      {
+        from: "agent",
+        text: "¡Hola! Para el Caribe en noviembre tengo Punta Cana: 10 noches all inclusive, desde USD 1.850 por persona.",
+      },
+      { from: "customer", text: "¿Y algo en Brasil más económico?" },
+      {
+        from: "agent",
+        text: "Maragogi, 8 noches con desayuno, desde USD 1.200. ¿Querés que te pase con una asesora para reservar?",
+      },
+      { from: "customer", text: "Dale, sí 🙌" },
+    ],
+    // PLACEHOLDER: métrica y textos a confirmar con datos reales del agente.
+    metric: "24/7",
+    metricLabel: "consultas respondidas al instante, con precios reales",
+    quote: "Contesta audios y textos con los paquetes que tenemos, y nos pasa solo las consultas listas para cerrar.",
+    name: "Agencia de viajes",
+    role: "Agentes de IA",
+    longDescription:
+      "Una agencia de viajes recibía decenas de consultas por WhatsApp, muchas fuera de horario, y el equipo no daba abasto. Implementamos un agente de IA que entiende texto y audio, busca en el catálogo real de paquetes — nunca inventa un precio — y deriva a una persona del equipo cuando la consulta lo necesita o cuando el cliente ya está siendo atendido.",
+    highlights: [
+      "El agente entiende mensajes de texto y audios",
+      "Responde con paquetes, precios y fechas reales del catálogo de la agencia",
+      "Deriva a una asesora cuando hace falta, sin interrumpir conversaciones en curso",
+    ],
+    relatedServices: ["agentes-ia", "chatbots"],
+    seo: {
+      title: "Caso: agente de IA para WhatsApp en una agencia de viajes",
+      description:
+        "Cómo una agencia de viajes atiende WhatsApp 24/7 con un agente de IA que entiende audios, responde con paquetes reales y deriva a una persona cuando hace falta.",
+      keywords: [
+        "agente de IA para WhatsApp",
+        "chatbot WhatsApp agencia de viajes",
+        "atención automática WhatsApp",
+      ],
+    },
+  },
+  {
+    // PLACEHOLDER: segunda web — reemplazar con el proyecto real (captura de página completa en /public/casos).
+    slug: "web-nuevo-proyecto",
+    title: "Sitio web a medida",
+    visual: "webScroll",
+    url: "proximamente.com",
+    metric: "+30%",
+    metricLabel: "consultas recibidas desde la web",
+    quote: "Ahora la web trabaja por nosotros: nos llegan consultas todos los días.",
+    name: "Proyecto web",
+    role: "Desarrollo web",
+    longDescription:
+      "Diseñamos y desarrollamos un sitio nuevo, rápido y pensado para convertir visitas en consultas.",
+    highlights: [
+      "Diseño a medida de la marca",
+      "Optimización de velocidad y SEO técnico",
+      "Contacto directo por WhatsApp desde cada página",
+    ],
+    relatedServices: ["desarrollo-web"],
   },
 ];
 

@@ -34,6 +34,8 @@
   --animate-web-resize: web-resize 7s ease-in-out infinite;
   --animate-web-nav-out: web-nav-out 7s ease-in-out infinite;
   --animate-web-nav-in: web-nav-in 7s ease-in-out infinite;
+  --animate-page-scroll: page-scroll 22s ease-in-out infinite;
+  --animate-typing-dot: typing-dot 1s ease-in-out infinite;
 }
 
 /* Progress of the "before → after" scene visuals (SceneVisual.tsx). Registered
@@ -223,6 +225,49 @@
   88%,
   100% {
     opacity: 0;
+  }
+}
+
+/* Website "video" in the Casos cards (CaseVisual.tsx): pans a full-page
+   screenshot top → footer in stops, then back to the top. Ends at the top so
+   the reduced-motion static frame is the hero of the site. */
+@keyframes page-scroll {
+  0%,
+  8% {
+    background-position: 50% 0%;
+  }
+  20%,
+  28% {
+    background-position: 50% 17%;
+  }
+  40%,
+  48% {
+    background-position: 50% 42%;
+  }
+  60%,
+  68% {
+    background-position: 50% 68%;
+  }
+  80%,
+  88% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+/* "Escribiendo…" dots of the WhatsApp case chat. Ends at rest. */
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
   }
 }
 

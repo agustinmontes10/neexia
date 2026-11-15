@@ -1,197 +1,147 @@
 "use client";
 
-import Image from "next/image";
-import type { CaseVisualShape } from "@/app/lib/landing-data";
+import { useEffect, useState } from "react";
+import type { CaseChatMessage, CaseVisualShape } from "@/app/lib/landing-data";
+import ToolIcon from "./ToolIcon";
 
-type StepIconName = "clock" | "sparkle" | "mail" | "camera";
-
-function StepIcon({ name }: { name: StepIconName }) {
-  switch (name) {
-    case "clock":
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-[18px] h-[18px]"
-          aria-hidden="true"
-        >
-          <circle cx="12" cy="12" r="8.2" />
-          <path d="M12 7.5V12l3 2" />
-        </svg>
-      );
-    case "sparkle":
-      return (
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-[18px] h-[18px]" aria-hidden="true">
-          <path d="M9.94 15.5a2 2 0 0 0-1.44-1.44l-6.13-1.58a.5.5 0 0 1 0-.96l6.13-1.58a2 2 0 0 0 1.44-1.44l1.58-6.13a.5.5 0 0 1 .96 0l1.58 6.13a2 2 0 0 0 1.44 1.44l6.13 1.58a.5.5 0 0 1 0 .96l-6.13 1.58a2 2 0 0 0-1.44 1.44l-1.58 6.13a.5.5 0 0 1-.96 0z" />
-        </svg>
-      );
-    case "mail":
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-[18px] h-[18px]"
-          aria-hidden="true"
-        >
-          <rect x="3" y="5.5" width="18" height="13" rx="2.3" />
-          <path d="M4 7l8 6 8-6" />
-        </svg>
-      );
-    case "camera":
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-[18px] h-[18px]"
-          aria-hidden="true"
-        >
-          <rect x="3.5" y="5.5" width="17" height="14" rx="4" />
-          <circle cx="12" cy="12.3" r="3.4" />
-          <circle cx="16.2" cy="8.8" r="0.6" fill="currentColor" stroke="none" />
-        </svg>
-      );
-  }
-}
-
-function WorkflowNode({ icon, label }: { icon: StepIconName; label: string }) {
+/**
+ * "Video" of a website: a browser window over a full-page screenshot that
+ * scrolls down section by section and jumps back to the top (`page-scroll`
+ * keyframe, a background-position pan so no height math is needed — 0% is the
+ * top of the page, 100% the footer). Under reduced motion the keyframe's last
+ * frame is the top of the page.
+ */
+function WebScrollVisual({ image, url, active }: { image?: string; url?: string; active: boolean }) {
   return (
-    <div className="flex flex-col items-center gap-2 w-16 shrink-0">
-      <div className="w-9 h-9 rounded-full bg-[#FFF1EC] text-brand flex items-center justify-center animate-ring-pulse">
-        <StepIcon name={icon} />
-      </div>
-      <div className="text-[10px] font-medium text-[#777777] text-center leading-tight">
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function WorkflowConnector({ delay }: { delay: string }) {
-  return (
-    <div className="relative self-start mt-[18px] h-[2px] flex-1 min-w-[16px] bg-[#ECECEC] shrink-0">
-      <span
-        className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand animate-flow-dot-x"
-        style={{ animationDelay: delay }}
-      />
-    </div>
-  );
-}
-
-function WorkflowVisual() {
-  return (
-    <div className="flex items-start w-full">
-      <WorkflowNode icon="clock" label="Cada mañana" />
-      <WorkflowConnector delay="0s" />
-      <WorkflowNode icon="sparkle" label="Genera el posteo con IA" />
-      <WorkflowConnector delay="0.45s" />
-      <WorkflowNode icon="mail" label="Aprobación por Gmail" />
-      <WorkflowConnector delay="0.9s" />
-      <WorkflowNode icon="camera" label="Publica en Instagram" />
-    </div>
-  );
-}
-
-function LeadRow({
-  label,
-  width,
-  highlight,
-  active,
-  delay,
-}: {
-  label: string;
-  width: string;
-  highlight?: boolean;
-  active: boolean;
-  delay: string;
-}) {
-  return (
-    <div
-      className={`flex items-center gap-2.5 rounded-xl border px-3 py-2.5 transition-all duration-500 ease-out ${
-        highlight ? "border-brand/30 bg-brand/5" : "border-[#ECECEC] bg-white"
-      } ${active ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
-      style={{ transitionDelay: delay }}
-    >
-      <span
-        className={`w-2 h-2 rounded-full shrink-0 ${highlight ? "bg-brand" : "bg-[#DDDDDD]"}`}
-      />
-      <div className="flex flex-col gap-1 flex-1 min-w-0">
-        <span className="text-[11px] font-medium text-[#666666] truncate">{label}</span>
-        <div className="h-1.5 rounded-full bg-[#F0F0F0]" style={{ width }} />
-      </div>
-      {highlight && (
-        <span className="w-5 h-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0 animate-ring-pulse">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-3 h-3"
-            aria-hidden="true"
-          >
-            <path d="m5 12 5 5L20 7" />
-          </svg>
+    <div className="w-full max-w-[340px] rounded-[14px] border border-white/80 bg-white shadow-[0_24px_48px_-24px_rgba(80,40,10,0.35)] overflow-hidden">
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-[#F0F0F0] bg-[#FAFAFA]">
+        <span className="flex gap-1 shrink-0">
+          <span className="w-2 h-2 rounded-full bg-[#FFD7C2]" />
+          <span className="w-2 h-2 rounded-full bg-[#FFE7DA]" />
+          <span className="w-2 h-2 rounded-full bg-[#F0F0F0]" />
         </span>
+        <div className="flex-1 h-5 rounded-full bg-white border border-[#F0F0F0] px-2.5 flex items-center text-[10px] text-ink/45 truncate">
+          {url}
+        </div>
+      </div>
+      {image ? (
+        <div
+          role="img"
+          aria-label={url ? `Recorrido por ${url}` : "Recorrido por el sitio"}
+          className="h-[250px] sm:h-[270px] bg-no-repeat bg-[length:100%_auto] animate-page-scroll"
+          style={{
+            backgroundImage: `url(${image})`,
+            animationPlayState: active ? "running" : "paused",
+          }}
+        />
+      ) : (
+        <div className="h-[250px] sm:h-[270px] flex items-center justify-center bg-gradient-to-br from-[#FFF1EC] to-[#FAFAFA] text-[12px] text-ink/40">
+          Captura del sitio próximamente
+        </div>
       )}
     </div>
   );
 }
 
-function AgentHubVisual({ active }: { active: boolean }) {
+function VoiceNote({ duration }: { duration: string }) {
+  const bars = [4, 9, 6, 12, 8, 14, 7, 10, 5, 11, 7, 4, 8, 5];
   return (
-    <div className="flex flex-col gap-2 w-full max-w-[240px]">
-      <LeadRow label="Lead calificado" width="75%" highlight active={active} delay="0ms" />
-      <LeadRow label="Nuevo contacto" width="55%" active={active} delay="150ms" />
-      <LeadRow label="En seguimiento" width="45%" active={active} delay="300ms" />
-    </div>
+    <span className="flex items-center gap-2 py-0.5" aria-label={`Audio de ${duration}`}>
+      <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 text-ink/60 shrink-0" fill="currentColor" aria-hidden="true">
+        <path d="M4 2.8v10.4a.6.6 0 0 0 .9.5l8.4-5.2a.6.6 0 0 0 0-1L4.9 2.3a.6.6 0 0 0-.9.5Z" />
+      </svg>
+      <span className="flex items-center gap-[2px] h-4" aria-hidden="true">
+        {bars.map((h, i) => (
+          <span key={i} className="w-[2px] rounded-full bg-ink/35" style={{ height: h }} />
+        ))}
+      </span>
+      <span className="text-[10px] text-ink/50 tabular-nums">{duration}</span>
+    </span>
   );
 }
 
-function WebPreviewVisual({ image }: { image?: string }) {
+/**
+ * WhatsApp conversation answered by the AI agent: customer messages come in,
+ * the agent "types" and replies, then the chat clears and loops. Only runs
+ * while in view; under reduced motion the whole conversation is shown at once.
+ */
+function WhatsappChatVisual({ chat = [], active }: { chat?: CaseChatMessage[]; active: boolean }) {
+  // Number of messages visible, and whether the agent is "typing" the next one.
+  const [shown, setShown] = useState(0);
+  const [typing, setTyping] = useState(false);
+
+  useEffect(() => {
+    if (!active || chat.length === 0) return;
+    const timers: number[] = [];
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      timers.push(window.setTimeout(() => setShown(chat.length), 0));
+      return () => timers.forEach(clearTimeout);
+    }
+
+    let t = 0;
+    const at = (ms: number, fn: () => void) => {
+      t += ms;
+      timers.push(window.setTimeout(fn, t));
+    };
+
+    const run = () => {
+      t = 0;
+      setShown(0);
+      setTyping(false);
+      chat.forEach((m, i) => {
+        if (m.from === "agent") {
+          at(i === 0 ? 400 : 700, () => setTyping(true));
+          at(1300, () => {
+            setTyping(false);
+            setShown(i + 1);
+          });
+        } else {
+          at(i === 0 ? 500 : 1500, () => setShown(i + 1));
+        }
+      });
+      at(4500, run);
+    };
+    timers.push(window.setTimeout(run, 0));
+    return () => timers.forEach(clearTimeout);
+  }, [active, chat]);
+
   return (
-    <div className="w-full max-w-[280px] rounded-xl border border-[#ECECEC] bg-white shadow-[0_12px_32px_-14px_rgba(17,17,17,0.15)] overflow-hidden">
-      <div className="flex items-center gap-1.5 px-3 py-2 border-b border-[#F0F0F0] bg-[#FAFAFA]">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#FFD7C2] shrink-0" />
-        <span className="w-1.5 h-1.5 rounded-full bg-[#FFE7DA] shrink-0" />
-        <span className="w-1.5 h-1.5 rounded-full bg-[#F0F0F0] shrink-0" />
-        <div className="flex-1 h-4 rounded-full bg-white border border-[#F0F0F0]" />
+    <div className="w-full max-w-[290px] rounded-[20px] border border-white/80 bg-[#FBF8F3] shadow-[0_24px_48px_-24px_rgba(80,40,10,0.35)] overflow-hidden">
+      <div className="flex items-center gap-2.5 px-3.5 py-2.5 bg-white border-b border-[#F0ECE6]">
+        <span className="relative w-8 h-8 rounded-full bg-brand/25 flex items-center justify-center shrink-0">
+          <span className="x-mark w-4 h-4 bg-brand-light" aria-hidden="true" />
+          <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5">
+            <ToolIcon name="whatsapp" />
+          </span>
+        </span>
+        <div className="min-w-0">
+          <p className="text-[12px] text-ink leading-tight">Asistente IA</p>
+          <p className="text-[10px] text-ink/45 leading-tight">{typing ? "escribiendo…" : "en línea"}</p>
+        </div>
       </div>
-      <div className="relative w-full aspect-[16/10] overflow-hidden bg-[#F5F5F5]">
-        {image ? (
-          <Image
-            src={image}
-            alt="Vista previa del sitio de la agencia de viajes"
-            fill
-            className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#FFF1EC] to-[#FAFAFA] text-[#C9A38F]">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-8 h-8"
-              aria-hidden="true"
-            >
-              <path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11Z" />
-              <circle cx="12" cy="10" r="2.4" />
-            </svg>
+
+      <div className="h-[244px] sm:h-[262px] px-3 py-3 flex flex-col justify-end gap-1.5 overflow-hidden" aria-live="off">
+        {chat.slice(0, shown).map((m, i) => (
+          <div
+            key={i}
+            className={`max-w-[82%] rounded-[14px] px-3 py-2 text-[12px] leading-snug text-ink animate-fade-up ${
+              m.from === "agent"
+                ? "self-end bg-[#FFE9C7] rounded-br-[4px]"
+                : "self-start bg-white border border-[#F0ECE6] rounded-bl-[4px]"
+            }`}
+          >
+            {m.audio ? <VoiceNote duration={m.text} /> : m.text}
+          </div>
+        ))}
+        {typing && (
+          <div className="self-end bg-[#FFE9C7] rounded-[14px] rounded-br-[4px] px-3 py-2.5 flex gap-1 animate-fade-up" aria-hidden="true">
+            {[0, 1, 2].map((d) => (
+              <span
+                key={d}
+                className="w-1.5 h-1.5 rounded-full bg-ink/40 animate-typing-dot"
+                style={{ animationDelay: `${d * 160}ms` }}
+              />
+            ))}
           </div>
         )}
       </div>
@@ -202,18 +152,20 @@ function WebPreviewVisual({ image }: { image?: string }) {
 export default function CaseVisual({
   type,
   image,
+  url,
+  chat,
   active,
 }: {
   type: CaseVisualShape;
   image?: string;
+  url?: string;
+  chat?: CaseChatMessage[];
   active: boolean;
 }) {
   switch (type) {
-    case "workflow":
-      return <WorkflowVisual />;
-    case "agentHub":
-      return <AgentHubVisual active={active} />;
-    case "webPreview":
-      return <WebPreviewVisual image={image} />;
+    case "webScroll":
+      return <WebScrollVisual image={image} url={url} active={active} />;
+    case "whatsappChat":
+      return <WhatsappChatVisual chat={chat} active={active} />;
   }
 }
