@@ -6,13 +6,20 @@ import Atmosphere from "./Atmosphere";
 import ServiceIcon from "./ServiceIcon";
 import ToolIcon, { type ToolIconName } from "./ToolIcon";
 
+// /diagnostico (the quiz) is hidden for now, so the diagnóstico card opens WhatsApp.
+const DIAGNOSTICO_WHATSAPP = whatsappLink(
+  "Hola! Quiero un diagnóstico gratuito para ver dónde la IA puede ayudar a mi negocio."
+);
+
 const PILL_TOOLS: ToolIconName[] = ["whatsapp", "chatgpt", "gmail"];
 
 function ArrowButton({ href, label }: { href: string; label: string }) {
+  const external = href.startsWith("http");
   return (
     <Link
       href={href}
       aria-label={label}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className="shrink-0 w-8 h-8 rounded-full bg-white/55 border border-white/70 flex items-center justify-center text-ink/70 hover:bg-white hover:text-ink transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
     >
       <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
@@ -96,17 +103,19 @@ export default function Hero() {
           <div className="flex-1 flex flex-col py-1.5 pr-1.5 text-left">
             <div className="flex items-start justify-between gap-2">
               <p className="text-[15px] font-medium text-ink">Empezá por un diagnóstico</p>
-              <ArrowButton href="/diagnostico" label="Ir al diagnóstico gratuito" />
+              <ArrowButton href={DIAGNOSTICO_WHATSAPP} label="Pedir un diagnóstico por WhatsApp" />
             </div>
             <p className="text-[13px] leading-snug text-ink/65 mt-1 max-w-[260px]">
-              Respondé unas preguntas y te decimos dónde la IA te ahorra más tiempo.
+              Contanos cómo trabajás hoy y te decimos dónde la IA te ahorra más tiempo.
             </p>
-            <Link
-              href="/diagnostico"
+            <a
+              href={DIAGNOSTICO_WHATSAPP}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-auto pt-3 w-fit text-[12px] font-medium text-ink bg-white/70 hover:bg-white px-3.5 py-1.5 rounded-full transition-colors"
             >
               Diagnóstico gratis
-            </Link>
+            </a>
           </div>
         </div>
 

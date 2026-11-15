@@ -7,10 +7,10 @@ import { CONTACT_EMAIL, PHONE_DISPLAY, PHONE_E164, whatsappLink } from "@/app/li
 
 const links = [
   { href: "/#servicios", label: "Servicios" },
+  { href: "/industrias", label: "Industrias" },
   { href: "/#proceso", label: "Cómo trabajamos" },
   { href: "/#casos", label: "Casos" },
   { href: "/#faq", label: "FAQ" },
-  { href: "/diagnostico", label: "Diagnóstico gratis" },
 ];
 
 const WHATSAPP_HREF = whatsappLink(

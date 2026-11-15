@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { whatsappLink } from "@/app/lib/site";
 import Atmosphere from "./Atmosphere";
 import Reveal from "./Reveal";
@@ -39,12 +38,6 @@ export default function CtaFinal() {
           >
             Hablar por WhatsApp
           </a>
-          <Link
-            href="/diagnostico"
-            className="bg-brand text-ink px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-brand-light transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
-          >
-            Hacer el diagnóstico
-          </Link>
         </div>
       </Reveal>
     </section>
