@@ -5,8 +5,7 @@ import Nav from "@/app/components/Nav";
 import CtaFinal from "@/app/components/CtaFinal";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
-import CaseVisual from "@/app/components/CaseVisual";
-import Atmosphere from "@/app/components/Atmosphere";
+import { CaseStage } from "@/app/components/CaseVisual";
 import { cases, services } from "@/app/lib/landing-data";
 import { breadcrumbSchema, caseStudySchema } from "@/app/lib/structured-data";
 import { whatsappLink } from "@/app/lib/site";
@@ -129,12 +128,15 @@ export default async function CaseStudyPage({
             </a>
           </div>
 
-          <div className="relative w-full min-h-[380px] sm:min-h-[420px] rounded-[24px] overflow-hidden flex items-center justify-center p-6 sm:p-10">
-            <Atmosphere variant="soft" mark={false} />
-            <div className="relative w-full flex justify-center">
-              <CaseVisual type={caseStudy.visual} image={caseStudy.image} url={caseStudy.url} chat={caseStudy.chat} active />
-            </div>
-          </div>
+          <CaseStage
+            type={caseStudy.visual}
+            image={caseStudy.image}
+            url={caseStudy.url}
+            chat={caseStudy.chat}
+            avatar={caseStudy.chatAvatar}
+            active
+            className="w-full h-[440px] sm:h-[500px]"
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-16 pt-14 sm:pt-16 border-t border-line">
