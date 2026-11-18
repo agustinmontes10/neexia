@@ -14,7 +14,7 @@ function spanFor(i: number, total: number) {
 
 export default function Servicios() {
   return (
-    <section id="servicios" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28 scroll-mt-8">
+    <section id="servicios" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28">
       <Reveal className="mb-12 sm:mb-14 max-w-[760px]">
         <SectionHeading inline muted="Cinco servicios." strong="Un mismo objetivo." />
         <p className="mt-5 text-[16px] text-body leading-relaxed max-w-[520px]">

@@ -11,7 +11,7 @@ export default function Faq() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section id="faq" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28 scroll-mt-8">
+    <section id="faq" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28">
       <JsonLd data={faqSchema(faqs)} />
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16">
         <Reveal>

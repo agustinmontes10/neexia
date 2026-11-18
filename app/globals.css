@@ -334,6 +334,15 @@
   }
 }
 
+/* In-page anchors (/#servicios…) glide instead of jumping, and land a little
+   below the top edge so the floating nav pill never covers a heading. Route
+   changes stay instant via data-scroll-behavior on <html> (Next 16). The
+   reduced-motion block above already forces scroll-behavior: auto. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

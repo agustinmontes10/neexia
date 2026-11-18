@@ -1,17 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CONTACT_EMAIL, PHONE_DISPLAY, PHONE_E164, whatsappLink } from "@/app/lib/site";
 
 const links = [
   { href: "/#servicios", label: "Servicios" },
-  { href: "/industrias", label: "Industrias" },
   { href: "/#proceso", label: "Cómo trabajamos" },
   { href: "/#casos", label: "Casos" },
   { href: "/#faq", label: "FAQ" },
 ];
+
+/** Landing section ids the links point at, used for the active-section indicator. */
+const SECTION_IDS = links.map((l) => l.href.split("#")[1]).filter(Boolean);
+
+/** Scroll distance (px) in one direction before the floating pill hides/shows. */
+const DIRECTION_SLOP = 8;
 
 const WHATSAPP_HREF = whatsappLink(
   "Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio."
@@ -27,6 +33,86 @@ export default function Nav({
   overlay?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  // Floating pill: appears once the in-flow nav has scrolled away, hides while
+  // scrolling down and comes back on any scroll up. `holdUntil` keeps it visible
+  // during the smooth scroll that a click on one of its own links triggers.
+  const [pill, setPill] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const holdUntil = useRef(0);
+
+  useEffect(() => {
+    let anchorY = window.scrollY;
+    let frame = 0;
+
+    const update = (initial = false) => {
+      frame = 0;
+      const y = window.scrollY;
+      const threshold = overlay ? window.innerHeight * 0.75 : 160;
+      const delta = y - anchorY;
+
+      if (y < threshold) {
+        setPill(false);
+        anchorY = y;
+      } else if (initial || Date.now() < holdUntil.current) {
+        setPill(true);
+        anchorY = y;
+      } else if (Math.abs(delta) > DIRECTION_SLOP) {
+        setPill(delta < 0);
+        anchorY = y;
+      }
+
+      if (isHome) {
+        // Active = the section crossing a line 40% down the viewport. The gaps
+        // (hero, intro, closing CTA) leave nothing highlighted.
+        const line = window.innerHeight * 0.4;
+        let current: string | null = null;
+        for (const id of SECTION_IDS) {
+          const r = document.getElementById(id)?.getBoundingClientRect();
+          if (r && r.top <= line && r.bottom > line) {
+            current = id;
+            break;
+          }
+        }
+        setActive(current);
+      }
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(() => update());
+    };
+
+    update(true);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [overlay, isHome]);
+
+  // Sliding highlight behind the active pill link, measured from the DOM.
+  const linksRef = useRef<HTMLDivElement>(null);
+  const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = active ? linksRef.current?.querySelector<HTMLElement>(`[data-section="${active}"]`) : null;
+      // With nothing active, keep the last position so the highlight just fades out.
+      if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [active]);
+
+  const holdPill = () => {
+    holdUntil.current = Date.now() + 1500;
+    setPill(true);
+  };
 
   // Full-screen mobile menu: freeze the page underneath and allow Esc to close.
   useEffect(() => {
@@ -85,6 +171,74 @@ export default function Nav({
         </div>
       </nav>
 
+      {/* Floating glass pill, shown after the bar above has scrolled away. */}
+      <div
+        inert={!pill}
+        aria-hidden={!pill}
+        className={`fixed inset-x-0 top-3 z-50 flex justify-center px-3 pointer-events-none transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          pill ? "translate-y-0 opacity-100" : "-translate-y-[140%] opacity-0"
+        }`}
+      >
+        <nav
+          aria-label="Navegación flotante"
+          className="glass pointer-events-auto flex w-full max-w-fit items-center gap-1 rounded-full p-1.5 pl-4"
+        >
+          <Link href="/" aria-label="Neexia — inicio" className={`mr-auto md:mr-3 shrink-0 rounded-full ${focusRing}`}>
+            <Image src="/logoNeexia.svg" alt="Neexia" width={2048} height={535} className="h-5 w-auto" />
+          </Link>
+
+          <div ref={linksRef} className="relative hidden md:flex items-center">
+            <span
+              aria-hidden="true"
+              className="absolute inset-y-0 rounded-full bg-white/80 shadow-[0_1px_2px_rgba(22,22,22,0.06)] transition-[left,width,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              style={{
+                left: indicator?.left ?? 0,
+                width: indicator?.width ?? 0,
+                opacity: active && indicator ? 1 : 0,
+              }}
+            />
+            {links.map((link) => {
+              const id = link.href.split("#")[1];
+              const on = isHome && id === active;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  data-section={id}
+                  aria-current={on ? "location" : undefined}
+                  onClick={holdPill}
+                  className={`relative rounded-full px-3.5 py-2 text-[13px] transition-colors ${
+                    on ? "text-ink" : "text-ink/65 hover:text-ink"
+                  } ${focusRing}`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          <a
+            href={WHATSAPP_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`ml-2 shrink-0 bg-brand text-ink px-4 py-2 rounded-full text-[13px] font-medium hover:bg-brand-light transition-colors ${focusRing}`}
+          >
+            Hablemos
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label="Abrir menú"
+            className={`md:hidden w-9 h-9 shrink-0 flex flex-col items-center justify-center gap-[5px] rounded-full bg-white/70 ${focusRing}`}
+          >
+            <span className="block w-4 h-[1.5px] bg-ink rounded-full" />
+            <span className="block w-4 h-[1.5px] bg-ink rounded-full" />
+          </button>
+        </nav>
+      </div>
+
       {open && (
         <div
           id="mobile-menu"
@@ -114,7 +268,10 @@ export default function Nav({
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  holdPill();
+                }}
                 className={`group flex items-center justify-between gap-4 border-b border-line py-5 animate-fade-up ${focusRing}`}
                 style={{ animationDelay: `${i * 70}ms` }}
               >
