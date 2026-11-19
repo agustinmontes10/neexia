@@ -22,8 +22,8 @@ export default function Casos() {
   const [ref, active] = useInView<HTMLDivElement>(0.2);
 
   return (
-    <section id="casos" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28">
-      <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-14">
+    <section id="casos" className="screen-section max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28">
+      <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-14 lg:mb-[clamp(20px,4svh,56px)]">
         <SectionHeading muted="Negocios que ya" strong="trabajan con IA." />
         <p className="text-[15px] text-body leading-relaxed max-w-[280px]">
           Resultados medidos en proyectos reales, no promesas.
@@ -44,7 +44,7 @@ export default function Casos() {
                 chat={c.chat}
                 avatar={c.chatAvatar}
                 active={active}
-                className="h-[420px] sm:h-[480px] lg:h-[500px]"
+                className="h-[420px] sm:h-[480px] lg:h-[clamp(260px,calc(68svh-128px),500px)]"
                 visualClassName="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2"
               >
                 <span className="absolute top-4 left-4 text-[11px] text-ink/70 bg-white/70 border border-white backdrop-blur rounded-full px-2.5 py-1">
@@ -55,9 +55,9 @@ export default function Casos() {
                 </div>
               </CaseStage>
 
-              <div className="pt-5 px-1 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+              <div className="pt-5 lg:pt-4 px-1 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
                 <div>
-                  <div className="text-[44px] sm:text-[48px] leading-none tracking-[-0.045em] text-ink tabular-nums">
+                  <div className="text-[44px] sm:text-[48px] lg:text-[length:clamp(36px,6svh,48px)] leading-none tracking-[-0.045em] text-ink tabular-nums">
                     <AnimatedMetric value={c.metric} active={active} />
                   </div>
                   <p className="mt-2 text-[14px] text-body">{c.metricLabel}</p>

@@ -50,8 +50,8 @@ export default function Intro() {
   const scene = scenes[active];
 
   return (
-    <section className="max-w-[1200px] mx-auto px-5 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
-      <Reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 lg:gap-10 mb-10 sm:mb-12">
+    <section className="screen-section max-w-[1200px] mx-auto px-5 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
+      <Reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 lg:gap-10 mb-10 sm:mb-12 lg:mb-[clamp(20px,4svh,48px)]">
         <SectionHeading muted="Lo que hacemos," strong="en tu día a día." />
         <p className="text-[16px] text-body leading-relaxed max-w-[440px] lg:text-right">
           No importa el rubro: casi todos los negocios pierden tiempo en las mismas cosas. Estas son las que
@@ -59,9 +59,17 @@ export default function Intro() {
         </p>
       </Reveal>
 
-      <div ref={ref} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+      {/* On lg the section is one screen tall (.screen-section) and the window
+          takes whatever height is left, capped so it doesn't balloon on tall
+          monitors; its min-height is what the shortest scene needs. */}
+      <div
+        ref={ref}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        className="lg:flex-1 lg:max-h-[660px] lg:flex lg:flex-col"
+      >
         {/* Browser-like window: tabs on top, the active scene below. */}
-        <div className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden flex flex-col lg:h-[clamp(420px,calc(100svh-390px),580px)]">
+        <div className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden flex flex-col lg:flex-1 lg:min-h-[340px]">
           <Atmosphere variant="soft" />
 
           {/* Tab strip. The active tab has no fill so the window's own background
@@ -134,16 +142,18 @@ export default function Intro() {
             id="scene-panel"
             role="tabpanel"
             aria-labelledby={`scene-tab-${active}`}
-            className="relative flex-1 flex flex-col px-5 sm:px-10 pt-7 sm:pt-9 pb-10"
+            className="relative flex-1 flex flex-col px-5 sm:px-10 pt-7 sm:pt-9 pb-10 lg:pt-[clamp(18px,3.5svh,36px)] lg:pb-[clamp(16px,3.5svh,40px)]"
           >
             <p
               key={`q${active}`}
-              className="animate-blur-in text-center text-[19px] sm:text-[24px] leading-[1.2] tracking-[-0.025em] text-ink max-w-[640px] mx-auto"
+              className="animate-blur-in text-center text-[19px] sm:text-[24px] lg:text-[length:clamp(19px,3.4svh,24px)] leading-[1.2] tracking-[-0.025em] text-ink max-w-[640px] mx-auto"
             >
               “{scene.quote}”
             </p>
             <div className="flex-1 flex items-center mt-8 lg:mt-4">
-              <SceneVisual key={active} shape={scene.visual} play={inView} />
+              <div className="fit-zoom w-full">
+                <SceneVisual key={active} shape={scene.visual} play={inView} />
+              </div>
             </div>
           </div>
         </div>

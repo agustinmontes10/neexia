@@ -14,8 +14,8 @@ function spanFor(i: number, total: number) {
 
 export default function Servicios() {
   return (
-    <section id="servicios" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28">
-      <Reveal className="mb-12 sm:mb-14 max-w-[760px]">
+    <section id="servicios" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28 lg:py-[clamp(72px,12svh,112px)]">
+      <Reveal className="mb-12 sm:mb-14 lg:mb-[clamp(36px,6svh,56px)] max-w-[760px]">
         <SectionHeading inline muted="Cinco servicios." strong="Un mismo objetivo." />
         <p className="mt-5 text-[16px] text-body leading-relaxed max-w-[520px]">
           Soluciones concretas para negocios reales: del primer diagnóstico a
@@ -30,7 +30,7 @@ export default function Servicios() {
               href={`/servicios/${s.slug}`}
               className="group block focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-4 rounded-[22px]"
             >
-              <div className="relative h-[260px] sm:h-[300px] rounded-[22px] overflow-hidden flex items-center justify-center px-6">
+              <div className="relative h-[260px] sm:h-[300px] lg:h-[clamp(240px,34svh,300px)] rounded-[22px] overflow-hidden flex items-center justify-center px-6">
                 <Atmosphere variant="soft" mark={false} />
                 <div className="relative w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]">
                   <ServiceVisual icon={s.icon} bare />

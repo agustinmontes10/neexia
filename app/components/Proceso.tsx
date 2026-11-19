@@ -178,7 +178,7 @@ export default function Proceso() {
 
   const header = (
     <>
-      <h2 className="text-[36px] sm:text-[48px] lg:text-[56px] font-normal leading-[1.04] tracking-[-0.04em] text-ink">
+      <h2 className="text-[36px] sm:text-[48px] lg:text-[length:clamp(36px,min(4vw,6.6svh),56px)] font-normal leading-[1.04] tracking-[-0.04em] text-ink">
         Cómo trabajamos
       </h2>
       <p className="mt-4 text-[16px] text-body leading-relaxed max-w-[400px]">
@@ -194,7 +194,7 @@ export default function Proceso() {
       <div ref={pinRef} className="hidden lg:block relative" style={{ height: `${steps.length * VH_PER_STEP + VH_TAIL}vh` }}>
         <div className="sticky top-0 h-screen flex items-center">
           <div className="w-full max-w-[1200px] mx-auto px-10 grid grid-cols-[1.15fr_1fr] gap-16 items-center">
-            <div className="relative aspect-[5/4] rounded-[28px] overflow-hidden">
+            <div className="relative aspect-[5/4] max-h-[calc(100svh-80px)] rounded-[28px] overflow-hidden">
               <Atmosphere variant="soft" />
               {steps.map((s, i) => (
                 <div
@@ -211,7 +211,7 @@ export default function Proceso() {
 
             <div>
               {header}
-              <ol className="relative mt-12 flex flex-col gap-2 pl-5">
+              <ol className="relative mt-[clamp(20px,4svh,48px)] flex flex-col gap-2 pl-5">
                 {/* Progress through the pinned section: a hairline track that fills as you scroll. */}
                 <span aria-hidden="true" className="absolute left-0 top-4 bottom-4 w-[2px] rounded-full bg-ink/10 overflow-hidden">
                   <span
@@ -226,7 +226,7 @@ export default function Proceso() {
                     <li
                       key={s.n}
                       aria-current={on ? "step" : undefined}
-                      className={`relative rounded-[18px] px-5 py-4 transition-all duration-500 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand has-[:focus-visible]:outline-offset-2 ${
+                      className={`relative rounded-[18px] px-5 py-[clamp(10px,1.8svh,16px)] transition-all duration-500 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand has-[:focus-visible]:outline-offset-2 ${
                         on ? "bg-white shadow-[0_18px_40px_-24px_rgba(60,40,20,0.35)]" : "bg-transparent hover:bg-white/45"
                       }`}
                     >

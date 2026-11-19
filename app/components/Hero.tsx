@@ -60,19 +60,19 @@ export default function Hero() {
       {/* Melt the atmosphere into the bone page background. */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent via-bone/60 to-bone" />
 
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-5 sm:px-10 pt-32 sm:pt-40 pb-12">
-        <h1 className="animate-blur-in text-[38px] sm:text-[64px] lg:text-[76px] leading-[1.04] font-normal tracking-[-0.045em] text-ink max-w-[980px]">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-5 sm:px-10 pt-32 sm:pt-40 pb-12 lg:pt-[clamp(88px,15svh,160px)] lg:pb-[clamp(20px,4svh,48px)]">
+        <h1 className="animate-blur-in text-[38px] sm:text-[64px] lg:text-[length:clamp(46px,min(5.6vw,9svh),76px)] leading-[1.04] font-normal tracking-[-0.045em] text-ink max-w-[980px]">
           Hacé que <span className="whitespace-nowrap">la IA <ToolPills /></span>
           <br /> trabaje para tu negocio
         </h1>
 
-        <p className="animate-blur-in [animation-delay:150ms] mt-6 text-[16px] sm:text-[18px] leading-relaxed text-ink/70 max-w-[540px]">
+        <p className="animate-blur-in [animation-delay:150ms] mt-6 lg:mt-[clamp(14px,2.6svh,24px)] text-[16px] sm:text-[18px] lg:text-[length:clamp(16px,2.6svh,18px)] leading-relaxed text-ink/70 max-w-[540px]">
           Dejamos funcionando solas las tareas que hoy te comen el día: responder
           consultas, hacer seguimiento, mandar recordatorios y ordenar tus datos.
           A medida de pymes y startups.
         </p>
 
-        <div className="animate-blur-in [animation-delay:250ms] mt-9 flex flex-wrap justify-center gap-3">
+        <div className="animate-blur-in [animation-delay:250ms] mt-9 lg:mt-[clamp(20px,4svh,36px)] flex flex-wrap justify-center gap-3">
           <a
             href={whatsappLink("Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio.")}
             target="_blank"
@@ -91,7 +91,7 @@ export default function Hero() {
       </div>
 
       {/* Glass cards resting on the atmosphere. */}
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-10 pb-10 sm:pb-14 grid grid-cols-1 md:grid-cols-[1.45fr_1fr_1fr] gap-3">
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-10 pb-10 sm:pb-14 lg:pb-[clamp(20px,4svh,56px)] grid grid-cols-1 md:grid-cols-[1.45fr_1fr_1fr] gap-3">
         {/* Diagnóstico */}
         <div className="glass rounded-[22px] p-3 flex gap-4 animate-blur-in [animation-delay:400ms]">
           <div className="relative w-[112px] sm:w-[128px] shrink-0 rounded-[16px] overflow-hidden min-h-[120px]">
