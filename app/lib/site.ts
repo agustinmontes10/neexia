@@ -13,7 +13,7 @@ export const SITE_TAGLINE = "Agencia de IA para pymes y startups";
 export const SITE_DESCRIPTION =
   "Agencia de IA que ayuda a pymes y startups a automatizar procesos, atender mejor a sus clientes y decidir con mejores datos. Argentina y Latinoamérica.";
 
-export const CONTACT_EMAIL = "contact.neexia@gmail.com";
+export const CONTACT_EMAIL = "contacto@neexia.com.ar";
 
 export const WHATSAPP_NUMBER = "5492983697357";
 /** E.164 for `tel:` links and JSON-LD `telephone`. */

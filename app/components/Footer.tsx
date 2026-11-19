@@ -46,7 +46,6 @@ export default function Footer() {
           <Link href="/#proceso" className={linkCls}>Cómo trabajamos</Link>
           <Link href="/#casos" className={linkCls}>Casos de éxito</Link>
           <Link href="/#faq" className={linkCls}>Preguntas frecuentes</Link>
-          <Link href="/industrias" className={linkCls}>IA por industria</Link>
           <Link href="/glosario" className={linkCls}>Glosario</Link>
         </Column>
 
