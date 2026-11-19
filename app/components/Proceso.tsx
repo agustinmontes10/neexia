@@ -131,8 +131,13 @@ function StepVisual({ index }: { index: number }) {
   return <V />;
 }
 
+/** Scroll length per step on desktop (vh), plus a tail so the last step gets a beat. */
+const VH_PER_STEP = 50;
+const VH_TAIL = 30;
+
 export default function Proceso() {
   const pinRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLSpanElement>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -146,6 +151,8 @@ export default function Proceso() {
       if (scrollable <= 0) return;
       const progress = Math.min(Math.max(-rect.top / scrollable, 0), 0.999);
       setActive(Math.floor(progress * steps.length));
+      // Written straight to the DOM: it changes every frame, no need to re-render.
+      if (barRef.current) barRef.current.style.transform = `scaleY(${progress})`;
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -160,9 +167,18 @@ export default function Proceso() {
     };
   }, []);
 
+  // Jump to the middle of a step's scroll range; html's smooth scroll animates it.
+  const goToStep = (i: number) => {
+    const el = pinRef.current;
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    const scrollable = el.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: top + (scrollable * (i + 0.5)) / steps.length });
+  };
+
   const header = (
     <>
-      <h2 className="text-[36px] sm:text-[48px] lg:text-[56px] font-normal leading-[1.04] tracking-[-0.04em] text-ink">
+      <h2 className="text-[36px] sm:text-[48px] lg:text-[length:clamp(36px,min(4vw,6.6svh),56px)] font-normal leading-[1.04] tracking-[-0.04em] text-ink">
         Cómo trabajamos
       </h2>
       <p className="mt-4 text-[16px] text-body leading-relaxed max-w-[400px]">
@@ -173,12 +189,12 @@ export default function Proceso() {
   );
 
   return (
-    <section id="proceso" className="bg-[#efede7] scroll-mt-0">
+    <section id="proceso" className="bg-[#efede7] lg:-scroll-mt-8">
       {/* Desktop: pinned, scroll-driven */}
-      <div ref={pinRef} className="hidden lg:block relative" style={{ height: `${steps.length * 70 + 30}vh` }}>
+      <div ref={pinRef} className="hidden lg:block relative" style={{ height: `${steps.length * VH_PER_STEP + VH_TAIL}vh` }}>
         <div className="sticky top-0 h-screen flex items-center">
           <div className="w-full max-w-[1200px] mx-auto px-10 grid grid-cols-[1.15fr_1fr] gap-16 items-center">
-            <div className="relative aspect-[5/4] rounded-[28px] overflow-hidden">
+            <div className="relative aspect-[5/4] max-h-[calc(100svh-80px)] rounded-[28px] overflow-hidden">
               <Atmosphere variant="soft" />
               {steps.map((s, i) => (
                 <div
@@ -195,15 +211,23 @@ export default function Proceso() {
 
             <div>
               {header}
-              <ol className="mt-12 flex flex-col gap-2">
+              <ol className="relative mt-[clamp(20px,4svh,48px)] flex flex-col gap-2 pl-5">
+                {/* Progress through the pinned section: a hairline track that fills as you scroll. */}
+                <span aria-hidden="true" className="absolute left-0 top-4 bottom-4 w-[2px] rounded-full bg-ink/10 overflow-hidden">
+                  <span
+                    ref={barRef}
+                    className="absolute inset-0 origin-top rounded-full bg-brand"
+                    style={{ transform: "scaleY(0)" }}
+                  />
+                </span>
                 {steps.map((s, i) => {
                   const on = i === active;
                   return (
                     <li
                       key={s.n}
                       aria-current={on ? "step" : undefined}
-                      className={`rounded-[18px] px-5 py-4 transition-all duration-500 ${
-                        on ? "bg-white shadow-[0_18px_40px_-24px_rgba(60,40,20,0.35)]" : "bg-transparent"
+                      className={`relative rounded-[18px] px-5 py-[clamp(10px,1.8svh,16px)] transition-all duration-500 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand has-[:focus-visible]:outline-offset-2 ${
+                        on ? "bg-white shadow-[0_18px_40px_-24px_rgba(60,40,20,0.35)]" : "bg-transparent hover:bg-white/45"
                       }`}
                     >
                       <div className="flex items-baseline gap-3">
@@ -211,7 +235,14 @@ export default function Proceso() {
                           {s.n}
                         </span>
                         <h3 className={`text-[18px] tracking-[-0.01em] transition-colors duration-500 ${on ? "text-ink" : "text-ink/45"}`}>
-                          {s.title}
+                          {/* The button's ::after stretches over the whole card, so all of it is clickable. */}
+                          <button
+                            type="button"
+                            onClick={() => goToStep(i)}
+                            className="text-left cursor-pointer outline-none after:absolute after:inset-0 after:rounded-[18px]"
+                          >
+                            {s.title}
+                          </button>
                         </h3>
                       </div>
                       <p className={`mt-1 pl-[30px] text-[14px] leading-relaxed transition-colors duration-500 ${on ? "text-body" : "text-ink/35"}`}>

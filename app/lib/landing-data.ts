@@ -45,6 +45,8 @@ export type CaseStudy = {
   url?: string;
   /** "whatsappChat" visual: the conversation, played message by message. */
   chat?: CaseChatMessage[];
+  /** "whatsappChat" visual: the client's logo, shown as the assistant's profile picture. */
+  chatAvatar?: string;
   metric: string;
   metricLabel: string;
   quote: string;
@@ -259,6 +261,8 @@ export const steps: Step[] = [
   { n: "04", title: "Acompañamiento", desc: "Medimos resultados y optimizamos de forma continua." },
 ];
 
+// Para sumar la segunda web: una entrada más con `visual: "webScroll"`, `image`
+// (captura de página completa → WebP ~720px de ancho en /public/casos) y `url`.
 export const cases: CaseStudy[] = [
   {
     slug: "web-agencia-viajes",
@@ -294,6 +298,7 @@ export const cases: CaseStudy[] = [
     slug: "agente-ia-whatsapp",
     title: "Agente de IA que atiende WhatsApp",
     visual: "whatsappChat",
+    chatAvatar: "/casos/logoTravelAgency.png",
     chat: [
       { from: "customer", text: "0:07", audio: true },
       {
@@ -331,26 +336,6 @@ export const cases: CaseStudy[] = [
         "atención automática WhatsApp",
       ],
     },
-  },
-  {
-    // PLACEHOLDER: segunda web — reemplazar con el proyecto real (captura de página completa en /public/casos).
-    slug: "web-nuevo-proyecto",
-    title: "Sitio web a medida",
-    visual: "webScroll",
-    url: "proximamente.com",
-    metric: "+30%",
-    metricLabel: "consultas recibidas desde la web",
-    quote: "Ahora la web trabaja por nosotros: nos llegan consultas todos los días.",
-    name: "Proyecto web",
-    role: "Desarrollo web",
-    longDescription:
-      "Diseñamos y desarrollamos un sitio nuevo, rápido y pensado para convertir visitas en consultas.",
-    highlights: [
-      "Diseño a medida de la marca",
-      "Optimización de velocidad y SEO técnico",
-      "Contacto directo por WhatsApp desde cada página",
-    ],
-    relatedServices: ["desarrollo-web"],
   },
 ];
 

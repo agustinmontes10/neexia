@@ -11,7 +11,7 @@ const FADE = "radial-gradient(ellipse 60% 65% at 50% 50%, black 25%, transparent
  */
 export default function CtaFinal() {
   return (
-    <section className="relative px-5 sm:px-10 pt-24 pb-28 sm:pt-32 sm:pb-36">
+    <section className="relative px-5 sm:px-10 pt-24 pb-28 sm:pt-32 sm:pb-36 lg:pt-[clamp(72px,14svh,128px)] lg:pb-[clamp(80px,16svh,144px)]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -21,7 +21,7 @@ export default function CtaFinal() {
       </div>
 
       <Reveal className="relative max-w-[760px] mx-auto text-center">
-        <h2 className="text-[36px] sm:text-[52px] lg:text-[60px] font-normal leading-[1.05] tracking-[-0.04em] text-balance">
+        <h2 className="text-[36px] sm:text-[52px] lg:text-[length:clamp(40px,min(4.4vw,7.2svh),60px)] font-normal leading-[1.05] tracking-[-0.04em] text-balance">
           <span className="block text-mute">El mejor momento</span>
           <span className="block text-ink">para que la IA trabaje por vos.</span>
         </h2>

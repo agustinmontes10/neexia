@@ -23,8 +23,8 @@ export default function SectionHeading({
   const part = inline ? "inline" : "block";
   const sizes =
     size === "xl"
-      ? "text-[38px] sm:text-[52px] lg:text-[60px]"
-      : "text-[32px] sm:text-[44px] lg:text-[52px]";
+      ? "text-[38px] sm:text-[52px] lg:text-[length:clamp(40px,min(4.4vw,7.2svh),60px)]"
+      : "text-[32px] sm:text-[44px] lg:text-[length:clamp(36px,min(3.8vw,6.4svh),52px)]";
   return (
     <Tag
       className={`${sizes} font-normal leading-[1.06] tracking-[-0.035em] text-balance ${className}`}

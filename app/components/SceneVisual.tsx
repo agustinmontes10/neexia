@@ -163,7 +163,7 @@ function Reminders() {
         <div className="flex justify-center items-center" style={{ ...at(0.05, 0.2), ...vanish }}>
           <div className="w-[230px] sm:w-[260px] -rotate-3 bg-[#ffe680] px-6 py-6 shadow-[0_18px_34px_-16px_rgba(90,45,10,0.5)]">
             <p className="text-[17px] sm:text-[19px] leading-snug italic text-ink/80">
-              Avisarle a Gómez que vence la póliza!!
+              Avisarle a Juan que vence la póliza!!
             </p>
           </div>
         </div>
@@ -171,7 +171,7 @@ function Reminders() {
         {/* With Neexia: it went out, and he answered. */}
         <div className="flex flex-col gap-4" style={{ ...at(0.2, 0.2), opacity: "var(--pi)" }}>
           <Bubble out time="09:00">
-            Hola Gómez, tu póliza vence el 15/11. ¿La renovamos?
+            Hola Juan, tu póliza vence el 15/11. ¿La renovamos?
           </Bubble>
           <div style={{ ...at(0.5), ...appear }}>
             <Bubble time="09:12">Sí, renovala.</Bubble>

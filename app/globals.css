@@ -313,6 +313,34 @@
   mask: url("/X.svg") center / contain no-repeat;
 }
 
+/* Landing sections meant to be seen whole (Intro, Casos) are one screen tall
+   on desktop/notebook (lg+): content centred, vertical padding that shrinks
+   on short screens, inner sizes scaled with svh. Unlayered on purpose so it
+   wins over the section's own py-* (mobile) classes — don't add lg:py-* next
+   to it. Hero and Proceso fit the screen on their own (min-h / sticky). */
+@media (min-width: 64rem) {
+  .screen-section {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(2.5rem, 7svh, 6rem);
+  }
+}
+
+/* Illustrations shrink (layout included, hence zoom rather than scale) on
+   short desktop viewports — notebooks are typically ~600–800px tall. */
+@media (min-width: 64rem) and (max-height: 860px) {
+  .fit-zoom {
+    zoom: 0.85;
+  }
+}
+@media (min-width: 64rem) and (max-height: 720px) {
+  .fit-zoom {
+    zoom: 0.7;
+  }
+}
+
 /* Collapse every animation/transition to its end state. All keyframes in this
    file are authored so their final frame is a sensible static state (fade-up
    ends visible, flow dots end hidden, atmosphere blobs return to origin, ring
@@ -332,6 +360,15 @@
     filter: none;
     transform: none;
   }
+}
+
+/* In-page anchors (/#servicios…) glide instead of jumping, and land a little
+   below the top edge so the floating nav pill never covers a heading. Route
+   changes stay instant via data-scroll-behavior on <html> (Next 16). The
+   reduced-motion block above already forces scroll-behavior: auto. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
 }
 
 body {

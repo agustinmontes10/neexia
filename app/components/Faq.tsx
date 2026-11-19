@@ -11,7 +11,7 @@ export default function Faq() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section id="faq" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28 scroll-mt-8">
+    <section id="faq" className="max-w-[1200px] mx-auto px-5 sm:px-10 py-20 sm:py-28 lg:py-[clamp(72px,12svh,112px)]">
       <JsonLd data={faqSchema(faqs)} />
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16">
         <Reveal>
@@ -33,7 +33,7 @@ export default function Faq() {
                     aria-expanded={isOpen}
                     aria-controls={id}
                     onClick={() => setOpen(isOpen ? -1 : i)}
-                    className="w-full flex items-center justify-between gap-6 py-5 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2 rounded-sm"
+                    className="w-full flex items-center justify-between gap-6 py-5 lg:py-[clamp(14px,2.2svh,20px)] text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2 rounded-sm"
                   >
                     <span className="text-[16px] sm:text-[17px] text-ink tracking-[-0.01em]">{f.q}</span>
                     <span
@@ -61,7 +61,7 @@ export default function Faq() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="pb-5 pr-10 text-[14px] sm:text-[15px] text-body leading-relaxed">{f.a}</p>
+                      <p className="pb-5 lg:pb-[clamp(14px,2.2svh,20px)] pr-10 text-[14px] sm:text-[15px] text-body leading-relaxed">{f.a}</p>
                     </div>
                   </div>
                 </li>
