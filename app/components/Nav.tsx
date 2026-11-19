@@ -179,12 +179,15 @@ export default function Nav({
           pill ? "translate-y-0 opacity-100" : "-translate-y-[140%] opacity-0"
         }`}
       >
+        {/* Denser than .glass on purpose: it floats over big headings, and at 42%
+            white the letters behind read through the links. Full-width bar on
+            mobile (a fit-content capsule there looked tiny), capsule on md+. */}
         <nav
           aria-label="Navegación flotante"
-          className="glass pointer-events-auto flex w-full max-w-fit items-center gap-1 rounded-full p-1.5 pl-4"
+          className="pointer-events-auto flex w-full md:w-auto md:max-w-fit items-center gap-1.5 md:gap-1 rounded-full p-2 pl-5 md:p-1.5 md:pl-4 bg-bone/[0.82] backdrop-blur-2xl backdrop-saturate-150 border border-white/80 shadow-[0_1px_0_rgba(255,255,255,0.7)_inset,0_12px_32px_-14px_rgba(60,35,10,0.28)]"
         >
           <Link href="/" aria-label="Neexia — inicio" className={`mr-auto md:mr-3 shrink-0 rounded-full ${focusRing}`}>
-            <Image src="/logoNeexia.svg" alt="Neexia" width={2048} height={535} className="h-5 w-auto" />
+            <Image src="/logoNeexia.svg" alt="Neexia" width={2048} height={535} className="h-6 md:h-5 w-auto" />
           </Link>
 
           <div ref={linksRef} className="relative hidden md:flex items-center">
@@ -221,7 +224,7 @@ export default function Nav({
             href={WHATSAPP_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className={`ml-2 shrink-0 bg-brand text-ink px-4 py-2 rounded-full text-[13px] font-medium hover:bg-brand-light transition-colors ${focusRing}`}
+            className={`ml-2 shrink-0 bg-brand text-ink px-5 py-3 md:px-4 md:py-2 rounded-full text-[15px] md:text-[13px] font-medium hover:bg-brand-light transition-colors ${focusRing}`}
           >
             Hablemos
           </a>
@@ -231,7 +234,7 @@ export default function Nav({
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label="Abrir menú"
-            className={`md:hidden w-9 h-9 shrink-0 flex flex-col items-center justify-center gap-[5px] rounded-full bg-white/70 ${focusRing}`}
+            className={`md:hidden w-11 h-11 shrink-0 flex flex-col items-center justify-center gap-[5px] rounded-full bg-white border border-line ${focusRing}`}
           >
             <span className="block w-4 h-[1.5px] bg-ink rounded-full" />
             <span className="block w-4 h-[1.5px] bg-ink rounded-full" />
