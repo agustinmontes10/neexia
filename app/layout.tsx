@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import JsonLd from "@/app/components/JsonLd";
+import OffscreenAnimationPause from "@/app/components/OffscreenAnimationPause";
 import { organizationSchema, websiteSchema } from "@/app/lib/structured-data";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/app/lib/site";
 import "./globals.css";
@@ -86,6 +87,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-bone text-ink">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         {children}
+        <OffscreenAnimationPause />
         <Analytics />
       </body>
     </html>
