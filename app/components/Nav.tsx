@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CONTACT_EMAIL, PHONE_DISPLAY, PHONE_E164, whatsappLink } from "@/app/lib/site";
+import { btnBrand, focusRing } from "@/app/lib/ui";
 
 const links = [
   { href: "/#servicios", label: "Servicios" },
@@ -23,8 +24,9 @@ const WHATSAPP_HREF = whatsappLink(
   "Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio."
 );
 
-const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2";
+/** Burger lines: they part by a pixel on hover (transform only). */
+const burgerLine =
+  "block w-4 h-[1.5px] bg-ink rounded-full transition-[translate] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]";
 
 export default function Nav({
   overlay = false,
@@ -141,7 +143,7 @@ export default function Nav({
             <Link
               key={link.href}
               href={link.href}
-              className={`text-[14px] text-ink/75 hover:text-ink transition-colors ${focusRing}`}
+              className={`relative isolate rounded-full text-[14px] text-ink/75 hover:text-ink transition-colors duration-300 before:pointer-events-none before:absolute before:-inset-x-3 before:-inset-y-1.5 before:-z-10 before:rounded-full before:bg-white/70 before:opacity-0 before:transition-opacity before:duration-300 before:ease-[cubic-bezier(0.16,1,0.3,1)] hover:before:opacity-100 focus-visible:before:opacity-100 ${focusRing}`}
             >
               {link.label}
             </Link>
@@ -153,7 +155,7 @@ export default function Nav({
             href={WHATSAPP_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className={`bg-brand text-ink px-5 py-2.5 rounded-full text-[14px] font-medium hover:bg-brand-light transition-colors ${focusRing}`}
+            className={`${btnBrand} px-5 py-2.5 text-[14px]`}
           >
             Hablemos
           </a>
@@ -163,10 +165,10 @@ export default function Nav({
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
-            className={`md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full bg-white/60 backdrop-blur border border-white/70 ${focusRing}`}
+            className={`group md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full bg-white/60 backdrop-blur border border-white/70 transition-colors duration-300 hover:bg-white/90 ${focusRing}`}
           >
-            <span className="block w-4 h-[1.5px] bg-ink rounded-full" />
-            <span className="block w-4 h-[1.5px] bg-ink rounded-full" />
+            <span className={`${burgerLine} group-hover:-translate-y-px`} />
+            <span className={`${burgerLine} group-hover:translate-y-px`} />
           </button>
         </div>
       </nav>
@@ -190,6 +192,8 @@ export default function Nav({
             <Image src="/logoNeexia.svg" alt="Neexia" width={2048} height={535} className="h-6 md:h-5 w-auto" />
           </Link>
 
+          {/* Hover on an inactive link is a faint dark tint, so it never reads
+              as the white active-section fill sliding behind the links. */}
           <div ref={linksRef} className="relative hidden md:flex items-center">
             <span
               aria-hidden="true"
@@ -210,8 +214,8 @@ export default function Nav({
                   data-section={id}
                   aria-current={on ? "location" : undefined}
                   onClick={holdPill}
-                  className={`relative rounded-full px-3.5 py-2 text-[13px] transition-colors ${
-                    on ? "text-ink" : "text-ink/65 hover:text-ink"
+                  className={`relative rounded-full px-3.5 py-2 text-[13px] transition-colors duration-300 ${
+                    on ? "text-ink" : "text-ink/65 hover:text-ink hover:bg-ink/[0.045]"
                   } ${focusRing}`}
                 >
                   {link.label}
@@ -224,7 +228,7 @@ export default function Nav({
             href={WHATSAPP_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className={`ml-2 shrink-0 bg-brand text-ink px-5 py-3 md:px-4 md:py-2 rounded-full text-[15px] md:text-[13px] font-medium hover:bg-brand-light transition-colors ${focusRing}`}
+            className={`${btnBrand} ml-2 shrink-0 px-5 py-3 md:px-4 md:py-2 text-[15px] md:text-[13px]`}
           >
             Hablemos
           </a>
@@ -234,10 +238,10 @@ export default function Nav({
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label="Abrir menú"
-            className={`md:hidden w-11 h-11 shrink-0 flex flex-col items-center justify-center gap-[5px] rounded-full bg-white border border-line ${focusRing}`}
+            className={`group md:hidden w-11 h-11 shrink-0 flex flex-col items-center justify-center gap-[5px] rounded-full bg-white border border-line transition-colors duration-300 hover:border-ink/20 ${focusRing}`}
           >
-            <span className="block w-4 h-[1.5px] bg-ink rounded-full" />
-            <span className="block w-4 h-[1.5px] bg-ink rounded-full" />
+            <span className={`${burgerLine} group-hover:-translate-y-px`} />
+            <span className={`${burgerLine} group-hover:translate-y-px`} />
           </button>
         </nav>
       </div>
@@ -257,7 +261,7 @@ export default function Nav({
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Cerrar menú"
-              className={`w-10 h-10 flex items-center justify-center rounded-full bg-white border border-line ${focusRing}`}
+              className={`w-10 h-10 flex items-center justify-center rounded-full bg-white border border-line transition-colors duration-300 hover:border-ink/20 ${focusRing}`}
             >
               <span className="relative block w-4 h-4">
                 <span className="absolute inset-0 top-1/2 block h-[1.5px] w-full -translate-y-1/2 rotate-45 rounded-full bg-ink" />
@@ -279,7 +283,7 @@ export default function Nav({
                 style={{ animationDelay: `${i * 70}ms` }}
               >
                 <span className="text-[28px] tracking-[-0.03em] text-ink">{link.label}</span>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0 text-mute">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0 text-mute transition-[translate,color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink group-focus-visible:text-ink">
                   <path d="M4 14L14 4M14 4H6M14 4V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
@@ -295,7 +299,7 @@ export default function Nav({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className={`flex items-center justify-center bg-brand text-ink px-4 py-4 rounded-full text-[16px] font-medium hover:bg-brand-light transition-colors ${focusRing}`}
+              className={`${btnBrand} w-full px-4 py-4 text-[16px]`}
             >
               Hablar por WhatsApp
             </a>

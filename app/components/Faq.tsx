@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { faqs } from "@/app/lib/faq-data";
 import { faqSchema } from "@/app/lib/structured-data";
+import { focusRing } from "@/app/lib/ui";
 import JsonLd from "./JsonLd";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
@@ -33,12 +34,14 @@ export default function Faq() {
                     aria-expanded={isOpen}
                     aria-controls={id}
                     onClick={() => setOpen(isOpen ? -1 : i)}
-                    className="w-full flex items-center justify-between gap-6 py-5 lg:py-[clamp(14px,2.2svh,20px)] text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2 rounded-sm"
+                    className={`group w-full flex items-center justify-between gap-6 py-5 lg:py-[clamp(14px,2.2svh,20px)] text-left cursor-pointer rounded-sm ${focusRing}`}
                   >
-                    <span className="text-[16px] sm:text-[17px] text-ink tracking-[-0.01em]">{f.q}</span>
+                    <span className="text-[16px] sm:text-[17px] text-ink tracking-[-0.01em] transition-[translate] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-focus-visible:translate-x-1">{f.q}</span>
                     <span
-                      className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300 ${
-                        isOpen ? "bg-brand text-ink" : "bg-[#ebe8e1] text-ink/60"
+                      className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-[background-color,color,scale] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-focus-visible:scale-110 ${
+                        isOpen
+                          ? "bg-brand text-ink"
+                          : "bg-[#ebe8e1] text-ink/60 group-hover:bg-brand/45 group-hover:text-ink group-focus-visible:bg-brand/45 group-focus-visible:text-ink"
                       }`}
                     >
                       <svg viewBox="0 0 12 12" fill="none" className="w-2.5 h-2.5" aria-hidden="true">

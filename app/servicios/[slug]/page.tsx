@@ -10,6 +10,7 @@ import ServiceVisual from "@/app/components/ServiceVisual";
 import { services } from "@/app/lib/landing-data";
 import { breadcrumbSchema, serviceSchema } from "@/app/lib/structured-data";
 import { whatsappLink } from "@/app/lib/site";
+import { backArrow, backLink, btnInk } from "@/app/lib/ui";
 
 type Params = { slug: string };
 
@@ -30,7 +31,7 @@ function CheckIcon() {
 
 function ArrowLeftIcon() {
   return (
-    <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" aria-hidden="true">
+    <svg viewBox="0 0 16 16" fill="none" className={`w-4 h-4 ${backArrow}`} aria-hidden="true">
       <path
         d="M9.5 12L5.5 8l4-4"
         stroke="currentColor"
@@ -95,7 +96,7 @@ export default async function ServicePage({
       <section className="max-w-[1200px] mx-auto px-5 sm:px-10 pt-6 sm:pt-10 pb-16 sm:pb-24">
         <Link
           href="/#servicios"
-          className="inline-flex items-center gap-2 text-[14px] text-body hover:text-ink transition-colors mb-10 sm:mb-14 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+          className={`${backLink} mb-10 sm:mb-14`}
         >
           <ArrowLeftIcon />
           Volver a servicios
@@ -121,7 +122,7 @@ export default async function ServicePage({
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center bg-ink text-white px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-black transition-colors mt-2 focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+              className={`${btnInk} w-fit px-6 py-3.5 text-[15px] mt-2`}
             >
               Hablar por WhatsApp
             </a>

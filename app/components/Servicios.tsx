@@ -32,10 +32,10 @@ export default function Servicios() {
             >
               <div className="relative h-[260px] sm:h-[300px] lg:h-[clamp(240px,34svh,300px)] rounded-[22px] overflow-hidden flex items-center justify-center px-6">
                 <Atmosphere variant="soft" mark={false} />
-                <div className="relative w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]">
+                <div className="relative w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] group-focus-visible:scale-[1.03]">
                   <ServiceVisual icon={s.icon} bare />
                 </div>
-                <span className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 border border-white/70 backdrop-blur flex items-center justify-center text-ink/70 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <span className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 border border-white/70 backdrop-blur flex items-center justify-center text-ink/70 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0 transition-[opacity,translate] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
                   <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
                     <path d="M5 11l6-6M11 5H6M11 5v5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import { scenes } from "@/app/lib/landing-data";
+import { focusRing, forwardArrow } from "@/app/lib/ui";
 import { useInView } from "@/app/lib/useInView";
 import Atmosphere from "./Atmosphere";
 // Previous visual (illustrative dashboard), kept in case we go back to it:
@@ -164,9 +165,14 @@ export default function Intro() {
           </p>
           <Link
             href={`/servicios/${scene.service}`}
-            className="shrink-0 text-[14px] text-ink underline decoration-line underline-offset-4 hover:decoration-ink transition-colors"
+            className={`group shrink-0 text-[14px] text-ink ${focusRing}`}
           >
-            Ver cómo lo hacemos →
+            <span className="underline decoration-line underline-offset-4 transition-colors duration-300 group-hover:decoration-ink group-focus-visible:decoration-ink">
+              Ver cómo lo hacemos
+            </span>{" "}
+            <span aria-hidden className={forwardArrow}>
+              →
+            </span>
           </Link>
         </div>
       </div>
