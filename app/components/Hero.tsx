@@ -37,12 +37,17 @@ export default function Hero() {
         the geometric centre, where it reads as optically centred.
       */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-5 sm:px-10 pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-[clamp(96px,12svh,128px)] lg:pb-[clamp(64px,15svh,168px)]">
-        <h1 className="animate-blur-in text-[38px] sm:text-[64px] lg:text-[length:clamp(46px,min(5.8vw,10svh),84px)] leading-[1.04] font-normal tracking-[-0.045em] text-ink max-w-[980px] text-balance">
+        {/* The headline and paragraph are visible from the first paint on
+            purpose — no blur-in. Chrome ignores content painted at opacity 0
+            as an LCP candidate, so while they faded in, LCP fell on the tiny
+            nav logo and PageSpeed mobile reported LCP 3.1s / Speed Index 4.3s.
+            The pills and the buttons keep their entrance. */}
+        <h1 className="text-[38px] sm:text-[64px] lg:text-[length:clamp(46px,min(5.8vw,10svh),84px)] leading-[1.04] font-normal tracking-[-0.045em] text-ink max-w-[980px] text-balance">
           Hacé que <span className="whitespace-nowrap">la IA <ToolPills /></span>
           <br /> trabaje para tu negocio
         </h1>
 
-        <p className="animate-blur-in [animation-delay:150ms] mt-7 sm:mt-8 lg:mt-[clamp(20px,3.6svh,36px)] text-[16px] sm:text-[18px] lg:text-[length:clamp(16px,2.6svh,18px)] leading-[1.65] text-ink/70 max-w-[540px] text-balance">
+        <p className="mt-7 sm:mt-8 lg:mt-[clamp(20px,3.6svh,36px)] text-[16px] sm:text-[18px] lg:text-[length:clamp(16px,2.6svh,18px)] leading-[1.65] text-ink/70 max-w-[540px] text-balance">
           Dejamos funcionando solas las tareas que hoy te comen el día: responder
           consultas, hacer seguimiento, mandar recordatorios y ordenar tus datos.
           A medida de pymes y startups.
