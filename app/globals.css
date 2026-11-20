@@ -113,9 +113,13 @@
   }
 }
 
+/* Flow dots: applied to a wrapper that covers the whole track (`absolute
+   inset-0`) with the dot pinned at its left/top edge, so translate(100%) =
+   the track length. Transform + opacity only → runs on the compositor
+   (animating left/top forced a layout every frame on the main thread). */
 @keyframes flow-dot-x {
   0% {
-    left: -2px;
+    transform: translateX(-2px);
     opacity: 0;
   }
   15% {
@@ -125,14 +129,14 @@
     opacity: 1;
   }
   100% {
-    left: 100%;
+    transform: translateX(100%);
     opacity: 0;
   }
 }
 
 @keyframes flow-dot-y {
   0% {
-    top: -2px;
+    transform: translateY(-2px);
     opacity: 0;
   }
   15% {
@@ -142,7 +146,7 @@
     opacity: 1;
   }
   100% {
-    top: 100%;
+    transform: translateY(100%);
     opacity: 0;
   }
 }
@@ -159,15 +163,21 @@
   }
 }
 
+/* Pulse ring: a brand-light disc behind the node scaling out and fading
+   (ServiceVisual `Node` sets --pulse-scale per size). Same ring as the old
+   animated box-shadow spread, but compositor-only. */
 @keyframes ring-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 131, 54, 0.35);
+    transform: scale(1);
+    opacity: 0.35;
   }
   70% {
-    box-shadow: 0 0 0 12px rgba(255, 131, 54, 0);
+    transform: scale(var(--pulse-scale, 1.5));
+    opacity: 0;
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 131, 54, 0);
+    transform: scale(1);
+    opacity: 0;
   }
 }
 
@@ -339,6 +349,33 @@
   .fit-zoom {
     zoom: 0.7;
   }
+}
+
+/* Looping decorations stop while their section is off screen
+   (OffscreenAnimationPause.tsx sets data-offscreen on each <section>).
+   Several of these can't run on the compositor (web-resize animates width,
+   page-scroll background-position) and even compositor ones cost frames, so
+   left running they kept a throttled phone CPU ~98% busy from anywhere on
+   the page. Only infinite animations are listed: one-shot entry animations
+   must never be paused or they'd stay at their invisible first frame. */
+[data-offscreen]
+  :is(
+    .animate-atmo-a,
+    .animate-atmo-b,
+    .animate-atmo-c,
+    .animate-flow-dot-x,
+    .animate-flow-dot-y,
+    .animate-ring-pulse,
+    .animate-check-wave,
+    .animate-web-resize,
+    .animate-web-nav-out,
+    .animate-web-nav-in,
+    .animate-page-scroll,
+    .animate-typing-dot,
+    .animate-pulse,
+    .animate-bounce
+  ) {
+  animation-play-state: paused;
 }
 
 /* Collapse every animation/transition to its end state. All keyframes in this

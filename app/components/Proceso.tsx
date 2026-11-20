@@ -83,13 +83,18 @@ function ImplementacionCard() {
           <span className="w-5 h-5 inline-flex"><ToolIcon name="whatsapp" /></span>
         </span>
         <span className="relative flex-1 h-px bg-line mx-1">
-          <span className="absolute top-1/2 -mt-[3px] w-1.5 h-1.5 rounded-full bg-brand animate-flow-dot-x" />
+          {/* Wrapper slides by its own width (transform, compositor-only). */}
+          <span className="absolute inset-0 animate-flow-dot-x">
+            <span className="absolute left-0 top-1/2 -mt-[3px] w-1.5 h-1.5 rounded-full bg-brand" />
+          </span>
         </span>
         <span className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-light to-brand flex items-center justify-center shrink-0 shadow-[0_8px_24px_-8px_rgba(255,131,54,0.8)]">
           <span className="x-mark w-5 aspect-[425/452] bg-white" />
         </span>
         <span className="relative flex-1 h-px bg-line mx-1">
-          <span className="absolute top-1/2 -mt-[3px] w-1.5 h-1.5 rounded-full bg-brand animate-flow-dot-x [animation-delay:0.9s]" />
+          <span className="absolute inset-0 animate-flow-dot-x [animation-delay:0.9s]">
+            <span className="absolute left-0 top-1/2 -mt-[3px] w-1.5 h-1.5 rounded-full bg-brand" />
+          </span>
         </span>
         <span className="w-11 h-11 rounded-full bg-white border border-line flex items-center justify-center shrink-0">
           <span className="w-5 h-5 inline-flex"><ToolIcon name="excel" /></span>

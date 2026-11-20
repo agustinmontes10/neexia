@@ -31,9 +31,7 @@ function Node({
 }) {
   return (
     <div
-      className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center text-brand ${
-        filled ? "bg-brand" : "bg-white border border-[#efe4da] shadow-[0_6px_16px_-8px_rgba(120,60,20,0.35)]"
-      }`}
+      className="absolute -translate-x-1/2 -translate-y-1/2"
       style={{
         left: `${(x / canvas.w) * 100}%`,
         top: `${(y / canvas.h) * 100}%`,
@@ -41,13 +39,26 @@ function Node({
         height: size,
       }}
     >
+      {/* The pulse is a filled disc *behind* the (opaque) node that scales out
+          and fades — the visible part is the same ring an animated box-shadow
+          spread would draw, but transform/opacity run on the compositor
+          instead of repainting every frame. --pulse-scale = (node + 2 × the
+          old 11px spread, measured from the padding box) / node. */}
       {pulse && (
         <span
-          className="absolute inset-0 rounded-full animate-ring-pulse"
-          style={{ animationDelay: delay }}
+          className="absolute inset-0 rounded-full bg-brand-light animate-ring-pulse"
+          style={
+            { animationDelay: delay, "--pulse-scale": (size + 22) / size } as React.CSSProperties
+          }
         />
       )}
-      {icon}
+      <div
+        className={`absolute inset-0 rounded-full flex items-center justify-center text-brand ${
+          filled ? "bg-brand" : "bg-white border border-[#efe4da] shadow-[0_6px_16px_-8px_rgba(120,60,20,0.35)]"
+        }`}
+      >
+        {icon}
+      </div>
     </div>
   );
 }
@@ -77,10 +88,12 @@ function Link({
         transform: `rotate(${angle}deg)`,
       }}
     >
-      <span
-        className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand animate-flow-dot-x"
-        style={{ animationDelay: delay }}
-      />
+      {/* The wrapper spans the whole link and slides by its own width
+          (translateX(100%)), carrying the dot from start to end on the
+          compositor — animating `left` forced a layout every frame. */}
+      <span className="absolute inset-0 animate-flow-dot-x" style={{ animationDelay: delay }}>
+        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand" />
+      </span>
     </div>
   );
 }
@@ -107,7 +120,9 @@ function DiagnosticoVisual() {
           </div>
         ))}
       </div>
-      <span className="pointer-events-none absolute left-0 right-0 h-12 bg-gradient-to-b from-transparent via-brand/10 to-transparent animate-flow-dot-y" />
+      <span className="pointer-events-none absolute inset-0 animate-flow-dot-y">
+        <span className="absolute left-0 right-0 top-0 h-12 bg-gradient-to-b from-transparent via-brand/10 to-transparent" />
+      </span>
     </div>
   );
 }
