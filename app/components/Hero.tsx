@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { whatsappLink } from "@/app/lib/site";
+import { btnGlass, btnInk } from "@/app/lib/ui";
 import Atmosphere from "./Atmosphere";
 import ToolIcon, { type ToolIconName } from "./ToolIcon";
 
@@ -58,13 +59,13 @@ export default function Hero() {
             href={whatsappLink("Hola! Quiero charlar sobre cómo la IA puede ayudar a mi negocio.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-ink text-white px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-black transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+            className={`${btnInk} px-6 py-3.5 text-[15px]`}
           >
             Hablar por WhatsApp
           </a>
           <Link
             href="/#servicios"
-            className="glass text-ink px-6 py-3.5 rounded-full text-[15px] font-medium hover:bg-white/70 transition-colors focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2"
+            className={`${btnGlass} px-6 py-3.5 text-[15px]`}
           >
             Ver servicios
           </Link>

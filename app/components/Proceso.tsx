@@ -231,8 +231,10 @@ export default function Proceso() {
                     <li
                       key={s.n}
                       aria-current={on ? "step" : undefined}
-                      className={`relative rounded-[18px] px-5 py-[clamp(10px,1.8svh,16px)] transition-all duration-500 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand has-[:focus-visible]:outline-offset-2 ${
-                        on ? "bg-white shadow-[0_18px_40px_-24px_rgba(60,40,20,0.35)]" : "bg-transparent hover:bg-white/45"
+                      className={`relative rounded-[18px] px-5 py-[clamp(10px,1.8svh,16px)] transition-colors duration-500 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand has-[:focus-visible]:outline-offset-2 before:pointer-events-none before:absolute before:inset-0 before:rounded-[18px] before:shadow-[0_18px_40px_-24px_rgba(60,40,20,0.35)] before:transition-opacity before:duration-500 ${
+                        on
+                          ? "bg-white before:opacity-100"
+                          : "bg-transparent before:opacity-0 hover:bg-white/45 has-[:focus-visible]:bg-white/45"
                       }`}
                     >
                       <div className="flex items-baseline gap-3">
